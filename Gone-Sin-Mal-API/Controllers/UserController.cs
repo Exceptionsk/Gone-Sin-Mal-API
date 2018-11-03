@@ -78,34 +78,29 @@ namespace Gone_Sin_Mal_API.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
+            User_Table user = db.User_Table.Find(user_Table.User_id);
             if (User_TableExists(user_Table.User_id)==false)
             {
                 user_Table.User_Type = "normal";
+                db.User_Table.Add(user_Table);
             }
             else
             {
+                user_Table = user;
                 db.Entry(user_Table).State = EntityState.Modified;
             }                    
 
             try
             {
-                db.User_Table.Add(user_Table);
+                
                 db.SaveChanges();
             }
             catch (DbUpdateException)
             {
-                if (User_TableExists(user_Table.User_id))
-                {
-                    User_Table user = db.User_Table.Find(user_Table.User_id);
-                    return Ok(user);
-                }
-                //else
-                //{
-                //    throw;
-                //}
+                throw;
             }
-
-            return Ok(user_Table);
+            
+            return Ok(user);
         }
 
         // DELETE: api/User/5
