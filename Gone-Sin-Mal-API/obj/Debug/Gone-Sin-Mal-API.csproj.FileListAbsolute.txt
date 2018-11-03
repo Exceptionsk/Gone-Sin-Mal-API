@@ -154,3 +154,6 @@ E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.WindowsServer.xml
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.Web.xml
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.dll
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.pdb
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Cors.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Http.Cors.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Http.Cors.xml
