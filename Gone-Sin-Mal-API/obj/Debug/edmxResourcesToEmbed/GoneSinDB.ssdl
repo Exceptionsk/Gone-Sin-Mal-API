@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gone_Sin_MalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Favorite_Table">
+    <Key>
+      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Rest_id" />
+    </Key>
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Rest_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notification_Table">
+    <Key>
+      <PropertyRef Name="Noti_id" />
+    </Key>
+    <Property Name="Noti_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Noti_type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Notification" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Noti_status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Package_Table">
+    <Key>
+      <PropertyRef Name="Package_id" />
+    </Key>
+    <Property Name="Package_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Package_type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Package_coin_amount" Type="bigint" Nullable="false" />
+    <Property Name="Myanpay_button_link" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Promotion_Table">
+    <Key>
+      <PropertyRef Name="Rest_id" />
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="Rest_id" Type="bigint" Nullable="false" />
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="User_promotion_amount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurant_Table">
+    <Key>
+      <PropertyRef Name="Rest_id" />
+    </Key>
+    <Property Name="Rest_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rest_Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_Password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_Gallery_1" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Rest_Gallery_2" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Rest_Gallery_3" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Rest_Gallery_4" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Rest_Coin" Type="bigint" />
+    <Property Name="Rest_special_coin" Type="bigint" />
+    <Property Name="Rest_email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_phno" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_Township" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_Location" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_lat" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_long" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="System_Table">
+    <Key>
+      <PropertyRef Name="Record_id" />
+    </Key>
+    <Property Name="Record_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Masterkey" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Expired_coins" Type="bigint" Nullable="false" />
+    <Property Name="Sold_coins" Type="bigint" Nullable="false" />
+    <Property Name="Sold_special_coins" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_Table">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="User_Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="User_Type" Type="varbinary(max)" Nullable="false" />
+    <Property Name="User_Township" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="User_available_coin" Type="bigint" Nullable="false" />
+    <Property Name="User_visited_restaurant" Type="bigint" Nullable="false" />
+    <Property Name="User_exceeded_date" Type="date" />
+  </EntityType>
+  <Association Name="FK__Fav_Table_User_id">
+    <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+    <End Role="Favorite_Table" Type="Self.Favorite_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Favorite_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fav_Table_Rest_id">
+    <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="1" />
+    <End Role="Favorite_Table" Type="Self.Favorite_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Favorite_Table">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notification_Table_User_id">
+    <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+    <End Role="Notification_Table" Type="Self.Notification_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Notification_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Table_Rest_id">
+    <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="1" />
+    <End Role="Promotion_Table" Type="Self.Promotion_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Promotion_Table">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Table_User_id">
+    <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+    <End Role="Promotion_Table" Type="Self.Promotion_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Promotion_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Gone_Sin_MalModelStoreContainer">
+    <EntitySet Name="Favorite_Table" EntityType="Self.Favorite_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notification_Table" EntityType="Self.Notification_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Package_Table" EntityType="Self.Package_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Promotion_Table" EntityType="Self.Promotion_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Favorite_Table" EntitySet="Favorite_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fav_Table_Rest_id" Association="Self.FK_Fav_Table_Rest_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Favorite_Table" EntitySet="Favorite_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notification_Table_User_id" Association="Self.FK_Notification_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Notification_Table" EntitySet="Notification_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Table_Rest_id" Association="Self.FK_Promotion_Table_Rest_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Table_User_id" Association="Self.FK_Promotion_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
