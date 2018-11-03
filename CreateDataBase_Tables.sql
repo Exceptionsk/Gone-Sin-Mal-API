@@ -115,3 +115,5 @@ PRIMARY KEY (Noti_id)
 select* from User_Table
 
 delete from User_Table
+
+select* from Restaurant_Table

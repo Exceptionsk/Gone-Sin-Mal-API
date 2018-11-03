@@ -106,7 +106,7 @@
     </Key>
     <Property Name="User_id" Type="Int64" Nullable="false" />
     <Property Name="User_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_Type" Type="String" Nullable="true" />
+    <Property Name="User_Type" Type="String" Nullable="true" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="User_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_available_coin" Type="Int64" />
     <Property Name="User_visited_restaurant" Type="Int64" />
