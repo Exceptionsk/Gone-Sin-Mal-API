@@ -16,8 +16,8 @@ namespace Gone_Sin_Mal_API
     {
         public long Record_id { get; set; }
         public string Masterkey { get; set; }
-        public long Expired_coins { get; set; }
-        public long Sold_coins { get; set; }
-        public long Sold_special_coins { get; set; }
+        public Nullable<long> Expired_coins { get; set; }
+        public Nullable<long> Sold_coins { get; set; }
+        public Nullable<long> Sold_special_coins { get; set; }
     }
 }

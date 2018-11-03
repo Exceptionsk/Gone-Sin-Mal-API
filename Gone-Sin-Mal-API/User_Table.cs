@@ -24,10 +24,10 @@ namespace Gone_Sin_Mal_API
     
         public long User_id { get; set; }
         public string User_Name { get; set; }
-        public byte[] User_Type { get; set; }
+        public string User_Type { get; set; }
         public string User_Township { get; set; }
-        public long User_available_coin { get; set; }
-        public long User_visited_restaurant { get; set; }
+        public Nullable<long> User_available_coin { get; set; }
+        public Nullable<long> User_visited_restaurant { get; set; }
         public Nullable<System.DateTime> User_exceeded_date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -16,7 +16,7 @@ namespace Gone_Sin_Mal_API
     {
         public long Package_id { get; set; }
         public string Package_type { get; set; }
-        public long Package_coin_amount { get; set; }
+        public Nullable<long> Package_coin_amount { get; set; }
         public string Myanpay_button_link { get; set; }
     }
 }

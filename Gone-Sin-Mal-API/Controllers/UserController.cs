@@ -74,10 +74,10 @@ namespace Gone_Sin_Mal_API.Controllers
         [ResponseType(typeof(User_Table))]
         public IHttpActionResult PostUser_Table(User_Table user_Table)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             db.User_Table.Add(user_Table);
 

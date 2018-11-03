@@ -14,18 +14,18 @@
     </Key>
     <Property Name="Noti_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
-    <Property Name="Noti_type" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Notification" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Noti_status" Type="bit" Nullable="false" />
+    <Property Name="Noti_type" Type="varchar" MaxLength="255" />
+    <Property Name="Notification" Type="varchar" MaxLength="255" />
+    <Property Name="Noti_status" Type="bit" />
   </EntityType>
   <EntityType Name="Package_Table">
     <Key>
       <PropertyRef Name="Package_id" />
     </Key>
     <Property Name="Package_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Package_type" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Package_coin_amount" Type="bigint" Nullable="false" />
-    <Property Name="Myanpay_button_link" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Package_type" Type="varchar" MaxLength="255" />
+    <Property Name="Package_coin_amount" Type="bigint" />
+    <Property Name="Myanpay_button_link" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
@@ -34,49 +34,49 @@
     </Key>
     <Property Name="Rest_id" Type="bigint" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
-    <Property Name="User_promotion_amount" Type="int" Nullable="false" />
+    <Property Name="User_promotion_amount" Type="int" />
   </EntityType>
   <EntityType Name="Restaurant_Table">
     <Key>
       <PropertyRef Name="Rest_id" />
     </Key>
     <Property Name="Rest_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Rest_Name" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_Password" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_Gallery_1" Type="varbinary(max)" Nullable="false" />
-    <Property Name="Rest_Gallery_2" Type="varbinary(max)" Nullable="false" />
-    <Property Name="Rest_Gallery_3" Type="varbinary(max)" Nullable="false" />
-    <Property Name="Rest_Gallery_4" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Rest_Name" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_Password" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_Gallery_1" Type="varbinary(max)" />
+    <Property Name="Rest_Gallery_2" Type="varbinary(max)" />
+    <Property Name="Rest_Gallery_3" Type="varbinary(max)" />
+    <Property Name="Rest_Gallery_4" Type="varbinary(max)" />
     <Property Name="Rest_Coin" Type="bigint" />
     <Property Name="Rest_special_coin" Type="bigint" />
-    <Property Name="Rest_email" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_phno" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_Township" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_Location" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_lat" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Rest_long" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Rest_email" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_Township" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_Location" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_long" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>
       <PropertyRef Name="Record_id" />
     </Key>
     <Property Name="Record_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Masterkey" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Expired_coins" Type="bigint" Nullable="false" />
-    <Property Name="Sold_coins" Type="bigint" Nullable="false" />
-    <Property Name="Sold_special_coins" Type="bigint" Nullable="false" />
+    <Property Name="Masterkey" Type="varchar" MaxLength="255" />
+    <Property Name="Expired_coins" Type="bigint" />
+    <Property Name="Sold_coins" Type="bigint" />
+    <Property Name="Sold_special_coins" Type="bigint" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
       <PropertyRef Name="User_id" />
     </Key>
     <Property Name="User_id" Type="bigint" Nullable="false" />
-    <Property Name="User_Name" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="User_Type" Type="varbinary(max)" Nullable="false" />
-    <Property Name="User_Township" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="User_available_coin" Type="bigint" Nullable="false" />
-    <Property Name="User_visited_restaurant" Type="bigint" Nullable="false" />
+    <Property Name="User_Name" Type="varchar" MaxLength="255" />
+    <Property Name="User_Type" Type="varchar" MaxLength="255" />
+    <Property Name="User_Township" Type="varchar" MaxLength="255" />
+    <Property Name="User_available_coin" Type="bigint" />
+    <Property Name="User_visited_restaurant" Type="bigint" />
     <Property Name="User_exceeded_date" Type="date" />
   </EntityType>
   <Association Name="FK__Fav_Table_User_id">

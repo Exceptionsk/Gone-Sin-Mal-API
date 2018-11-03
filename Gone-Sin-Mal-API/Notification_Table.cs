@@ -18,7 +18,7 @@ namespace Gone_Sin_Mal_API
         public long User_id { get; set; }
         public string Noti_type { get; set; }
         public string Notification { get; set; }
-        public bool Noti_status { get; set; }
+        public Nullable<bool> Noti_status { get; set; }
     
         public virtual User_Table User_Table { get; set; }
     }

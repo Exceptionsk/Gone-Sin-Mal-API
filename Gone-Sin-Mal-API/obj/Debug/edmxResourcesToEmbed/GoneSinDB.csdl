@@ -6,9 +6,9 @@
     </Key>
     <Property Name="Noti_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="User_id" Type="Int64" Nullable="false" />
-    <Property Name="Noti_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Noti_status" Type="Boolean" Nullable="false" />
+    <Property Name="Noti_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Noti_status" Type="Boolean" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id1" FromRole="Notification_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="Package_Table">
@@ -16,9 +16,9 @@
       <PropertyRef Name="Package_id" />
     </Key>
     <Property Name="Package_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Package_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Package_coin_amount" Type="Int64" Nullable="false" />
-    <Property Name="Myanpay_button_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Package_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Package_coin_amount" Type="Int64" />
+    <Property Name="Myanpay_button_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
@@ -27,7 +27,7 @@
     </Key>
     <Property Name="Rest_id" Type="Int64" Nullable="false" />
     <Property Name="User_id" Type="Int64" Nullable="false" />
-    <Property Name="User_promotion_amount" Type="Int32" Nullable="false" />
+    <Property Name="User_promotion_amount" Type="Int32" />
     <NavigationProperty Name="Restaurant_Table" Relationship="Self.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" FromRole="Promotion_Table" ToRole="User_Table" />
   </EntityType>
@@ -36,21 +36,21 @@
       <PropertyRef Name="Rest_id" />
     </Key>
     <Property Name="Rest_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Rest_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_Gallery_1" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="Rest_Gallery_2" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="Rest_Gallery_3" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="Rest_Gallery_4" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Rest_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_Gallery_1" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_Gallery_2" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_Gallery_3" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_Gallery_4" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="Rest_Coin" Type="Int64" />
     <Property Name="Rest_special_coin" Type="Int64" />
-    <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_myanpay_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_myanpay_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Promotion_Table" Relationship="Self.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.Favorite_Table1" FromRole="Restaurant_Table" ToRole="User_Table" />
   </EntityType>
@@ -59,10 +59,10 @@
       <PropertyRef Name="Record_id" />
     </Key>
     <Property Name="Record_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Masterkey" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Expired_coins" Type="Int64" Nullable="false" />
-    <Property Name="Sold_coins" Type="Int64" Nullable="false" />
-    <Property Name="Sold_special_coins" Type="Int64" Nullable="false" />
+    <Property Name="Masterkey" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Expired_coins" Type="Int64" />
+    <Property Name="Sold_coins" Type="Int64" />
+    <Property Name="Sold_special_coins" Type="Int64" />
   </EntityType>
   <Association Name="FK_Promotion_Table_Rest_id">
     <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="1" />
@@ -105,11 +105,11 @@
       <PropertyRef Name="User_id" />
     </Key>
     <Property Name="User_id" Type="Int64" Nullable="false" />
-    <Property Name="User_Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_Type" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="User_Township" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_available_coin" Type="Int64" Nullable="false" />
-    <Property Name="User_visited_restaurant" Type="Int64" Nullable="false" />
+    <Property Name="User_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_Type" Type="String" Nullable="true" />
+    <Property Name="User_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_available_coin" Type="Int64" />
+    <Property Name="User_visited_restaurant" Type="Int64" />
     <Property Name="User_exceeded_date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id1" FromRole="User_Table" ToRole="Notification_Table" />
     <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" FromRole="User_Table" ToRole="Promotion_Table" />
