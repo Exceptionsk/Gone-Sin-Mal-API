@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Gone_Sin_Mal_API.Controllers
 {
@@ -82,7 +84,60 @@ namespace Gone_Sin_Mal_API.Controllers
             db.Restaurant_Table.Add(restaurant_Table);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = restaurant_Table.Rest_id }, restaurant_Table);
+            return Ok(restaurant_Table);
+        }
+        [Route("api/resturant/profile_pic/{id:long}")]
+        public HttpResponseMessage GetImage(long id)
+        {
+            try
+            {
+                Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
+                var data = from i in db.Restaurant_Table
+                           where i.Rest_id == id
+                           select i;
+                Restaurant_Table team = (Restaurant_Table)data.SingleOrDefault();
+                byte[] imgData = team.Rest_profile_picture;
+                MemoryStream ms = new MemoryStream(imgData);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(ms);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+                return response;
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+
+        }
+        [Route("api/resturant/profile_pic/{id:long}")]
+        public Task<IEnumerable<string>> Img(long id)
+        {
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                string fullPath = System.Web.HttpContext.Current.Server.MapPath("~/Temp");
+                MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(fullPath);
+                var task = Request.Content.ReadAsMultipartAsync(streamProvider).ContinueWith(t =>
+                {
+                    if (t.IsFaulted || t.IsCanceled)
+                        throw new HttpResponseException(HttpStatusCode.InternalServerError);
+                    var fileInfo = streamProvider.FileData.Select(i =>
+                    {
+                        var info = new FileInfo(i.LocalFileName);
+                        Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
+                        byte[] img = File.ReadAllBytes(info.FullName);
+                        var team = db.Restaurant_Table.FirstOrDefault(e => e.Rest_id == id);
+                        team.Rest_profile_picture = img;
+                        db.SaveChanges();
+                        return "File uploaded successfully!";
+                    });
+                    return fileInfo;
+                });
+                return task;
+            }
+            else
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotAcceptable, "Invalid Request!"));
+            }
         }
 
         // DELETE: api/Restaurant/5

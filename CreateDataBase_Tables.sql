@@ -17,7 +17,9 @@ PRIMARY KEY (User_id)
 --Restaurant Table--
 CREATE TABLE Restaurant_Table(
 Rest_id bigint  IDENTITY(1,1) not null,
+User_id bigint,
 Rest_Name varchar(255) ,
+Rest_profile_picture varbinary(MAX),
 Rest_Password varchar(255) ,
 Rest_Gallery_1 varbinary(MAX) ,
 Rest_Gallery_2 varbinary(MAX) ,
@@ -34,7 +36,11 @@ Rest_lat varchar(255) ,
 Rest_long varchar(255) ,
 
 CONSTRAINT PK_Restaurant_Table
-PRIMARY KEY (Rest_id)
+PRIMARY KEY (Rest_id),
+
+CONSTRAINT FK__Restaurant_User_id
+FOREIGN KEY(User_id)
+REFERENCES User_Table(User_id),
 )
 
 --System Table--

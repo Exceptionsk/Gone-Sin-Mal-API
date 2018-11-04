@@ -46,7 +46,9 @@
             <PropertyRef Name="Rest_id" />
           </Key>
           <Property Name="Rest_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="bigint" />
           <Property Name="Rest_Name" Type="varchar" MaxLength="255" />
+          <Property Name="Rest_profile_picture" Type="varbinary(max)" />
           <Property Name="Rest_Password" Type="varchar" MaxLength="255" />
           <Property Name="Rest_Gallery_1" Type="varbinary(max)" />
           <Property Name="Rest_Gallery_2" Type="varbinary(max)" />
@@ -92,6 +94,18 @@
               <PropertyRef Name="User_id" />
             </Principal>
             <Dependent Role="Favorite_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restaurant_User_id">
+          <End Role="User_Table" Type="Self.User_Table" Multiplicity="0..1" />
+          <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Restaurant_Table">
               <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -155,6 +169,10 @@
           <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Favorite_Table" EntitySet="Favorite_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restaurant_User_id" Association="Self.FK__Restaurant_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
           </AssociationSet>
           <AssociationSet Name="FK_Fav_Table_Rest_id" Association="Self.FK_Fav_Table_Rest_id">
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
@@ -230,6 +248,9 @@
           <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Promotion_Table" Relationship="Self.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.Favorite_Table1" FromRole="Restaurant_Table" ToRole="User_Table" />
+          <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="User_id" Type="Int64" />
+          <NavigationProperty Name="User_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
         </EntityType>
         <EntityType Name="System_Table">
           <Key>
@@ -276,6 +297,10 @@
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
           </AssociationSet>
+          <AssociationSet Name="FK__Restaurant_User_id" Association="Gone_Sin_MalModel.FK__Restaurant_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User_Table">
           <Key>
@@ -291,6 +316,7 @@
           <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id1" FromRole="User_Table" ToRole="Notification_Table" />
           <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" FromRole="User_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.Favorite_Table1" FromRole="User_Table" ToRole="Restaurant_Table" />
+          <NavigationProperty Name="Restaurant_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
         </EntityType>
         <Association Name="FK_Notification_Table_User_id1">
           <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
@@ -319,6 +345,18 @@
         <Association Name="Favorite_Table1">
           <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="*" />
           <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Restaurant_User_id">
+          <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="0..1" />
+          <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Restaurant_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -359,6 +397,8 @@
           <EntitySetMapping Name="Restaurant_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Restaurant_Table">
               <MappingFragment StoreEntitySet="Restaurant_Table">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
                 <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
                 <ScalarProperty Name="Rest_Name" ColumnName="Rest_Name" />
                 <ScalarProperty Name="Rest_Password" ColumnName="Rest_Password" />

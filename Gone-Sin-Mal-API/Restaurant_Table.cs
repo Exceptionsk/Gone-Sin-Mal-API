@@ -37,10 +37,13 @@ namespace Gone_Sin_Mal_API
         public string Rest_Location { get; set; }
         public string Rest_lat { get; set; }
         public string Rest_long { get; set; }
+        public byte[] Rest_profile_picture { get; set; }
+        public Nullable<long> User_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion_Table> Promotion_Table { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Table> User_Table { get; set; }
+        public virtual User_Table User_Table1 { get; set; }
     }
 }
