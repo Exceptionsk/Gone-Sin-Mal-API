@@ -100,7 +100,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 throw;
             }
             
-            return Ok(user);
+            return Ok(user_Table);
         }
 
         // DELETE: api/User/5

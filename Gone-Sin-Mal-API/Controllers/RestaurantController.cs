@@ -86,6 +86,8 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(restaurant_Table);
         }
+
+
         [Route("api/resturant/profile_pic/{id:long}")]
         public HttpResponseMessage GetImage(long id)
         {

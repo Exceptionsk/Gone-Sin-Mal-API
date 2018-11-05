@@ -123,3 +123,6 @@ select* from User_Table
 delete from User_Table
 
 select* from Restaurant_Table
+
+delete from Restaurant_Table
+
