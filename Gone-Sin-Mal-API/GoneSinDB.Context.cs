@@ -25,6 +25,7 @@ namespace Gone_Sin_Mal_API
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Favorite_Table> Favorite_Table { get; set; }
         public virtual DbSet<Notification_Table> Notification_Table { get; set; }
         public virtual DbSet<Package_Table> Package_Table { get; set; }
         public virtual DbSet<Promotion_Table> Promotion_Table { get; set; }

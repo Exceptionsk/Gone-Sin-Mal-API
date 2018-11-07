@@ -1,5 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Gone_Sin_MalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Gone_Sin_MalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Favorite_Table" EntityType="Gone_Sin_MalModel.Favorite_Table" />
+    <EntitySet Name="Notification_Table" EntityType="Gone_Sin_MalModel.Notification_Table" />
+    <EntitySet Name="Package_Table" EntityType="Gone_Sin_MalModel.Package_Table" />
+    <EntitySet Name="Promotion_Table" EntityType="Gone_Sin_MalModel.Promotion_Table" />
+    <EntitySet Name="Restaurant_Table" EntityType="Gone_Sin_MalModel.Restaurant_Table" />
+    <EntitySet Name="System_Table" EntityType="Gone_Sin_MalModel.System_Table" />
+    <EntitySet Name="User_Table" EntityType="Gone_Sin_MalModel.User_Table" />
+    <AssociationSet Name="FK__Fav_Table_User_id" Association="Gone_Sin_MalModel.FK__Fav_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Favorite_Table" EntitySet="Favorite_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fav_Table_Rest_id" Association="Gone_Sin_MalModel.FK_Fav_Table_Rest_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Favorite_Table" EntitySet="Favorite_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notification_Table_User_id" Association="Gone_Sin_MalModel.FK_Notification_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Notification_Table" EntitySet="Notification_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Table_Rest_id" Association="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Table_User_id" Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Restaurant_User_id" Association="Gone_Sin_MalModel.FK__Restaurant_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Favorite_Table">
+    <Key>
+      <PropertyRef Name="Fav_id" />
+    </Key>
+    <Property Name="Fav_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_id" Type="Int64" Nullable="false" />
+    <Property Name="Rest_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Fav_Table_User_id" FromRole="Favorite_Table" ToRole="User_Table" />
+    <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Favorite_Table" ToRole="Restaurant_Table" />
+  </EntityType>
   <EntityType Name="Notification_Table">
     <Key>
       <PropertyRef Name="Noti_id" />
@@ -9,7 +52,7 @@
     <Property Name="Noti_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Noti_status" Type="Boolean" />
-    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id1" FromRole="Notification_Table" ToRole="User_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="Package_Table">
     <Key>
@@ -28,15 +71,17 @@
     <Property Name="Rest_id" Type="Int64" Nullable="false" />
     <Property Name="User_id" Type="Int64" Nullable="false" />
     <Property Name="User_promotion_amount" Type="Int32" />
-    <NavigationProperty Name="Restaurant_Table" Relationship="Self.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
-    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" FromRole="Promotion_Table" ToRole="User_Table" />
+    <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="Promotion_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="Restaurant_Table">
     <Key>
       <PropertyRef Name="Rest_id" />
     </Key>
     <Property Name="Rest_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_id" Type="Int64" />
     <Property Name="Rest_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="Rest_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_Gallery_1" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="Rest_Gallery_2" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -51,13 +96,11 @@
     <Property Name="Rest_Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Promotion_Table" Relationship="Self.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
-    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.Favorite_Table1" FromRole="Restaurant_Table" ToRole="User_Table" />
-    <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="User_id" Type="Int64" />
-    <NavigationProperty Name="User_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
     <Property Name="Rest_created_date" Type="DateTime" Precision="0" />
     <Property Name="Rest_coin_purchased" Type="Int64" />
+    <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
+    <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>
@@ -69,63 +112,47 @@
     <Property Name="Sold_coins" Type="Int64" />
     <Property Name="Sold_special_coins" Type="Int64" />
   </EntityType>
-  <Association Name="FK_Promotion_Table_Rest_id">
-    <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="1" />
-    <End Role="Promotion_Table" Type="Self.Promotion_Table" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Restaurant_Table">
-        <PropertyRef Name="Rest_id" />
-      </Principal>
-      <Dependent Role="Promotion_Table">
-        <PropertyRef Name="Rest_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="Gone_Sin_MalEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Notification_Table" EntityType="Self.Notification_Table" />
-    <EntitySet Name="Package_Table" EntityType="Self.Package_Table" />
-    <EntitySet Name="Promotion_Table" EntityType="Self.Promotion_Table" />
-    <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" />
-    <EntitySet Name="System_Table" EntityType="Self.System_Table" />
-    <AssociationSet Name="FK_Promotion_Table_Rest_id" Association="Self.FK_Promotion_Table_Rest_id">
-      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
-      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
-    </AssociationSet>
-    <EntitySet Name="User_Table" EntityType="Gone_Sin_MalModel.User_Table" />
-    <AssociationSet Name="FK_Notification_Table_User_id1" Association="Gone_Sin_MalModel.FK_Notification_Table_User_id1">
-      <End Role="User_Table" EntitySet="User_Table" />
-      <End Role="Notification_Table" EntitySet="Notification_Table" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Promotion_Table_User_id1" Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id1">
-      <End Role="User_Table" EntitySet="User_Table" />
-      <End Role="Promotion_Table" EntitySet="Promotion_Table" />
-    </AssociationSet>
-    <AssociationSet Name="Favorite_Table1" Association="Gone_Sin_MalModel.Favorite_Table1">
-      <End Role="User_Table" EntitySet="User_Table" />
-      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Restaurant_User_id" Association="Gone_Sin_MalModel.FK__Restaurant_User_id">
-      <End Role="User_Table" EntitySet="User_Table" />
-      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
-    </AssociationSet>
-  </EntityContainer>
   <EntityType Name="User_Table">
     <Key>
       <PropertyRef Name="User_id" />
     </Key>
     <Property Name="User_id" Type="Int64" Nullable="false" />
     <Property Name="User_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_Type" Type="String" Nullable="true" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="User_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_available_coin" Type="Int64" />
     <Property Name="User_visited_restaurant" Type="Int64" />
     <Property Name="User_exceeded_date" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id1" FromRole="User_Table" ToRole="Notification_Table" />
-    <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" FromRole="User_Table" ToRole="Promotion_Table" />
-    <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.Favorite_Table1" FromRole="User_Table" ToRole="Restaurant_Table" />
-    <NavigationProperty Name="Restaurant_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
+    <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK__Fav_Table_User_id" FromRole="User_Table" ToRole="Favorite_Table" />
+    <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="User_Table" ToRole="Notification_Table" />
+    <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="User_Table" ToRole="Promotion_Table" />
+    <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
   </EntityType>
-  <Association Name="FK_Notification_Table_User_id1">
+  <Association Name="FK__Fav_Table_User_id">
+    <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
+    <End Type="Gone_Sin_MalModel.Favorite_Table" Role="Favorite_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Favorite_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fav_Table_Rest_id">
+    <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="1" />
+    <End Type="Gone_Sin_MalModel.Favorite_Table" Role="Favorite_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Favorite_Table">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notification_Table_User_id">
     <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
     <End Type="Gone_Sin_MalModel.Notification_Table" Role="Notification_Table" Multiplicity="*" />
     <ReferentialConstraint>
@@ -137,7 +164,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Promotion_Table_User_id1">
+  <Association Name="FK_Promotion_Table_Rest_id">
+    <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="1" />
+    <End Type="Gone_Sin_MalModel.Promotion_Table" Role="Promotion_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Promotion_Table">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Table_User_id">
     <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
     <End Type="Gone_Sin_MalModel.Promotion_Table" Role="Promotion_Table" Multiplicity="*" />
     <ReferentialConstraint>
@@ -148,10 +187,6 @@
         <PropertyRef Name="User_id" />
       </Dependent>
     </ReferentialConstraint>
-  </Association>
-  <Association Name="Favorite_Table1">
-    <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="*" />
-    <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="*" />
   </Association>
   <Association Name="FK__Restaurant_User_id">
     <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="0..1" />

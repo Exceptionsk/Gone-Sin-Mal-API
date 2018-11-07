@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bb542d1ef5cc4099857e8a760e281a91" Name="Diagram1">
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="1.5" PointX="3.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="7.875" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="1.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="8.375" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.System_Table" Width="1.5" PointX="5.5" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.User_Table" Width="1.5" PointX="0.875" PointY="1.375" />
-        <AssociationConnector Association="Gone_Sin_MalModel.FK_Notification_Table_User_id1" />
-        <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id1" />
-        <AssociationConnector Association="Gone_Sin_MalModel.Favorite_Table1" />
+      <Diagram DiagramId="bb542d1ef5cc4099857e8a760e281a91" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="3" PointY="12.625" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.System_Table" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.User_Table" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK__Fav_Table_User_id" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Notification_Table_User_id" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK__Restaurant_User_id" />
       </Diagram>
     </edmx:Diagrams>

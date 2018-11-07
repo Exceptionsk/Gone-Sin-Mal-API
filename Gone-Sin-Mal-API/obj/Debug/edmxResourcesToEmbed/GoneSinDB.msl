@@ -1,33 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Gone_Sin_MalModelStoreContainer" CdmEntityContainer="Gone_Sin_MalEntities">
+    <EntitySetMapping Name="Favorite_Table">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Favorite_Table">
+        <MappingFragment StoreEntitySet="Favorite_Table">
+          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Fav_id" ColumnName="Fav_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Notification_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
         <MappingFragment StoreEntitySet="Notification_Table">
-          <ScalarProperty Name="Noti_id" ColumnName="Noti_id" />
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
-          <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />
-          <ScalarProperty Name="Notification" ColumnName="Notification" />
           <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
+          <ScalarProperty Name="Notification" ColumnName="Notification" />
+          <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Noti_id" ColumnName="Noti_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Package_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Package_Table">
         <MappingFragment StoreEntitySet="Package_Table">
-          <ScalarProperty Name="Package_id" ColumnName="Package_id" />
-          <ScalarProperty Name="Package_type" ColumnName="Package_type" />
-          <ScalarProperty Name="Package_coin_amount" ColumnName="Package_coin_amount" />
           <ScalarProperty Name="Myanpay_button_link" ColumnName="Myanpay_button_link" />
+          <ScalarProperty Name="Package_coin_amount" ColumnName="Package_coin_amount" />
+          <ScalarProperty Name="Package_type" ColumnName="Package_type" />
+          <ScalarProperty Name="Package_id" ColumnName="Package_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Promotion_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Promotion_Table">
         <MappingFragment StoreEntitySet="Promotion_Table">
-          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="User_promotion_amount" ColumnName="User_promotion_amount" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -36,35 +45,35 @@
         <MappingFragment StoreEntitySet="Restaurant_Table">
           <ScalarProperty Name="Rest_coin_purchased" ColumnName="Rest_coin_purchased" />
           <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
-          <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
-          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
-          <ScalarProperty Name="Rest_Name" ColumnName="Rest_Name" />
-          <ScalarProperty Name="Rest_Password" ColumnName="Rest_Password" />
-          <ScalarProperty Name="Rest_Gallery_1" ColumnName="Rest_Gallery_1" />
-          <ScalarProperty Name="Rest_Gallery_2" ColumnName="Rest_Gallery_2" />
-          <ScalarProperty Name="Rest_Gallery_3" ColumnName="Rest_Gallery_3" />
-          <ScalarProperty Name="Rest_Gallery_4" ColumnName="Rest_Gallery_4" />
-          <ScalarProperty Name="Rest_Coin" ColumnName="Rest_Coin" />
-          <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
-          <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
-          <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
-          <ScalarProperty Name="Rest_myanpay_name" ColumnName="Rest_myanpay_name" />
-          <ScalarProperty Name="Rest_Township" ColumnName="Rest_Township" />
-          <ScalarProperty Name="Rest_Location" ColumnName="Rest_Location" />
-          <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
           <ScalarProperty Name="Rest_long" ColumnName="Rest_long" />
+          <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
+          <ScalarProperty Name="Rest_Location" ColumnName="Rest_Location" />
+          <ScalarProperty Name="Rest_Township" ColumnName="Rest_Township" />
+          <ScalarProperty Name="Rest_myanpay_name" ColumnName="Rest_myanpay_name" />
+          <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
+          <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
+          <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
+          <ScalarProperty Name="Rest_Coin" ColumnName="Rest_Coin" />
+          <ScalarProperty Name="Rest_Gallery_4" ColumnName="Rest_Gallery_4" />
+          <ScalarProperty Name="Rest_Gallery_3" ColumnName="Rest_Gallery_3" />
+          <ScalarProperty Name="Rest_Gallery_2" ColumnName="Rest_Gallery_2" />
+          <ScalarProperty Name="Rest_Gallery_1" ColumnName="Rest_Gallery_1" />
+          <ScalarProperty Name="Rest_Password" ColumnName="Rest_Password" />
+          <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
+          <ScalarProperty Name="Rest_Name" ColumnName="Rest_Name" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="System_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.System_Table">
         <MappingFragment StoreEntitySet="System_Table">
-          <ScalarProperty Name="Record_id" ColumnName="Record_id" />
-          <ScalarProperty Name="Masterkey" ColumnName="Masterkey" />
-          <ScalarProperty Name="Expired_coins" ColumnName="Expired_coins" />
-          <ScalarProperty Name="Sold_coins" ColumnName="Sold_coins" />
           <ScalarProperty Name="Sold_special_coins" ColumnName="Sold_special_coins" />
+          <ScalarProperty Name="Sold_coins" ColumnName="Sold_coins" />
+          <ScalarProperty Name="Expired_coins" ColumnName="Expired_coins" />
+          <ScalarProperty Name="Masterkey" ColumnName="Masterkey" />
+          <ScalarProperty Name="Record_id" ColumnName="Record_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -81,13 +90,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="Favorite_Table1" TypeName="Gone_Sin_MalModel.Favorite_Table1" StoreEntitySet="Favorite_Table">
-      <EndProperty Name="Restaurant_Table">
-        <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
-      </EndProperty>
-      <EndProperty Name="User_Table">
-        <ScalarProperty Name="User_id" ColumnName="User_id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

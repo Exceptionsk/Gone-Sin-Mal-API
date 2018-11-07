@@ -17,12 +17,14 @@ namespace Gone_Sin_Mal_API
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Restaurant_Table()
         {
+            this.Favorite_Table = new HashSet<Favorite_Table>();
             this.Promotion_Table = new HashSet<Promotion_Table>();
-            this.User_Table = new HashSet<User_Table>();
         }
     
         public long Rest_id { get; set; }
+        public Nullable<long> User_id { get; set; }
         public string Rest_Name { get; set; }
+        public byte[] Rest_profile_picture { get; set; }
         public string Rest_Password { get; set; }
         public byte[] Rest_Gallery_1 { get; set; }
         public byte[] Rest_Gallery_2 { get; set; }
@@ -37,15 +39,13 @@ namespace Gone_Sin_Mal_API
         public string Rest_Location { get; set; }
         public string Rest_lat { get; set; }
         public string Rest_long { get; set; }
-        public byte[] Rest_profile_picture { get; set; }
-        public Nullable<long> User_id { get; set; }
         public Nullable<System.DateTime> Rest_created_date { get; set; }
         public Nullable<long> Rest_coin_purchased { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Promotion_Table> Promotion_Table { get; set; }
+        public virtual ICollection<Favorite_Table> Favorite_Table { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User_Table> User_Table { get; set; }
-        public virtual User_Table User_Table1 { get; set; }
+        public virtual ICollection<Promotion_Table> Promotion_Table { get; set; }
+        public virtual User_Table User_Table { get; set; }
     }
 }
