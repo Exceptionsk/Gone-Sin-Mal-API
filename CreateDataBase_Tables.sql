@@ -59,6 +59,7 @@ PRIMARY KEY (Record_id)
 
 --Favorite List Table--
 CREATE TABLE Favorite_Table(
+Fav_id bigint  IDENTITY(1,1) not null,
 User_id bigint not null,
 Rest_id bigint not null,
 
@@ -71,7 +72,7 @@ FOREIGN KEY(Rest_id)
 REFERENCES Restaurant_Table(Rest_id),
 
 CONSTRAINT PK_Fav_Table_ComposivePK
-PRIMARY KEY (User_id,Rest_id)
+PRIMARY KEY (Fav_id)
 )
 
 --Package Table--
