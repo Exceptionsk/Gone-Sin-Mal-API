@@ -39,6 +39,8 @@ namespace Gone_Sin_Mal_API
         public string Rest_long { get; set; }
         public byte[] Rest_profile_picture { get; set; }
         public Nullable<long> User_id { get; set; }
+        public Nullable<System.DateTime> Rest_created_date { get; set; }
+        public Nullable<long> Rest_coin_purchased { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion_Table> Promotion_Table { get; set; }

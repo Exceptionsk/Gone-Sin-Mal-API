@@ -58,6 +58,8 @@
     <Property Name="Rest_Location" Type="varchar" MaxLength="255" />
     <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
     <Property Name="Rest_long" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_created_date" Type="date" />
+    <Property Name="Rest_coin_purchased" Type="bigint" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>

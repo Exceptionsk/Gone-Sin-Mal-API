@@ -19,22 +19,46 @@ namespace Gone_Sin_Mal_API.Controllers
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Restaurant
-        public IQueryable<Restaurant_Table> GetRestaurant_Table()
-        {
-            return db.Restaurant_Table;
-        }
+        //public IQueryable<Restaurant_Table> GetRestaurant_Table()
+        //{
+        //    return db.Restaurant_Table;
+        //}
 
         // GET: api/Restaurant/5
-        [ResponseType(typeof(Restaurant_Table))]
-        public IHttpActionResult GetRestaurant_Table(long id)
+        //[ResponseType(typeof(Restaurant_Table))]
+        //public IHttpActionResult GetRestaurant_Table(long id)
+        //{
+        //    Restaurant_Table restaurant_Table = db.Restaurant_Table.Find(id);
+        //    if (restaurant_Table == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(restaurant_Table);
+        //}
+        [HttpGet]
+        [Route("api/restaurant/{type}")]
+        public IHttpActionResult GetRestaurant(string type)
         {
-            Restaurant_Table restaurant_Table = db.Restaurant_Table.Find(id);
-            if (restaurant_Table == null)
+            IQueryable restaurants = null;
+            if (type == "new")
+            {
+                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_created_date).Select(re => new { re.Rest_Name, re.Rest_id } );
+            }else if (type == "recommended")
+            {
+                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_coin_purchased).Select(re => new { re.Rest_Name, re.Rest_id });
+            }
+            else
+            {
+                restaurants = db.Restaurant_Table.Where(s => s.Rest_Name.ToLower().Contains(type.ToLower())).Select(re => new { re.Rest_Name, re.Rest_id });
+            }
+            
+            if (restaurants == null)
             {
                 return NotFound();
             }
 
-            return Ok(restaurant_Table);
+            return Ok(restaurants);
         }
 
         // PUT: api/Restaurant/5

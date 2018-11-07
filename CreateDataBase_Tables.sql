@@ -33,7 +33,9 @@ Rest_myanpay_name varchar(255) ,
 Rest_Township varchar(255) ,
 Rest_Location varchar(255) ,
 Rest_lat varchar(255) ,
-Rest_long varchar(255) ,
+Rest_long varchar(255),
+Rest_created_date date,
+Rest_coin_purchased bigint,
 
 CONSTRAINT PK_Restaurant_Table
 PRIMARY KEY (Rest_id),

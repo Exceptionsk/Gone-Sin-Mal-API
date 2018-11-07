@@ -56,6 +56,8 @@
     <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="User_id" Type="Int64" />
     <NavigationProperty Name="User_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
+    <Property Name="Rest_created_date" Type="DateTime" Precision="0" />
+    <Property Name="Rest_coin_purchased" Type="Int64" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>

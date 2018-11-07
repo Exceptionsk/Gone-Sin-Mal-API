@@ -34,6 +34,8 @@
     <EntitySetMapping Name="Restaurant_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Restaurant_Table">
         <MappingFragment StoreEntitySet="Restaurant_Table">
+          <ScalarProperty Name="Rest_coin_purchased" ColumnName="Rest_coin_purchased" />
+          <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
           <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />

@@ -63,6 +63,8 @@
           <Property Name="Rest_Location" Type="varchar" MaxLength="255" />
           <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
           <Property Name="Rest_long" Type="varchar" MaxLength="255" />
+          <Property Name="Rest_created_date" Type="date" />
+          <Property Name="Rest_coin_purchased" Type="bigint" />
         </EntityType>
         <EntityType Name="System_Table">
           <Key>
@@ -251,6 +253,8 @@
           <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="User_id" Type="Int64" />
           <NavigationProperty Name="User_Table1" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
+          <Property Name="Rest_created_date" Type="DateTime" Precision="0" />
+          <Property Name="Rest_coin_purchased" Type="Int64" />
         </EntityType>
         <EntityType Name="System_Table">
           <Key>
@@ -397,6 +401,8 @@
           <EntitySetMapping Name="Restaurant_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Restaurant_Table">
               <MappingFragment StoreEntitySet="Restaurant_Table">
+                <ScalarProperty Name="Rest_coin_purchased" ColumnName="Rest_coin_purchased" />
+                <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
                 <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
