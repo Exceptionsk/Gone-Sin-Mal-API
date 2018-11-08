@@ -35,6 +35,74 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok(user_Table);
         }
 
+        [Route("api/user/{name}")]
+        public IHttpActionResult GetUserByName(String name)
+        {
+            var user = db.User_Table.Where(s => s.User_Name.ToLower().Contains(name.ToLower())).Select(u => new { u.User_Name, u.User_id, u.User_Type});
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [Route("api/user/promote")]
+        public IHttpActionResult Promote(User_Table user_Table)
+        {
+            User_Table user = db.User_Table.Find(user_Table.User_id);
+            if (User_TableExists(user_Table.User_id) == false)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                user_Table = user;
+                user_Table.User_Type = "admin";
+                db.Entry(user_Table).State = EntityState.Modified;
+            }
+
+            try
+            {
+
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok(user_Table);
+        }
+
+        [Route("api/user/demote")]
+        public IHttpActionResult Demote(User_Table user_Table)
+        {
+            User_Table user = db.User_Table.Find(user_Table.User_id);
+            if (User_TableExists(user_Table.User_id) == false)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                user_Table = user;
+                user_Table.User_Type = "normal";
+                db.Entry(user_Table).State = EntityState.Modified;
+            }
+
+            try
+            {
+
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok(user_Table);
+        }
+
         // PUT: api/User/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser_Table(long id, User_Table user_Table)
