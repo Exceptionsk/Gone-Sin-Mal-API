@@ -11,11 +11,15 @@ using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
 using System.IO;
 using System.Threading.Tasks;
+using OpenPop.Mime;
+using OpenPop.Pop3;
+using Gone_Sin_Mal_API.Class;
 
 namespace Gone_Sin_Mal_API.Controllers
 {
     public class RestaurantController : ApiController
     {
+
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Restaurant
@@ -23,6 +27,61 @@ namespace Gone_Sin_Mal_API.Controllers
         //{
         //    return db.Restaurant_Table;
         //}
+
+        [Route("api/resturant/email")]
+        public List<POPEmail> GetRestaurant_Table()
+        {
+            
+            Pop3Client pop3Client = new Pop3Client();
+            pop3Client.Connect("pop.gmail.com", 995, true);
+            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "password");
+            int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
+            var Emails = new List<POPEmail>();
+            int counter = 0;
+            for (int i = count; i >= 1; i--)
+            {
+                Message message = pop3Client.GetMessage(i);
+                POPEmail email = new POPEmail()
+                {
+                    MessageNumber = i,
+                    Subject = message.Headers.Subject,
+                    DateSent = message.Headers.DateSent,
+                    From = string.Format("<a href = 'mailto:{1}'>{0}</a>", message.Headers.From.DisplayName, message.Headers.From.Address),
+                };
+                MessagePart body = message.FindFirstHtmlVersion();
+                if (body != null)
+                {
+                    email.Body = body.GetBodyAsText();
+                }
+                else
+                {
+                    body = message.FindFirstPlainTextVersion();
+                    if (body != null)
+                    {
+                        email.Body = body.GetBodyAsText();
+                    }
+                }
+                //List<MessagePart> attachments = message.FindAllAttachments();
+
+                //foreach (MessagePart attachment in attachments)
+                //{
+                //    email.Attachments.Add(new Attachment
+                //    {
+                //        FileName = attachment.FileName,
+                //        ContentType = attachment.ContentType.MediaType,
+                //        Content = attachment.Body
+                //    });
+                //}
+                Emails.Add(email);
+                counter++;
+                //if (counter >=1)
+                //{
+                //    break;
+                //}
+            }
+            var emails = Emails;
+            return emails;
+        }
 
         // GET: api/Restaurant/5
         //[ResponseType(typeof(Restaurant_Table))]

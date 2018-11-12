@@ -157,3 +157,10 @@ E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.pdb
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Cors.dll
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Http.Cors.dll
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\System.Web.Http.Cors.xml
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\BouncyCastle.Crypto.dll
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MailKit.dll
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MimeKit.dll
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\OpenPop.dll
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MailKit.xml
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MimeKit.xml
+E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.csprojResolveAssemblyReference.cache
