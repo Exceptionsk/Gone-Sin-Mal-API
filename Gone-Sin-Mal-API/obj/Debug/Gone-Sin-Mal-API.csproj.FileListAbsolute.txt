@@ -164,3 +164,9 @@ E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\OpenPop.dll
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MailKit.xml
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MimeKit.xml
 E:\UoG\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.csprojResolveAssemblyReference.cache
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\BouncyCastle.Crypto.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MailKit.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MimeKit.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\OpenPop.dll
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MailKit.xml
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\MimeKit.xml

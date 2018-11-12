@@ -20,6 +20,7 @@ namespace Gone_Sin_Mal_API.Controllers
     public class RestaurantController : ApiController
     {
 
+        StringMethods str_method = new StringMethods();
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Restaurant
@@ -37,7 +38,6 @@ namespace Gone_Sin_Mal_API.Controllers
             pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "password");
             int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
             var Emails = new List<POPEmail>();
-            int counter = 0;
             for (int i = count; i >= 1; i--)
             {
                 Message message = pop3Client.GetMessage(i);
@@ -46,21 +46,53 @@ namespace Gone_Sin_Mal_API.Controllers
                     MessageNumber = i,
                     Subject = message.Headers.Subject,
                     DateSent = message.Headers.DateSent,
-                    From = string.Format("<a href = 'mailto:{1}'>{0}</a>", message.Headers.From.DisplayName, message.Headers.From.Address),
+                    From = message.Headers.From.DisplayName + ":" + message.Headers.From.Address,
+
                 };
-                MessagePart body = message.FindFirstHtmlVersion();
-                if (body != null)
+                if (email.DateSent < DateTime.Now.AddDays(-7))
                 {
-                    email.Body = body.GetBodyAsText();
+                    break;
                 }
-                else
-                {
-                    body = message.FindFirstPlainTextVersion();
+                if (message.Headers.From.Address== "service@myanpay.com.mm")
+                {            
+                    MessagePart body = message.FindFirstHtmlVersion();
                     if (body != null)
                     {
-                        email.Body = body.GetBodyAsText();
+                        if (message.Headers.From.Address == "service@myanpay.com.mm")
+                        {
+                            try
+                            {
+                                string first = str_method.GetBetween(body.GetBodyAsText(), "sent", "kyats");
+                                first = str_method.GetBetween(first, "<b>", "</b>");
+                                string second = str_method.GetBetween(body.GetBodyAsText(), "Transaction ID -", "is");
+                                second = str_method.GetBetween(second, "<b>", "</b>");
+                                email.Body = "Amount " + first + ", ID - " + second;
+                            }
+                            catch (Exception)
+                            {
+                                email.Body = body.GetBodyAsText();
+                            }
+                        }
+                        else
+                        {
+                            email.Body = body.GetBodyAsText();
+                        }
+
                     }
+                    else
+                    {
+                        body = message.FindFirstPlainTextVersion();
+                        if (body != null)
+                        {
+                            email.Body = body.GetBodyAsText();
+                        }
+                    }
+                    Emails.Add(email);
+                   
                 }
+                
+               
+               
                 //List<MessagePart> attachments = message.FindAllAttachments();
 
                 //foreach (MessagePart attachment in attachments)
@@ -72,12 +104,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 //        Content = attachment.Body
                 //    });
                 //}
-                Emails.Add(email);
-                counter++;
-                //if (counter >=1)
-                //{
-                //    break;
-                //}
+
             }
             var emails = Emails;
             return emails;
