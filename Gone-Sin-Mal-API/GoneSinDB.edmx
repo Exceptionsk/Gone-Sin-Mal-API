@@ -76,6 +76,15 @@
           <Property Name="Sold_coins" Type="bigint" />
           <Property Name="Sold_special_coins" Type="bigint" />
         </EntityType>
+        <EntityType Name="Transaction_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="bigint" Nullable="false" />
+          <Property Name="Tran_id" Type="bigint" />
+          <Property Name="Tran_Date" Type="date" />
+        </EntityType>
         <EntityType Name="User_Table">
           <Key>
             <PropertyRef Name="User_id" />
@@ -160,6 +169,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Table_User_id">
+          <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Gone_Sin_MalModelStoreContainer">
           <EntitySet Name="Favorite_Table" EntityType="Self.Favorite_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification_Table" EntityType="Self.Notification_Table" Schema="dbo" store:Type="Tables" />
@@ -167,6 +188,7 @@
           <EntitySet Name="Promotion_Table" EntityType="Self.Promotion_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
@@ -191,6 +213,10 @@
           <AssociationSet Name="FK_Promotion_Table_User_id" Association="Self.FK_Promotion_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_User_id" Association="Self.FK_Transaction_Table_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -228,6 +254,11 @@
           <AssociationSet Name="FK__Restaurant_User_id" Association="Gone_Sin_MalModel.FK__Restaurant_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+          </AssociationSet>
+          <EntitySet Name="Transaction_Table" EntityType="Gone_Sin_MalModel.Transaction_Table" />
+          <AssociationSet Name="FK_Transaction_Table_User_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Favorite_Table">
@@ -324,6 +355,7 @@
           <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="User_Table" ToRole="Notification_Table" />
           <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="User_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
+          <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="User_Table" ToRole="Transaction_Table" />
         </EntityType>
         <Association Name="FK__Fav_Table_User_id">
           <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
@@ -393,6 +425,28 @@
               <PropertyRef Name="User_id" />
             </Principal>
             <Dependent Role="Restaurant_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int64" Nullable="false" />
+          <Property Name="Tran_id" Type="Int64" />
+          <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
+          <Property Name="Tran_Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Transaction_Table_User_id">
+          <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
+          <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
               <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -489,6 +543,16 @@
                 <ScalarProperty Name="User_Type" ColumnName="User_Type" />
                 <ScalarProperty Name="User_Name" ColumnName="User_Name" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Table">
+            <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
+              <MappingFragment StoreEntitySet="Transaction_Table">
+                <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
+                <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

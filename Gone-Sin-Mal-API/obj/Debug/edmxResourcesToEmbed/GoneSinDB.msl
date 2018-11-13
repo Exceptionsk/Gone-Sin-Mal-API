@@ -90,5 +90,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Table">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
+        <MappingFragment StoreEntitySet="Transaction_Table">
+          <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
+          <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

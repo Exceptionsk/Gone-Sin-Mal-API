@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bb542d1ef5cc4099857e8a760e281a91" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.25" PointY="8.5" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.625" PointY="6.875" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="5" PointX="0.625" PointY="3.125" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="5.25" PointY="11.5" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="3" PointY="12.625" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="0.625" PointY="11.75" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="8.875" PointY="6.75" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.System_Table" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.User_Table" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK__Fav_Table_User_id" />
@@ -18,6 +18,8 @@
         <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK__Restaurant_User_id" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Transaction_Table" Width="1.5" PointX="3.125" PointY="6.875" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

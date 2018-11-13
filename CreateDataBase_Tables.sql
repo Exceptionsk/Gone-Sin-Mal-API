@@ -120,6 +120,20 @@ CONSTRAINT PK_Notification_Table
 PRIMARY KEY (Noti_id)
 )
 
+--Transaction Table--
+CREATE TABLE Transaction_Table(
+ID bigint IDENTITY(1,1) not null,
+User_id bigint not null,
+Tran_id bigint,
+Tran_Date date,
+
+CONSTRAINT FK_Transaction_Table_User_id
+FOREIGN KEY(User_id)
+REFERENCES User_Table(User_id),
+
+CONSTRAINT PK_Transaction_Table
+PRIMARY KEY (ID)
+)
 
 select* from User_Table
 
@@ -129,3 +143,9 @@ select* from Restaurant_Table
 
 delete from Restaurant_Table
 
+INSERT INTO Notification_Table(User_id, Notification)
+VALUES ('1106122069563593', 'rip gg wp');
+
+delete from Notification_Table
+
+select* from Notification_Table

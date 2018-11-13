@@ -204,7 +204,9 @@
     <Compile Include="Class\POPEmail.cs" />
     <Compile Include="Class\StringMethods.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Favorite_Table.cs">
@@ -242,6 +244,9 @@
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="System_Table.cs">
+      <DependentUpon>GoneSinDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction_Table.cs">
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Table.cs">
