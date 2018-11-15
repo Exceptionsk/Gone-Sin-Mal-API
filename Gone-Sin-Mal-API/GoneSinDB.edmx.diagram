@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.625" PointY="6.875" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="5" PointX="0.625" PointY="3.125" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="0.625" PointY="11.75" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="0.625" PointY="10.875" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="8.875" PointY="6.75" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.System_Table" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.User_Table" Width="1.5" PointX="0.75" PointY="6.875" />

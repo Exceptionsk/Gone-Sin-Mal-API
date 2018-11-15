@@ -196,6 +196,42 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(restaurant_Table);
         }
+        [Route("api/resturant/qr")]
+        public IHttpActionResult QRScan(CoinTransaction transaction)
+        {
+            Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.User_id).FirstOrDefault();
+            User_Table user = db.User_Table.Where(u => u.User_id == transaction.User_id).FirstOrDefault();
+
+            if (transaction.Take)
+            {
+                if (user.User_available_coin < transaction.Amount)
+                {
+                    return Ok("not enough");
+                }
+                else
+                {
+                    rest.Rest_Coin = rest.Rest_Coin + transaction.Amount;
+                    user.User_available_coin = user.User_available_coin - transaction.Amount;
+                }
+            }
+            else
+            {
+                if(rest.Rest_Coin< transaction.Amount)
+                {
+                    return Ok("not enough");
+                }
+                else
+                {
+                    rest.Rest_Coin = rest.Rest_Coin - transaction.Amount;
+                    user.User_available_coin = user.User_available_coin + transaction.Amount;
+                }
+            }
+            db.Entry(rest).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Ok("OK");
+        }
 
 
         [Route("api/resturant/profile_pic/{id:long}")]
