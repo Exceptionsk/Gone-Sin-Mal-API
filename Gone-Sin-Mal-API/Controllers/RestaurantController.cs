@@ -35,7 +35,7 @@ namespace Gone_Sin_Mal_API.Controllers
             
             Pop3Client pop3Client = new Pop3Client();
             pop3Client.Connect("pop.gmail.com", 995, true);
-            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "password");
+            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "passowrd");
             int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
             var Emails = new List<POPEmail>();
             for (int i = count; i >= 1; i--)
@@ -199,8 +199,12 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/resturant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
-            Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.User_id).FirstOrDefault();
+            Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.Rest_id).FirstOrDefault();
             User_Table user = db.User_Table.Where(u => u.User_id == transaction.User_id).FirstOrDefault();
+            Notification_Table noti = new Notification_Table();
+
+            noti.User_id = transaction.User_id;
+            noti.Noti_status = false;
 
             if (transaction.Take)
             {
@@ -212,7 +216,9 @@ namespace Gone_Sin_Mal_API.Controllers
                 {
                     rest.Rest_Coin = rest.Rest_Coin + transaction.Amount;
                     user.User_available_coin = user.User_available_coin - transaction.Amount;
-                }
+                    noti.Notification = "You have used" + transaction.Amount + "for" + rest.Rest_Name;
+                    noti.Noti_type = "cointran";
+                } 
             }
             else
             {
@@ -224,8 +230,11 @@ namespace Gone_Sin_Mal_API.Controllers
                 {
                     rest.Rest_Coin = rest.Rest_Coin - transaction.Amount;
                     user.User_available_coin = user.User_available_coin + transaction.Amount;
+                    noti.Notification = "You have gained" + transaction.Amount + "from" + rest.Rest_Name + ". Please keep that in mind that these points are only valid before the expire date.";
+                    noti.Noti_type = "cointran";
                 }
             }
+            db.Notification_Table.Add(noti);
             db.Entry(rest).State = EntityState.Modified;
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
