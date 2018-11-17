@@ -83,6 +83,8 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_id" Type="bigint" Nullable="false" />
           <Property Name="Tran_id" Type="bigint" />
+          <Property Name="Tran_Type" Type="varchar" MaxLength="255" />
+          <Property Name="Pending" Type="bit" />
           <Property Name="Tran_Date" Type="date" />
         </EntityType>
         <EntityType Name="User_Table">
@@ -230,6 +232,7 @@
           <EntitySet Name="Promotion_Table" EntityType="Gone_Sin_MalModel.Promotion_Table" />
           <EntitySet Name="Restaurant_Table" EntityType="Gone_Sin_MalModel.Restaurant_Table" />
           <EntitySet Name="System_Table" EntityType="Gone_Sin_MalModel.System_Table" />
+          <EntitySet Name="Transaction_Table" EntityType="Gone_Sin_MalModel.Transaction_Table" />
           <EntitySet Name="User_Table" EntityType="Gone_Sin_MalModel.User_Table" />
           <AssociationSet Name="FK__Fav_Table_User_id" Association="Gone_Sin_MalModel.FK__Fav_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
@@ -255,7 +258,6 @@
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
           </AssociationSet>
-          <EntitySet Name="Transaction_Table" EntityType="Gone_Sin_MalModel.Transaction_Table" />
           <AssociationSet Name="FK_Transaction_Table_User_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Transaction_Table" EntitySet="Transaction_Table" />
@@ -339,6 +341,18 @@
           <Property Name="Expired_coins" Type="Int64" />
           <Property Name="Sold_coins" Type="Int64" />
           <Property Name="Sold_special_coins" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Transaction_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int64" Nullable="false" />
+          <Property Name="Tran_id" Type="Int64" />
+          <Property Name="Tran_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pending" Type="Boolean" />
+          <Property Name="Tran_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
         </EntityType>
         <EntityType Name="User_Table">
           <Key>
@@ -429,16 +443,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Transaction_Table">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_id" Type="Int64" Nullable="false" />
-          <Property Name="Tran_id" Type="Int64" />
-          <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
-          <Property Name="Tran_Date" Type="DateTime" Precision="0" />
-        </EntityType>
         <Association Name="FK_Transaction_Table_User_id">
           <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
           <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
@@ -533,6 +537,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Table">
+            <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
+              <MappingFragment StoreEntitySet="Transaction_Table">
+                <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
+                <ScalarProperty Name="Pending" ColumnName="Pending" />
+                <ScalarProperty Name="Tran_Type" ColumnName="Tran_Type" />
+                <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.User_Table">
               <MappingFragment StoreEntitySet="User_Table">
@@ -543,16 +559,6 @@
                 <ScalarProperty Name="User_Type" ColumnName="User_Type" />
                 <ScalarProperty Name="User_Name" ColumnName="User_Name" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Transaction_Table">
-            <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
-              <MappingFragment StoreEntitySet="Transaction_Table">
-                <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
-                <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
-                <ScalarProperty Name="User_id" ColumnName="User_id" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

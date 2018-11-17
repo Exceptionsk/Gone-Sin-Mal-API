@@ -38,9 +38,8 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(transaction_Table);
         }
-        [HttpGet]
-        [Route("api/transaction/checkmail")]
-        public IHttpActionResult CheckMail_GiveCoin()
+        [Route("api/transaction/comfirm")]
+        public IHttpActionResult CheckMail_GiveCoin(Comfirmation comfirm)
         {
             string amount, tran_id;
             Pop3Client pop3Client = new Pop3Client();
@@ -60,7 +59,7 @@ namespace Gone_Sin_Mal_API.Controllers
                     From = message.Headers.From.DisplayName + ":" + message.Headers.From.Address,
 
                 };
-                if (email.DateSent < DateTime.Now.AddDays(-7))
+                if (email.DateSent < DateTime.Now.AddDays(-8))
                 {
                     break;
                 }
@@ -113,20 +112,48 @@ namespace Gone_Sin_Mal_API.Controllers
 
                     if (email.Amount != 0 && email.Tran_id != 0)
                     {
-
+                        if (email.Tran_id == comfirm.Tran_id)
+                        {
+                            var tran_record = db.Transaction_Table.Where(t => t.User_id == comfirm.Rest_id && t.Pending==false).FirstOrDefault();
+                            var restaurant = db.Restaurant_Table.Where(r => r.User_id == comfirm.Rest_id).FirstOrDefault();
+                        
+                            if (tran_record != null)
+                            {
+                                var coin =email.Amount / 100;
+                                var noti = new Notification_Table();
+                                if (tran_record.Tran_Type == "normal")
+                                {
+                                    restaurant.Rest_Coin = restaurant.Rest_Coin + coin;                                   
+                                    noti.Notification = "Comfirmation completed! " + coin + " coins have been delivered to you.";
+                                }
+                                else if (tran_record.Tran_Type == "special")
+                                {
+                                    restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
+                                    noti.Notification = "Comfirmation completed! Special coins have been delivered to near customers.";
+                                }
+                                restaurant.Rest_coin_purchased += coin;
+                                tran_record.Pending = false;
+                                noti.Noti_status = false;
+                                noti.User_id = comfirm.Rest_id;
+                                db.Entry(tran_record).State = EntityState.Modified;
+                                db.Entry(restaurant).State = EntityState.Modified;
+                                db.Notification_Table.Add(noti);
+                                db.SaveChanges();
+                                return Ok("Success");
+                            }
+                            else
+                            {
+                                return Ok("Failed");
+                            }
+                        }
                         //add restaurant coin
-                        return Ok(email);
+                        
 
-                    }
-                    else
-                    {
-                        return Ok("failed");
-                    }
-
+                    }               
                 }
 
             }
-            return Ok("success");
+            return Ok("failed");
         }
 
         // PUT: api/Transaction/5

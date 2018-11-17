@@ -31,7 +31,7 @@ namespace Gone_Sin_Mal_API
         public virtual DbSet<Promotion_Table> Promotion_Table { get; set; }
         public virtual DbSet<Restaurant_Table> Restaurant_Table { get; set; }
         public virtual DbSet<System_Table> System_Table { get; set; }
-        public virtual DbSet<User_Table> User_Table { get; set; }
         public virtual DbSet<Transaction_Table> Transaction_Table { get; set; }
+        public virtual DbSet<User_Table> User_Table { get; set; }
     }
 }

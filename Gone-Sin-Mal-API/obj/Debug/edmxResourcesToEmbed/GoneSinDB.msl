@@ -77,6 +77,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Table">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
+        <MappingFragment StoreEntitySet="Transaction_Table">
+          <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
+          <ScalarProperty Name="Pending" ColumnName="Pending" />
+          <ScalarProperty Name="Tran_Type" ColumnName="Tran_Type" />
+          <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="User_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.User_Table">
         <MappingFragment StoreEntitySet="User_Table">
@@ -87,16 +99,6 @@
           <ScalarProperty Name="User_Type" ColumnName="User_Type" />
           <ScalarProperty Name="User_Name" ColumnName="User_Name" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Transaction_Table">
-      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
-        <MappingFragment StoreEntitySet="Transaction_Table">
-          <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
-          <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

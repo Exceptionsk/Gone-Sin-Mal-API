@@ -78,6 +78,8 @@
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
     <Property Name="Tran_id" Type="bigint" />
+    <Property Name="Tran_Type" Type="varchar" MaxLength="255" />
+    <Property Name="Pending" Type="bit" />
     <Property Name="Tran_Date" Type="date" />
   </EntityType>
   <EntityType Name="User_Table">

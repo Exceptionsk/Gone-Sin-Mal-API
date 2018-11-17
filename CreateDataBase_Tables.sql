@@ -6,8 +6,8 @@ User_id bigint not null,
 User_Name varchar(255) ,
 User_Type varchar(255) ,
 User_Township varchar(255) ,
-User_available_coin bigint ,
-User_visited_restaurant bigint ,
+User_available_coin bigint default 0,
+User_visited_restaurant bigint default 0,
 User_exceeded_date date,
 
 CONSTRAINT PK_User_Table
@@ -25,8 +25,8 @@ Rest_Gallery_1 varbinary(MAX) ,
 Rest_Gallery_2 varbinary(MAX) ,
 Rest_Gallery_3 varbinary(MAX) ,
 Rest_Gallery_4 varbinary(MAX) ,
-Rest_Coin bigint,
-Rest_special_coin bigint,
+Rest_Coin bigint default 0,
+Rest_special_coin bigint default 0,
 Rest_email varchar(255) ,
 Rest_phno varchar(255) , 
 Rest_myanpay_name varchar(255) ,
@@ -35,7 +35,7 @@ Rest_Location varchar(255) ,
 Rest_lat varchar(255) ,
 Rest_long varchar(255),
 Rest_created_date date,
-Rest_coin_purchased bigint,
+Rest_coin_purchased bigint default 0,
 
 CONSTRAINT PK_Restaurant_Table
 PRIMARY KEY (Rest_id),
@@ -90,7 +90,7 @@ PRIMARY KEY (Package_id)
 CREATE TABLE Promotion_Table(
 Rest_id bigint not null,
 User_id bigint not null,
-User_promotion_amount int ,
+User_promotion_amount int default 0,
 
 CONSTRAINT FK_Promotion_Table_User_id
 FOREIGN KEY(User_id)
@@ -125,6 +125,8 @@ CREATE TABLE Transaction_Table(
 ID bigint IDENTITY(1,1) not null,
 User_id bigint not null,
 Tran_id bigint,
+Tran_Type varchar(255),
+Pending bit,
 Tran_Date date,
 
 CONSTRAINT FK_Transaction_Table_User_id
@@ -134,6 +136,10 @@ REFERENCES User_Table(User_id),
 CONSTRAINT PK_Transaction_Table
 PRIMARY KEY (ID)
 )
+
+
+
+
 
 select* from User_Table
 
@@ -145,6 +151,11 @@ delete from Restaurant_Table
 
 INSERT INTO Notification_Table(User_id, Notification)
 VALUES ('1106122069563593', 'rip gg wp');
+
+Insert into Transaction_Table(User_id,Tran_Type,Pending)
+values('1106122069563593','normal', 0)
+
+select* from Transaction_Table
 
 delete from Notification_Table
 

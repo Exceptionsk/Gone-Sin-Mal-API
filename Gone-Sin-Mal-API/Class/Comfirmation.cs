@@ -15,12 +15,12 @@ namespace Gone_Sin_Mal_API.Class
             set { rest_id = value; }
         }
 
-        private long code;
+        private long tran_id;
 
-        public long Code
+        public long Tran_id
         {
-            get { return code; }
-            set { code = value; }
+            get { return tran_id; }
+            set { tran_id = value; }
         }
 
     }

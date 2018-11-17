@@ -110,7 +110,7 @@ namespace Gone_Sin_Mal_API.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
-
+            
             db.Restaurant_Table.Add(restaurant_Table);
             db.SaveChanges();
 

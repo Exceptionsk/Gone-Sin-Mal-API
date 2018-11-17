@@ -17,6 +17,8 @@ namespace Gone_Sin_Mal_API
         public long ID { get; set; }
         public long User_id { get; set; }
         public Nullable<long> Tran_id { get; set; }
+        public string Tran_Type { get; set; }
+        public Nullable<bool> Pending { get; set; }
         public Nullable<System.DateTime> Tran_Date { get; set; }
     
         public virtual User_Table User_Table { get; set; }
