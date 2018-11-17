@@ -21,6 +21,23 @@ namespace Gone_Sin_Mal_API.Class
         public DateTime DateSent { get; set; }
 
         public List<Attachment> Attachments { get; set; }
+
+        private int amount;
+
+        public int Amount
+        {
+            get { return amount; }
+            set { amount = value; }
+        }
+
+        private int tran_id;
+
+        public int Tran_id
+        {
+            get { return tran_id; }
+            set { tran_id = value; }
+        }
+
     }
     [Serializable]
     public class Attachment

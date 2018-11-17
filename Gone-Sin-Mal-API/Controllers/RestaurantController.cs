@@ -11,16 +11,15 @@ using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
 using System.IO;
 using System.Threading.Tasks;
-using OpenPop.Mime;
-using OpenPop.Pop3;
 using Gone_Sin_Mal_API.Class;
+
 
 namespace Gone_Sin_Mal_API.Controllers
 {
     public class RestaurantController : ApiController
     {
 
-        StringMethods str_method = new StringMethods();
+       
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Restaurant
@@ -29,86 +28,7 @@ namespace Gone_Sin_Mal_API.Controllers
         //    return db.Restaurant_Table;
         //}
 
-        [Route("api/resturant/email")]
-        public List<POPEmail> GetRestaurant_Table()
-        {
-            
-            Pop3Client pop3Client = new Pop3Client();
-            pop3Client.Connect("pop.gmail.com", 995, true);
-            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "passowrd");
-            int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
-            var Emails = new List<POPEmail>();
-            for (int i = count; i >= 1; i--)
-            {
-                Message message = pop3Client.GetMessage(i);
-                POPEmail email = new POPEmail()
-                {
-                    MessageNumber = i,
-                    Subject = message.Headers.Subject,
-                    DateSent = message.Headers.DateSent,
-                    From = message.Headers.From.DisplayName + ":" + message.Headers.From.Address,
-
-                };
-                if (email.DateSent < DateTime.Now.AddDays(-7))
-                {
-                    break;
-                }
-                if (message.Headers.From.Address== "service@myanpay.com.mm")
-                {            
-                    MessagePart body = message.FindFirstHtmlVersion();
-                    if (body != null)
-                    {
-                        if (message.Headers.From.Address == "service@myanpay.com.mm")
-                        {
-                            try
-                            {
-                                string first = str_method.GetBetween(body.GetBodyAsText(), "sent", "kyats");
-                                first = str_method.GetBetween(first, "<b>", "</b>");
-                                string second = str_method.GetBetween(body.GetBodyAsText(), "Transaction ID -", "is");
-                                second = str_method.GetBetween(second, "<b>", "</b>");
-                                email.Body = "Amount " + first + ", ID - " + second;
-                            }
-                            catch (Exception)
-                            {
-                                email.Body = body.GetBodyAsText();
-                            }
-                        }
-                        else
-                        {
-                            email.Body = body.GetBodyAsText();
-                        }
-
-                    }
-                    else
-                    {
-                        body = message.FindFirstPlainTextVersion();
-                        if (body != null)
-                        {
-                            email.Body = body.GetBodyAsText();
-                        }
-                    }
-                    Emails.Add(email);
-                   
-                }
-                
-               
-               
-                //List<MessagePart> attachments = message.FindAllAttachments();
-
-                //foreach (MessagePart attachment in attachments)
-                //{
-                //    email.Attachments.Add(new Attachment
-                //    {
-                //        FileName = attachment.FileName,
-                //        ContentType = attachment.ContentType.MediaType,
-                //        Content = attachment.Body
-                //    });
-                //}
-
-            }
-            var emails = Emails;
-            return emails;
-        }
+       
 
         // GET: api/Restaurant/5
         //[ResponseType(typeof(Restaurant_Table))]
