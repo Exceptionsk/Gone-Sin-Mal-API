@@ -38,15 +38,17 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(transaction_Table);
         }
+        [HttpGet]
         [Route("api/transaction/comfirm")]
         public IHttpActionResult CheckMail_GiveCoin(Comfirmation comfirm)
         {
             string amount, tran_id;
             Pop3Client pop3Client = new Pop3Client();
             pop3Client.Connect("pop.gmail.com", 995, true);
-            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "minthukhantfgh");
+            pop3Client.Authenticate("gonesinmal@gmail.com", "gonesinmal123!@#");
             int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
             //var Emails = new List<POPEmail>();
+            count = count;
            
             for (int i = count; i >= 1; i--)
             {
@@ -59,13 +61,13 @@ namespace Gone_Sin_Mal_API.Controllers
                     From = message.Headers.From.DisplayName + ":" + message.Headers.From.Address,
 
                 };
-                if (email.DateSent < DateTime.Now.AddDays(-8))
+                if (email.DateSent < DateTime.Now.AddDays(-7))
                 {
                     break;
                 }
-                if (message.Headers.From.Address == "service@myanpay.com.mm" && email.Subject== "MyanPay Notification [ Receive money for donation transaction is completed.]")
+                if (message.Headers.From.Address == "minthukhant.mtk03@gmail.com" && email.Subject== "MyanPay Notification [ Receive money for donation transaction is completed.]")
                 {
-                    MessagePart body = message.FindFirstHtmlVersion();
+                    MessagePart body = message.FindFirstPlainTextVersion();
                     if (body != null)
                     {
                         try
@@ -132,7 +134,7 @@ namespace Gone_Sin_Mal_API.Controllers
                                     noti.Notification = "Comfirmation completed! Special coins have been delivered to near customers.";
                                 }
                                 restaurant.Rest_coin_purchased += coin;
-                                tran_record.Pending = false;
+                                tran_record.Pending = true;
                                 noti.Noti_status = false;
                                 noti.User_id = comfirm.Rest_id;
                                 db.Entry(tran_record).State = EntityState.Modified;
