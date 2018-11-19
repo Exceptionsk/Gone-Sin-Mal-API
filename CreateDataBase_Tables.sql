@@ -86,6 +86,9 @@ CONSTRAINT PK_Package_Table
 PRIMARY KEY (Package_id)
 )
 
+
+
+
 --Promotion Table--
 CREATE TABLE Promotion_Table(
 Rest_id bigint not null,
@@ -104,21 +107,6 @@ CONSTRAINT PK_Promotion_Table_ComposivePK
 PRIMARY KEY (User_id,Rest_id)
 )
 
---Notification Table--
-CREATE TABLE Notification_Table(
-Noti_id bigint  IDENTITY(1,1) not null,
-User_id bigint not null,
-Noti_type varchar (255) ,
-Notification varchar (255) ,
-Noti_status bit ,
-
-CONSTRAINT FK_Notification_Table_User_id
-FOREIGN KEY(User_id)
-REFERENCES User_Table(User_id),
-
-CONSTRAINT PK_Notification_Table
-PRIMARY KEY (Noti_id)
-)
 
 --Transaction Table--
 CREATE TABLE Transaction_Table(
@@ -136,6 +124,30 @@ REFERENCES User_Table(User_id),
 CONSTRAINT PK_Transaction_Table
 PRIMARY KEY (ID)
 )
+
+
+--Notification Table--
+CREATE TABLE Notification_Table(
+Noti_id bigint  IDENTITY(1,1) not null,
+User_id bigint not null,
+Noti_type varchar (255) ,
+Notification varchar (255) ,
+Noti_status bit ,
+ID bigint,
+
+
+CONSTRAINT FK_Notification_Table_ID
+FOREIGN KEY(ID)
+REFERENCES Transaction_Table(ID),
+
+CONSTRAINT FK_Notification_Table_User_id
+FOREIGN KEY(User_id)
+REFERENCES User_Table(User_id),
+
+CONSTRAINT PK_Notification_Table
+PRIMARY KEY (Noti_id)
+)
+
 
 
 
@@ -157,6 +169,32 @@ values('1106122069563593','normal', 0)
 
 select* from Transaction_Table
 
+delete from Transaction_Table
+
 delete from Notification_Table
 
 select* from Notification_Table
+
+select* from Package_Table
+
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('normal','1000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('normal','2000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('normal','3000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('normal','4000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('normal','5000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('special','10000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('special','20000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('special','30000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('special','40000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
+VALUES('special','50000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')

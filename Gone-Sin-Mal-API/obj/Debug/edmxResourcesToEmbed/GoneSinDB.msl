@@ -13,6 +13,7 @@
     <EntitySetMapping Name="Notification_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
         <MappingFragment StoreEntitySet="Notification_Table">
+          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
           <ScalarProperty Name="Notification" ColumnName="Notification" />
           <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />

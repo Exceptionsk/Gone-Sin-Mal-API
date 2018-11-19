@@ -14,6 +14,12 @@ namespace Gone_Sin_Mal_API
     
     public partial class Transaction_Table
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Transaction_Table()
+        {
+            this.Notification_Table = new HashSet<Notification_Table>();
+        }
+    
         public long ID { get; set; }
         public long User_id { get; set; }
         public Nullable<long> Tran_id { get; set; }
@@ -22,5 +28,7 @@ namespace Gone_Sin_Mal_API
         public Nullable<System.DateTime> Tran_Date { get; set; }
     
         public virtual User_Table User_Table { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification_Table> Notification_Table { get; set; }
     }
 }

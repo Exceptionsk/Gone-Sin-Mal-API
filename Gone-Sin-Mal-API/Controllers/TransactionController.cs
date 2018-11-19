@@ -38,6 +38,20 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(transaction_Table);
         }
+        [Route("api/transaction/request")]
+        public IHttpActionResult RequestTransaction(Transaction_Table transaction)
+        {
+            db.Transaction_Table.Add(transaction);
+            var noti = new Notification_Table();       
+            noti.Notification = "Please enter the transaction ID to receive Coin bought.";
+            noti.Noti_type = "transaction";
+            noti.Noti_status = false;
+            noti.User_id = transaction.User_id;
+            noti.ID = transaction.ID;
+            db.Notification_Table.Add(noti);
+            db.SaveChanges();
+            return Ok("success");
+        }
         [HttpGet]
         [Route("api/transaction/comfirm")]
         public IHttpActionResult CheckMail_GiveCoin(Comfirmation comfirm)
@@ -116,7 +130,7 @@ namespace Gone_Sin_Mal_API.Controllers
                     {
                         if (email.Tran_id == comfirm.Tran_id)
                         {
-                            var tran_record = db.Transaction_Table.Where(t => t.User_id == comfirm.Rest_id && t.Pending==false).FirstOrDefault();
+                            var tran_record = db.Transaction_Table.Where(t => t.ID == comfirm.ID).FirstOrDefault();
                             var restaurant = db.Restaurant_Table.Where(r => r.User_id == comfirm.Rest_id).FirstOrDefault();
                         
                             if (tran_record != null)

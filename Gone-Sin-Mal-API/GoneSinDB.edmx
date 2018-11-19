@@ -22,6 +22,7 @@
           <Property Name="Noti_type" Type="varchar" MaxLength="255" />
           <Property Name="Notification" Type="varchar" MaxLength="255" />
           <Property Name="Noti_status" Type="bit" />
+          <Property Name="ID" Type="bigint" />
         </EntityType>
         <EntityType Name="Package_Table">
           <Key>
@@ -135,6 +136,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Notification_Table_ID">
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="0..1" />
+          <End Role="Notification_Table" Type="Self.Notification_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Table">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification_Table">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Notification_Table_User_id">
           <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
           <End Role="Notification_Table" Type="Self.Notification_Table" Multiplicity="*" />
@@ -204,6 +217,10 @@
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
             <End Role="Favorite_Table" EntitySet="Favorite_Table" />
           </AssociationSet>
+          <AssociationSet Name="FK_Notification_Table_ID" Association="Self.FK_Notification_Table_ID">
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+            <End Role="Notification_Table" EntitySet="Notification_Table" />
+          </AssociationSet>
           <AssociationSet Name="FK_Notification_Table_User_id" Association="Self.FK_Notification_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Notification_Table" EntitySet="Notification_Table" />
@@ -262,6 +279,10 @@
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Transaction_Table" EntitySet="Transaction_Table" />
           </AssociationSet>
+          <AssociationSet Name="FK_Notification_Table_ID" Association="Gone_Sin_MalModel.FK_Notification_Table_ID">
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+            <End Role="Notification_Table" EntitySet="Notification_Table" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Favorite_Table">
           <Key>
@@ -283,6 +304,8 @@
           <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Noti_status" Type="Boolean" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
+          <Property Name="ID" Type="Int64" />
+          <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
         </EntityType>
         <EntityType Name="Package_Table">
           <Key>
@@ -353,6 +376,7 @@
           <Property Name="Pending" Type="Boolean" />
           <Property Name="Tran_Date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
+          <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Transaction_Table" ToRole="Notification_Table" />
         </EntityType>
         <EntityType Name="User_Table">
           <Key>
@@ -455,6 +479,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Notification_Table_ID">
+          <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="0..1" />
+          <End Type="Gone_Sin_MalModel.Notification_Table" Role="Notification_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Table">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification_Table">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -473,6 +509,7 @@
           <EntitySetMapping Name="Notification_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
               <MappingFragment StoreEntitySet="Notification_Table">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
                 <ScalarProperty Name="Notification" ColumnName="Notification" />
                 <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />

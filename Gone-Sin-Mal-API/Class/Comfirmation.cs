@@ -23,5 +23,13 @@ namespace Gone_Sin_Mal_API.Class
             set { tran_id = value; }
         }
 
+        private long id;
+
+        public long ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
     }
 }

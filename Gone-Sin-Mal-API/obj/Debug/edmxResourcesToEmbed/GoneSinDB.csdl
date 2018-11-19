@@ -37,6 +37,10 @@
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Transaction_Table" EntitySet="Transaction_Table" />
     </AssociationSet>
+    <AssociationSet Name="FK_Notification_Table_ID" Association="Gone_Sin_MalModel.FK_Notification_Table_ID">
+      <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+      <End Role="Notification_Table" EntitySet="Notification_Table" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Favorite_Table">
     <Key>
@@ -58,6 +62,8 @@
     <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Noti_status" Type="Boolean" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
+    <Property Name="ID" Type="Int64" />
+    <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
   </EntityType>
   <EntityType Name="Package_Table">
     <Key>
@@ -128,6 +134,7 @@
     <Property Name="Pending" Type="Boolean" />
     <Property Name="Tran_Date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
+    <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Transaction_Table" ToRole="Notification_Table" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
@@ -227,6 +234,18 @@
       </Principal>
       <Dependent Role="Transaction_Table">
         <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notification_Table_ID">
+    <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="0..1" />
+    <End Type="Gone_Sin_MalModel.Notification_Table" Role="Notification_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Table">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notification_Table">
+        <PropertyRef Name="ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
