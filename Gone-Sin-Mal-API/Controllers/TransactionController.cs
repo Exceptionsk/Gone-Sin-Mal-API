@@ -43,8 +43,8 @@ namespace Gone_Sin_Mal_API.Controllers
         {
             db.Transaction_Table.Add(transaction);
             var noti = new Notification_Table();       
-            noti.Notification = "Please enter the transaction ID to receive Coin bought.";
-            noti.Noti_type = "transaction";
+            noti.Notification = "Please send the transaction ID from Myan Pay email to receive Coin bought.";
+            noti.Noti_type = "restaurant";
             noti.Noti_status = false;
             noti.User_id = transaction.User_id;
             noti.ID = transaction.ID;
@@ -151,6 +151,7 @@ namespace Gone_Sin_Mal_API.Controllers
                                 tran_record.Pending = true;
                                 noti.Noti_status = false;
                                 noti.User_id = comfirm.Rest_id;
+                                noti.Noti_type = "restaurant";
                                 db.Entry(tran_record).State = EntityState.Modified;
                                 db.Entry(restaurant).State = EntityState.Modified;
                                 db.Notification_Table.Add(noti);

@@ -137,7 +137,7 @@ namespace Gone_Sin_Mal_API.Controllers
                     rest.Rest_Coin = rest.Rest_Coin + transaction.Amount;
                     user.User_available_coin = user.User_available_coin - transaction.Amount;
                     noti.Notification = "You have used" + transaction.Amount + "for" + rest.Rest_Name;
-                    noti.Noti_type = "cointran";
+                    noti.Noti_type = "customer";
                 } 
             }
             else

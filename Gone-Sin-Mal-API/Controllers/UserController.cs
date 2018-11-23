@@ -149,7 +149,7 @@ namespace Gone_Sin_Mal_API.Controllers
             User_Table user = db.User_Table.Find(user_Table.User_id);
             if (User_TableExists(user_Table.User_id)==false)
             {
-                user_Table.User_Type = "normal";
+                user_Table.User_Type = "customer";
                 db.User_Table.Add(user_Table);
             }
             else

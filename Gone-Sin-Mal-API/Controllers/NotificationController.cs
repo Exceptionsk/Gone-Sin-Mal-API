@@ -21,12 +21,20 @@ namespace Gone_Sin_Mal_API.Controllers
         //{
         //    return db.Notification_Table;
         //}
+        [HttpGet]
         [Route("api/notification/{id}")]
-        public IHttpActionResult GetNotification(long id)
+        public IHttpActionResult Noti(long id, string type="customer", long transactionID=0)
         {
-            var noti = db.Notification_Table.Where(s => s.User_id==id);
+            if (transactionID==0)
+            {
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
 
-            return Ok(noti);
+            }
+            else
+            {
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID==transactionID).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
+            }
+                      
         }
 
         // GET: api/Notification/5
