@@ -52,7 +52,7 @@ namespace Gone_Sin_Mal_API.Controllers
             db.SaveChanges();
             return Ok("success");
         }
-        [HttpGet]
+
         [Route("api/transaction/comfirm")]
         public IHttpActionResult CheckMail_GiveCoin(Comfirmation comfirm)
         {
@@ -88,7 +88,7 @@ namespace Gone_Sin_Mal_API.Controllers
                         {
                            amount = str_method.GetBetween(body.GetBodyAsText(), "sent", "kyats");
                            amount = str_method.GetBetween(amount, "<b>", ".00</b>");
-                           tran_id = str_method.GetBetween(body.GetBodyAsText(), "Transaction ID -", "is");
+                           tran_id = str_method.GetBetween(body.GetBodyAsText(), "TransactionID\r\n-", "is");
                            tran_id = str_method.GetBetween(tran_id, "<b>", "</b>");
                             email.Body = "Email Read " + i;
                             try
