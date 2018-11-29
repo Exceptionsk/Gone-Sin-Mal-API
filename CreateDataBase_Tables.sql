@@ -159,6 +159,7 @@ delete from User_Table
 
 select* from Restaurant_Table
 
+
 delete from Restaurant_Table
 
 INSERT INTO Notification_Table(User_id, Notification)
