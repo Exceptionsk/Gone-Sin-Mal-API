@@ -28,7 +28,7 @@ namespace Gone_Sin_Mal_API.Controllers
         //    return db.Restaurant_Table;
         //}
 
-       
+
 
         // GET: api/Restaurant/5
         //[ResponseType(typeof(Restaurant_Table))]
@@ -42,6 +42,18 @@ namespace Gone_Sin_Mal_API.Controllers
 
         //    return Ok(restaurant_Table);
         //}
+        [Route("api/restaurant/search/{name}")]
+        public IHttpActionResult GetUserByName(String name)
+        {
+            var restaurant = db.Restaurant_Table.Where(r => r.Rest_Name.ToLower().Contains(name.ToLower()));
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(restaurant);
+        }
+
         [HttpGet]
         [Route("api/restaurant/{type}")]
         public IHttpActionResult GetRestaurant(string type)

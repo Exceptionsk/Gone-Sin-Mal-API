@@ -207,6 +207,7 @@
     <Compile Include="Class\POPEmail.cs" />
     <Compile Include="Class\PushNotification.cs" />
     <Compile Include="Class\StringMethods.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
