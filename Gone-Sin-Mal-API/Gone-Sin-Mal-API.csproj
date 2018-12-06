@@ -203,7 +203,9 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Class\CoinTransaction.cs" />
     <Compile Include="Class\Comfirmation.cs" />
+    <Compile Include="Class\Notification.cs" />
     <Compile Include="Class\POPEmail.cs" />
+    <Compile Include="Class\PushNotification.cs" />
     <Compile Include="Class\StringMethods.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />

@@ -23,20 +23,21 @@ namespace Gone_Sin_Mal_API
     
         public long Rest_id { get; set; }
         public Nullable<long> User_id { get; set; }
-        public string Rest_Name { get; set; }
+        public string Rest_name { get; set; }
         public byte[] Rest_profile_picture { get; set; }
-        public string Rest_Password { get; set; }
-        public byte[] Rest_Gallery_1 { get; set; }
-        public byte[] Rest_Gallery_2 { get; set; }
-        public byte[] Rest_Gallery_3 { get; set; }
-        public byte[] Rest_Gallery_4 { get; set; }
-        public Nullable<long> Rest_Coin { get; set; }
+        public string Rest_password { get; set; }
+        public byte[] Rest_gallery_1 { get; set; }
+        public byte[] Rest_gallery_2 { get; set; }
+        public byte[] Rest_gallery_3 { get; set; }
+        public byte[] Rest_gallery_4 { get; set; }
+        public string Rest_category { get; set; }
+        public Nullable<long> Rest_coin { get; set; }
         public Nullable<long> Rest_special_coin { get; set; }
         public string Rest_email { get; set; }
         public string Rest_phno { get; set; }
         public string Rest_myanpay_name { get; set; }
-        public string Rest_Township { get; set; }
-        public string Rest_Location { get; set; }
+        public string Rest_township { get; set; }
+        public string Rest_location { get; set; }
         public string Rest_lat { get; set; }
         public string Rest_long { get; set; }
         public Nullable<System.DateTime> Rest_created_date { get; set; }

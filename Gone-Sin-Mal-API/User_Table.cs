@@ -25,9 +25,10 @@ namespace Gone_Sin_Mal_API
         }
     
         public long User_id { get; set; }
-        public string User_Name { get; set; }
-        public string User_Type { get; set; }
-        public string User_Township { get; set; }
+        public string User_name { get; set; }
+        public string User_noti_token { get; set; }
+        public string User_type { get; set; }
+        public string User_township { get; set; }
         public Nullable<long> User_available_coin { get; set; }
         public Nullable<long> User_visited_restaurant { get; set; }
         public Nullable<System.DateTime> User_exceeded_date { get; set; }

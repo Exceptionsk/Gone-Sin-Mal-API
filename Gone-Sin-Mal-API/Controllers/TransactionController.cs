@@ -42,7 +42,10 @@ namespace Gone_Sin_Mal_API.Controllers
         public IHttpActionResult RequestTransaction(Transaction_Table transaction)
         {
             db.Transaction_Table.Add(transaction);
-            var noti = new Notification_Table();       
+            var noti = new Notification_Table();
+            PushNotification pushnoti = new PushNotification();
+            User_Table user = new User_Table();
+            user = db.User_Table.Find(transaction.User_id);
             noti.Notification = "Please send the transaction ID from Myan Pay email to receive Coin bought.";
             noti.Noti_type = "restaurant";
             noti.Noti_status = false;
@@ -50,6 +53,7 @@ namespace Gone_Sin_Mal_API.Controllers
             noti.ID = transaction.ID;
             db.Notification_Table.Add(noti);
             db.SaveChanges();
+            pushnoti.pushNoti(user.User_noti_token, "Transaction ID required!", noti.Notification);
             return Ok("success");
         }
 
@@ -137,12 +141,14 @@ namespace Gone_Sin_Mal_API.Controllers
                             {
                                 var coin =email.Amount / 100;
                                 var noti = new Notification_Table();
-                                if (tran_record.Tran_Type == "normal")
+                                PushNotification pushnoti = new PushNotification();
+                               
+                                if (tran_record.Tran_type == "normal")
                                 {
-                                    restaurant.Rest_Coin = restaurant.Rest_Coin + coin;                                   
+                                    restaurant.Rest_coin = restaurant.Rest_coin + coin;                                   
                                     noti.Notification = "Comfirmation completed! " + coin + " coins have been delivered to you.";
                                 }
-                                else if (tran_record.Tran_Type == "special")
+                                else if (tran_record.Tran_type == "special")
                                 {
                                     restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
                                     noti.Notification = "Comfirmation completed! Special coins have been delivered to near customers.";
@@ -156,6 +162,8 @@ namespace Gone_Sin_Mal_API.Controllers
                                 db.Entry(restaurant).State = EntityState.Modified;
                                 db.Notification_Table.Add(noti);
                                 db.SaveChanges();
+                                User_Table user = db.User_Table.Find(comfirm.Rest_id);
+                                pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);
                                 return Ok("Success");
                             }
                             else

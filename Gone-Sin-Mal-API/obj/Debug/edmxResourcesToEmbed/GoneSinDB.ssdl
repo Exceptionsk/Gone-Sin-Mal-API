@@ -43,20 +43,21 @@
     </Key>
     <Property Name="Rest_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" />
-    <Property Name="Rest_Name" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_name" Type="varchar" MaxLength="255" />
     <Property Name="Rest_profile_picture" Type="varbinary(max)" />
-    <Property Name="Rest_Password" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_Gallery_1" Type="varbinary(max)" />
-    <Property Name="Rest_Gallery_2" Type="varbinary(max)" />
-    <Property Name="Rest_Gallery_3" Type="varbinary(max)" />
-    <Property Name="Rest_Gallery_4" Type="varbinary(max)" />
-    <Property Name="Rest_Coin" Type="bigint" />
+    <Property Name="Rest_password" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_gallery_1" Type="varbinary(max)" />
+    <Property Name="Rest_gallery_2" Type="varbinary(max)" />
+    <Property Name="Rest_gallery_3" Type="varbinary(max)" />
+    <Property Name="Rest_gallery_4" Type="varbinary(max)" />
+    <Property Name="Rest_category" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_coin" Type="bigint" />
     <Property Name="Rest_special_coin" Type="bigint" />
     <Property Name="Rest_email" Type="varchar" MaxLength="255" />
     <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
     <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_Township" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_Location" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_township" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_location" Type="varchar" MaxLength="255" />
     <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
     <Property Name="Rest_long" Type="varchar" MaxLength="255" />
     <Property Name="Rest_created_date" Type="date" />
@@ -79,18 +80,19 @@
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
     <Property Name="Tran_id" Type="bigint" />
-    <Property Name="Tran_Type" Type="varchar" MaxLength="255" />
+    <Property Name="Tran_type" Type="varchar" MaxLength="255" />
     <Property Name="Pending" Type="bit" />
-    <Property Name="Tran_Date" Type="date" />
+    <Property Name="Tran_date" Type="date" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
       <PropertyRef Name="User_id" />
     </Key>
     <Property Name="User_id" Type="bigint" Nullable="false" />
-    <Property Name="User_Name" Type="varchar" MaxLength="255" />
-    <Property Name="User_Type" Type="varchar" MaxLength="255" />
-    <Property Name="User_Township" Type="varchar" MaxLength="255" />
+    <Property Name="User_name" Type="varchar" MaxLength="255" />
+    <Property Name="User_noti_token" Type="varchar" MaxLength="255" />
+    <Property Name="User_type" Type="varchar" MaxLength="255" />
+    <Property Name="User_township" Type="varchar" MaxLength="255" />
     <Property Name="User_available_coin" Type="bigint" />
     <Property Name="User_visited_restaurant" Type="bigint" />
     <Property Name="User_exceeded_date" Type="date" />

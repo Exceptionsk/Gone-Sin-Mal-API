@@ -49,14 +49,14 @@ namespace Gone_Sin_Mal_API.Controllers
             IQueryable restaurants = null;
             if (type == "new")
             {
-                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_created_date).Select(re => new { re.Rest_Name, re.Rest_id } );
+                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_created_date).Select(re => new { re.Rest_name, re.Rest_id } );
             }else if (type == "recommended")
             {
-                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_coin_purchased).Select(re => new { re.Rest_Name, re.Rest_id });
+                restaurants = db.Restaurant_Table.OrderByDescending(r => r.Rest_coin_purchased).Select(re => new { re.Rest_name, re.Rest_id });
             }
             else
             {
-                restaurants = db.Restaurant_Table.Where(s => s.Rest_Name.ToLower().Contains(type.ToLower())).Select(re => new { re.Rest_Name, re.Rest_id });
+                restaurants = db.Restaurant_Table.Where(s => s.Rest_name.ToLower().Contains(type.ToLower())).Select(re => new { re.Rest_name, re.Rest_id });
             }
             
             if (restaurants == null)
@@ -122,6 +122,7 @@ namespace Gone_Sin_Mal_API.Controllers
             Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.Rest_id).FirstOrDefault();
             User_Table user = db.User_Table.Where(u => u.User_id == transaction.User_id).FirstOrDefault();
             Notification_Table noti = new Notification_Table();
+            PushNotification pushnoti = new PushNotification();
 
             noti.User_id = transaction.User_id;
             noti.Noti_status = false;
@@ -134,24 +135,26 @@ namespace Gone_Sin_Mal_API.Controllers
                 }
                 else
                 {
-                    rest.Rest_Coin = rest.Rest_Coin + transaction.Amount;
+                    rest.Rest_coin = rest.Rest_coin + transaction.Amount;
                     user.User_available_coin = user.User_available_coin - transaction.Amount;
-                    noti.Notification = "You have used" + transaction.Amount + "for" + rest.Rest_Name;
+                    noti.Notification = "You have used" + transaction.Amount + "for" + rest.Rest_name;
                     noti.Noti_type = "customer";
+                    pushnoti.pushNoti(user.User_noti_token, "Coin Spend", noti.Notification);
                 } 
             }
             else
             {
-                if(rest.Rest_Coin< transaction.Amount)
+                if(rest.Rest_coin< transaction.Amount)
                 {
                     return Ok("not enough");
                 }
                 else
                 {
-                    rest.Rest_Coin = rest.Rest_Coin - transaction.Amount;
+                    rest.Rest_coin = rest.Rest_coin - transaction.Amount;
                     user.User_available_coin = user.User_available_coin + transaction.Amount;
-                    noti.Notification = "You have gained" + transaction.Amount + "from" + rest.Rest_Name + ". Please keep that in mind that these points are only valid before the expire date.";
+                    noti.Notification = "You have gained" + transaction.Amount + "from" + rest.Rest_name + ". Please keep that in mind that these points are only valid before the expire date.";
                     noti.Noti_type = "cointran";
+                    pushnoti.pushNoti(user.User_noti_token, "Coin Gained", noti.Notification);
                 }
             }
             db.Notification_Table.Add(noti);

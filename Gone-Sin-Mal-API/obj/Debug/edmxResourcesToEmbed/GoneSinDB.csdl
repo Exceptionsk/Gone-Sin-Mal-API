@@ -17,6 +17,10 @@
       <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
       <End Role="Favorite_Table" EntitySet="Favorite_Table" />
     </AssociationSet>
+    <AssociationSet Name="FK_Notification_Table_ID" Association="Gone_Sin_MalModel.FK_Notification_Table_ID">
+      <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+      <End Role="Notification_Table" EntitySet="Notification_Table" />
+    </AssociationSet>
     <AssociationSet Name="FK_Notification_Table_User_id" Association="Gone_Sin_MalModel.FK_Notification_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Notification_Table" EntitySet="Notification_Table" />
@@ -36,10 +40,6 @@
     <AssociationSet Name="FK_Transaction_Table_User_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Transaction_Table" EntitySet="Transaction_Table" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Notification_Table_ID" Association="Gone_Sin_MalModel.FK_Notification_Table_ID">
-      <End Role="Transaction_Table" EntitySet="Transaction_Table" />
-      <End Role="Notification_Table" EntitySet="Notification_Table" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Favorite_Table">
@@ -61,9 +61,9 @@
     <Property Name="Noti_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Noti_status" Type="Boolean" />
-    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
     <Property Name="ID" Type="Int64" />
     <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="Package_Table">
     <Key>
@@ -91,20 +91,21 @@
     </Key>
     <Property Name="Rest_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="User_id" Type="Int64" />
-    <Property Name="Rest_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Rest_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Rest_Gallery_1" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Rest_Gallery_2" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Rest_Gallery_3" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Rest_Gallery_4" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="Rest_Coin" Type="Int64" />
+    <Property Name="Rest_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_gallery_1" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_gallery_2" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_gallery_3" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_gallery_4" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Rest_category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_coin" Type="Int64" />
     <Property Name="Rest_special_coin" Type="Int64" />
     <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_myanpay_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Rest_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Rest_Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_created_date" Type="DateTime" Precision="0" />
@@ -130,20 +131,21 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="User_id" Type="Int64" Nullable="false" />
     <Property Name="Tran_id" Type="Int64" />
-    <Property Name="Tran_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Tran_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Pending" Type="Boolean" />
-    <Property Name="Tran_Date" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
+    <Property Name="Tran_date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Transaction_Table" ToRole="Notification_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
       <PropertyRef Name="User_id" />
     </Key>
     <Property Name="User_id" Type="Int64" Nullable="false" />
-    <Property Name="User_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_Township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_noti_token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_available_coin" Type="Int64" />
     <Property Name="User_visited_restaurant" Type="Int64" />
     <Property Name="User_exceeded_date" Type="DateTime" Precision="0" />
@@ -174,6 +176,18 @@
       </Principal>
       <Dependent Role="Favorite_Table">
         <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notification_Table_ID">
+    <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="0..1" />
+    <End Type="Gone_Sin_MalModel.Notification_Table" Role="Notification_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Table">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notification_Table">
+        <PropertyRef Name="ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -234,18 +248,6 @@
       </Principal>
       <Dependent Role="Transaction_Table">
         <PropertyRef Name="User_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Notification_Table_ID">
-    <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="0..1" />
-    <End Type="Gone_Sin_MalModel.Notification_Table" Role="Notification_Table" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Transaction_Table">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Notification_Table">
-        <PropertyRef Name="ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

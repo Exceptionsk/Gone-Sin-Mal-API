@@ -48,20 +48,21 @@
           <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
           <ScalarProperty Name="Rest_long" ColumnName="Rest_long" />
           <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
-          <ScalarProperty Name="Rest_Location" ColumnName="Rest_Location" />
-          <ScalarProperty Name="Rest_Township" ColumnName="Rest_Township" />
+          <ScalarProperty Name="Rest_location" ColumnName="Rest_location" />
+          <ScalarProperty Name="Rest_township" ColumnName="Rest_township" />
           <ScalarProperty Name="Rest_myanpay_name" ColumnName="Rest_myanpay_name" />
           <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
           <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
           <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
-          <ScalarProperty Name="Rest_Coin" ColumnName="Rest_Coin" />
-          <ScalarProperty Name="Rest_Gallery_4" ColumnName="Rest_Gallery_4" />
-          <ScalarProperty Name="Rest_Gallery_3" ColumnName="Rest_Gallery_3" />
-          <ScalarProperty Name="Rest_Gallery_2" ColumnName="Rest_Gallery_2" />
-          <ScalarProperty Name="Rest_Gallery_1" ColumnName="Rest_Gallery_1" />
-          <ScalarProperty Name="Rest_Password" ColumnName="Rest_Password" />
+          <ScalarProperty Name="Rest_coin" ColumnName="Rest_coin" />
+          <ScalarProperty Name="Rest_category" ColumnName="Rest_category" />
+          <ScalarProperty Name="Rest_gallery_4" ColumnName="Rest_gallery_4" />
+          <ScalarProperty Name="Rest_gallery_3" ColumnName="Rest_gallery_3" />
+          <ScalarProperty Name="Rest_gallery_2" ColumnName="Rest_gallery_2" />
+          <ScalarProperty Name="Rest_gallery_1" ColumnName="Rest_gallery_1" />
+          <ScalarProperty Name="Rest_password" ColumnName="Rest_password" />
           <ScalarProperty Name="Rest_profile_picture" ColumnName="Rest_profile_picture" />
-          <ScalarProperty Name="Rest_Name" ColumnName="Rest_Name" />
+          <ScalarProperty Name="Rest_name" ColumnName="Rest_name" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
         </MappingFragment>
@@ -81,9 +82,9 @@
     <EntitySetMapping Name="Transaction_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
         <MappingFragment StoreEntitySet="Transaction_Table">
-          <ScalarProperty Name="Tran_Date" ColumnName="Tran_Date" />
+          <ScalarProperty Name="Tran_date" ColumnName="Tran_date" />
           <ScalarProperty Name="Pending" ColumnName="Pending" />
-          <ScalarProperty Name="Tran_Type" ColumnName="Tran_Type" />
+          <ScalarProperty Name="Tran_type" ColumnName="Tran_type" />
           <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -96,9 +97,10 @@
           <ScalarProperty Name="User_exceeded_date" ColumnName="User_exceeded_date" />
           <ScalarProperty Name="User_visited_restaurant" ColumnName="User_visited_restaurant" />
           <ScalarProperty Name="User_available_coin" ColumnName="User_available_coin" />
-          <ScalarProperty Name="User_Township" ColumnName="User_Township" />
-          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
-          <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+          <ScalarProperty Name="User_township" ColumnName="User_township" />
+          <ScalarProperty Name="User_type" ColumnName="User_type" />
+          <ScalarProperty Name="User_noti_token" ColumnName="User_noti_token" />
+          <ScalarProperty Name="User_name" ColumnName="User_name" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
         </MappingFragment>
       </EntityTypeMapping>

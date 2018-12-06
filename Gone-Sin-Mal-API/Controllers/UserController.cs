@@ -38,7 +38,7 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/user/{name}")]
         public IHttpActionResult GetUserByName(String name)
         {
-            var user = db.User_Table.Where(s => s.User_Name.ToLower().Contains(name.ToLower())).Select(u => new { u.User_Name, u.User_id, u.User_Type});
+            var user = db.User_Table.Where(s => s.User_name.ToLower().Contains(name.ToLower())).Select(u => new { u.User_name, u.User_id, u.User_type});
             if (user == null)
             {
                 return NotFound();
@@ -58,7 +58,7 @@ namespace Gone_Sin_Mal_API.Controllers
             else
             {
                 user_Table = user;
-                user_Table.User_Type = "admin";
+                user_Table.User_type = "admin";
                 db.Entry(user_Table).State = EntityState.Modified;
             }
 
@@ -86,7 +86,7 @@ namespace Gone_Sin_Mal_API.Controllers
             else
             {
                 user_Table = user;
-                user_Table.User_Type = "normal";
+                user_Table.User_type = "normal";
                 db.Entry(user_Table).State = EntityState.Modified;
             }
 
@@ -149,7 +149,7 @@ namespace Gone_Sin_Mal_API.Controllers
             User_Table user = db.User_Table.Find(user_Table.User_id);
             if (User_TableExists(user_Table.User_id)==false)
             {
-                user_Table.User_Type = "customer";
+                user_Table.User_type = "customer";
                 db.User_Table.Add(user_Table);
             }
             else
