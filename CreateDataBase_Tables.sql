@@ -199,3 +199,5 @@ INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
 VALUES('special','40000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
 VALUES('special','50000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+
+select * from System_Table

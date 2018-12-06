@@ -42,7 +42,7 @@ namespace Gone_Sin_Mal_API.Controllers
 
         //    return Ok(restaurant_Table);
         //}
-        [Route("api/restaurant/{name}")]
+        [Route("api/restaurant/search/{name}")]
         public IHttpActionResult GetUserByName(String name)
         {
             var restaurant = db.Restaurant_Table.Where(r => r.Rest_Name.ToLower().Contains(name.ToLower()));
