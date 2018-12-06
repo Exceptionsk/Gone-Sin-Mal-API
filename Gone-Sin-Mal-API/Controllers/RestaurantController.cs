@@ -30,22 +30,22 @@ namespace Gone_Sin_Mal_API.Controllers
 
 
 
-        // GET: api/Restaurant/5
-        //[ResponseType(typeof(Restaurant_Table))]
-        //public IHttpActionResult GetRestaurant_Table(long id)
-        //{
-        //    Restaurant_Table restaurant_Table = db.Restaurant_Table.Find(id);
-        //    if (restaurant_Table == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(restaurant_Table);
-        //}
-        [Route("api/restaurant/search/{name}")]
-        public IHttpActionResult GetUserByName(String name)
+        //GET: api/Restaurant/5
+        [ResponseType(typeof(Restaurant_Table))]
+        public IHttpActionResult GetRestaurant_Table(string id)
         {
-            var restaurant = db.Restaurant_Table.Where(r => r.Rest_Name.ToLower().Contains(name.ToLower()));
+            Restaurant_Table restaurant_Table = db.Restaurant_Table.Where(r => r.User_id.Equals(id)).FirstOrDefault();
+            if (restaurant_Table == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(restaurant_Table);
+        }
+        [Route("api/restaurant/search")]
+        public IHttpActionResult GetUserByName(string name)
+        {
+            var restaurant = db.Restaurant_Table.Where(r => r.Rest_name.ToLower().Contains(name.ToLower()));
             if (restaurant == null)
             {
                 return NotFound();

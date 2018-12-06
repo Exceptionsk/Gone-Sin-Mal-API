@@ -16,11 +16,11 @@ namespace Gone_Sin_Mal_API.Controllers
     {
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
-        // GET: api/Admin
-        //public IQueryable<System_Table> GetSystem_Table()
-        //{
-        //    return db.System_Table;
-        //}
+        //GET: api/Admin
+        public IHttpActionResult GetSystem_Table()
+        {
+            return Ok(db.System_Table.FirstOrDefault());
+        }
 
         //// GET: api/Admin/5
         //[ResponseType(typeof(System_Table))]
@@ -34,33 +34,33 @@ namespace Gone_Sin_Mal_API.Controllers
 
         //    return Ok(system_Table);
         //}
-        [HttpGet]
-        [Route("api/Admin/{cointype}")]
-        public IHttpActionResult Coinstatus(string cointype)
-        {
-            if (cointype == "expired")
-            {
-                var coinstatus = db.System_Table.Sum(c => c.Expired_coins).Value;
-                return Ok(coinstatus);
-            }
-            else if (cointype == "normal")
-            {
-                var coinstatus = db.System_Table.Sum(c => c.Sold_coins).Value;
-                return Ok(coinstatus);
-            }
-            else if (cointype == "special")
-            {
-                var coinstatus = db.System_Table.Sum(c => c.Sold_special_coins).Value;
-                return Ok(coinstatus);
-            }
-            else if (cointype == "total")
-            {
-                var coinstatus = db.System_Table.Sum(c => c.Expired_coins+c.Sold_coins+c.Sold_special_coins).Value;
-                return Ok(coinstatus);
-            }
-                return Ok();
+        //[HttpGet]
+        //[Route("api/Admin/{cointype}")]
+        //public IHttpActionResult Coinstatus(string cointype)
+        //{
+        //    if (cointype == "expired")
+        //    {
+        //        var coinstatus = db.System_Table.Sum(c => c.Expired_coins).Value;
+        //        return Ok(coinstatus);
+        //    }
+        //    else if (cointype == "normal")
+        //    {
+        //        var coinstatus = db.System_Table.Sum(c => c.Sold_coins).Value;
+        //        return Ok(coinstatus);
+        //    }
+        //    else if (cointype == "special")
+        //    {
+        //        var coinstatus = db.System_Table.Sum(c => c.Sold_special_coins).Value;
+        //        return Ok(coinstatus);
+        //    }
+        //    else if (cointype == "total")
+        //    {
+        //        var coinstatus = db.System_Table.Sum(c => c.Expired_coins+c.Sold_coins+c.Sold_special_coins).Value;
+        //        return Ok(coinstatus);
+        //    }
+        //        return Ok();
 
-        }
+        //}
         // PUT: api/Admin/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSystem_Table(long id, System_Table system_Table)

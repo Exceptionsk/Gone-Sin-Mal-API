@@ -35,8 +35,8 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok(user_Table);
         }
 
-        [Route("api/user/{name}")]
-        public IHttpActionResult GetUserByName(String name)
+        [Route("api/user/search")]
+        public IHttpActionResult GetUserByName(string name)
         {
             var user = db.User_Table.Where(s => s.User_name.ToLower().Contains(name.ToLower())).Select(u => new { u.User_name, u.User_id, u.User_type});
             if (user == null)
