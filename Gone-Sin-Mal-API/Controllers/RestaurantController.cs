@@ -32,9 +32,10 @@ namespace Gone_Sin_Mal_API.Controllers
 
         //GET: api/Restaurant/5
         [ResponseType(typeof(Restaurant_Table))]
-        public IHttpActionResult GetRestaurant_Table(string id)
+        public IHttpActionResult GetRestaurantByUserID(string id)
         {
             Restaurant_Table restaurant_Table = db.Restaurant_Table.Where(r => r.User_id.Equals(id)).FirstOrDefault();
+
             if (restaurant_Table == null)
             {
                 return NotFound();

@@ -161,6 +161,8 @@ delete from User_Table
 
 select* from Restaurant_Table
 
+select* from Restaurant_Table where Rest_name = 'Dguii'
+
 
 delete from Restaurant_Table
 
