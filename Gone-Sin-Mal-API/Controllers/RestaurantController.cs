@@ -34,7 +34,7 @@ namespace Gone_Sin_Mal_API.Controllers
         [ResponseType(typeof(Restaurant_Table))]
         public IHttpActionResult GetRestaurantByUserID(string id)
         {
-            Restaurant_Table restaurant_Table = db.Restaurant_Table.Where(r => r.User_id.Equals(id)).FirstOrDefault();
+            Restaurant_Table restaurant_Table = db.Restaurant_Table.Where(r => r.User_id.ToString().Equals(id)).FirstOrDefault();
 
             if (restaurant_Table == null)
             {
