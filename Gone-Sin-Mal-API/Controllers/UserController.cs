@@ -86,7 +86,7 @@ namespace Gone_Sin_Mal_API.Controllers
             else
             {
                 user_Table = user;
-                user_Table.User_type = "normal";
+                user_Table.User_type = "customer";
                 db.Entry(user_Table).State = EntityState.Modified;
             }
 
