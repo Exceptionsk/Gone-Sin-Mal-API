@@ -35,7 +35,6 @@ namespace Gone_Sin_Mal_API
         public Nullable<long> Rest_special_coin { get; set; }
         public string Rest_email { get; set; }
         public string Rest_phno { get; set; }
-        public string Rest_myanpay_name { get; set; }
         public string Rest_township { get; set; }
         public string Rest_location { get; set; }
         public string Rest_lat { get; set; }

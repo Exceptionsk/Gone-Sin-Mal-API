@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
+using System.IO;
 
 namespace Gone_Sin_Mal_API.Controllers
 {
@@ -17,22 +18,30 @@ namespace Gone_Sin_Mal_API.Controllers
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Package
-        public IQueryable<Package_Table> GetPackage_Table()
+        public IHttpActionResult GetPackage_Table()
         {
-            return db.Package_Table;
+            return Ok(db.Package_Table.Where(p=> p.Package_id!=0).Select(s=> new { s.Package_id, s.Package_type, s.Myanpay_button_link, s.Package_coin_amount}) );
         }
 
-        // GET: api/Package/5
-        [ResponseType(typeof(Package_Table))]
-        public IHttpActionResult GetPackage_Table(long id)
+        // GET: api/Package/image/5
+        [Route("api/Package/image/{id}")]
+        public HttpResponseMessage GetPackage_Image(long id)
         {
-            Package_Table package_Table = db.Package_Table.Find(id);
-            if (package_Table == null)
+            try
             {
-                return NotFound();
+                Package_Table package_Table = db.Package_Table.Find(id);
+                byte[] imgData = package_Table.Coin_img;
+                MemoryStream ms = new MemoryStream(imgData);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(ms);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+                return response;
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            return Ok(package_Table);
         }
 
         // PUT: api/Package/5

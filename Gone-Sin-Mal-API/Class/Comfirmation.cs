@@ -31,5 +31,14 @@ namespace Gone_Sin_Mal_API.Class
             set { id = value; }
         }
 
+        private int count;
+
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
+        }
+
+
     }
 }

@@ -151,7 +151,34 @@ namespace Gone_Sin_Mal_API.Controllers
                                 else if (tran_record.Tran_type == "special")
                                 {
                                     restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
-                                    noti.Notification = "Comfirmation completed! Special coins have been delivered to near customers.";
+                                    var nearbyuser = db.User_Table.Where(u => u.User_township.Equals(restaurant.Rest_township)).OrderBy(o=> Guid.NewGuid()).Take(comfirm.Count);
+                                    //if (nearbyuser.Count() <= 0)
+                                    //{
+                                    //    nearbyuser = db.User_Table;
+                                    //}else if(nearbyuser.Count() > comfirm.Count)
+                                    //{
+
+                                    //}else if (nearbyuser.Count() < comfirm.Count)
+                                    //{
+
+                                    //}
+                                    foreach (User_Table var in nearbyuser)
+                                    {
+                                        Notification_Table custNoti = new Notification_Table();
+                                        Promotion_Table promo = new Promotion_Table();
+                                        promo.Rest_id = restaurant.Rest_id;
+                                        promo.User_id = var.User_id;
+                                        promo.User_promotion_amount = coin / comfirm.Count;
+                                        custNoti.Noti_status = false;
+                                        custNoti.User_id = var.User_id;
+                                        custNoti.Noti_type = "customer";
+                                        custNoti.Notification = "Congratulation! You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                        pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
+                                        db.Notification_Table.Add(custNoti);
+                                        db.Promotion_Table.Add(promo);
+                                    }
+                                    noti.Notification = "Comfirmation completed! Special coins have been delivered to nearby customers.";
+                                    
                                 }
                                 restaurant.Rest_coin_purchased += coin;
                                 tran_record.Pending = true;

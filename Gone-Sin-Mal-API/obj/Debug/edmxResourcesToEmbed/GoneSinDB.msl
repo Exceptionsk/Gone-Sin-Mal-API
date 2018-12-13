@@ -25,6 +25,7 @@
     <EntitySetMapping Name="Package_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Package_Table">
         <MappingFragment StoreEntitySet="Package_Table">
+          <ScalarProperty Name="Coin_img" ColumnName="Coin_img" />
           <ScalarProperty Name="Myanpay_button_link" ColumnName="Myanpay_button_link" />
           <ScalarProperty Name="Package_coin_amount" ColumnName="Package_coin_amount" />
           <ScalarProperty Name="Package_type" ColumnName="Package_type" />
@@ -50,7 +51,6 @@
           <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
           <ScalarProperty Name="Rest_location" ColumnName="Rest_location" />
           <ScalarProperty Name="Rest_township" ColumnName="Rest_township" />
-          <ScalarProperty Name="Rest_myanpay_name" ColumnName="Rest_myanpay_name" />
           <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
           <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
           <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
@@ -82,6 +82,7 @@
     <EntitySetMapping Name="Transaction_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
         <MappingFragment StoreEntitySet="Transaction_Table">
+          <ScalarProperty Name="Package_id" ColumnName="Package_id" />
           <ScalarProperty Name="Tran_date" ColumnName="Tran_date" />
           <ScalarProperty Name="Pending" ColumnName="Pending" />
           <ScalarProperty Name="Tran_type" ColumnName="Tran_type" />

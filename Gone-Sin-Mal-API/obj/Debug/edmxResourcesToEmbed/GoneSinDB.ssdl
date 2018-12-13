@@ -27,6 +27,7 @@
     <Property Name="Package_type" Type="varchar" MaxLength="255" />
     <Property Name="Package_coin_amount" Type="bigint" />
     <Property Name="Myanpay_button_link" Type="varchar" MaxLength="255" />
+    <Property Name="Coin_img" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
@@ -55,7 +56,6 @@
     <Property Name="Rest_special_coin" Type="bigint" />
     <Property Name="Rest_email" Type="varchar" MaxLength="255" />
     <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" />
     <Property Name="Rest_township" Type="varchar" MaxLength="255" />
     <Property Name="Rest_location" Type="varchar" MaxLength="255" />
     <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
@@ -83,6 +83,7 @@
     <Property Name="Tran_type" Type="varchar" MaxLength="255" />
     <Property Name="Pending" Type="bit" />
     <Property Name="Tran_date" Type="date" />
+    <Property Name="Package_id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
@@ -181,6 +182,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Transaction_Table_Package_id">
+    <End Role="Package_Table" Type="Self.Package_Table" Multiplicity="1" />
+    <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package_Table">
+        <PropertyRef Name="Package_id" />
+      </Principal>
+      <Dependent Role="Transaction_Table">
+        <PropertyRef Name="Package_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Transaction_Table_User_id">
     <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
     <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
@@ -229,6 +242,10 @@
     <AssociationSet Name="FK_Promotion_Table_User_id" Association="Self.FK_Promotion_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Table_Package_id" Association="Self.FK_Transaction_Table_Package_id">
+      <End Role="Package_Table" EntitySet="Package_Table" />
+      <End Role="Transaction_Table" EntitySet="Transaction_Table" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Table_User_id" Association="Self.FK_Transaction_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />

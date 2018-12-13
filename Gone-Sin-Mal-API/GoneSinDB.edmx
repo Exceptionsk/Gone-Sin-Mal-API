@@ -32,6 +32,7 @@
           <Property Name="Package_type" Type="varchar" MaxLength="255" />
           <Property Name="Package_coin_amount" Type="bigint" />
           <Property Name="Myanpay_button_link" Type="varchar" MaxLength="255" />
+          <Property Name="Coin_img" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Promotion_Table">
           <Key>
@@ -60,7 +61,6 @@
           <Property Name="Rest_special_coin" Type="bigint" />
           <Property Name="Rest_email" Type="varchar" MaxLength="255" />
           <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
-          <Property Name="Rest_myanpay_name" Type="varchar" MaxLength="255" />
           <Property Name="Rest_township" Type="varchar" MaxLength="255" />
           <Property Name="Rest_location" Type="varchar" MaxLength="255" />
           <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
@@ -88,6 +88,7 @@
           <Property Name="Tran_type" Type="varchar" MaxLength="255" />
           <Property Name="Pending" Type="bit" />
           <Property Name="Tran_date" Type="date" />
+          <Property Name="Package_id" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Table">
           <Key>
@@ -186,6 +187,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Table_Package_id">
+          <End Role="Package_Table" Type="Self.Package_Table" Multiplicity="1" />
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package_Table">
+              <PropertyRef Name="Package_id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="Package_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Table_User_id">
           <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
           <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
@@ -235,6 +248,10 @@
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Promotion_Table" EntitySet="Promotion_Table" />
           </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_Package_id" Association="Self.FK_Transaction_Table_Package_id">
+            <End Role="Package_Table" EntitySet="Package_Table" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Table_User_id" Association="Self.FK_Transaction_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Transaction_Table" EntitySet="Transaction_Table" />
@@ -268,6 +285,10 @@
           <AssociationSet Name="FK_Notification_Table_User_id" Association="Gone_Sin_MalModel.FK_Notification_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Notification_Table" EntitySet="Notification_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_Package_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_Package_id">
+            <End Role="Package_Table" EntitySet="Package_Table" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
           </AssociationSet>
           <AssociationSet Name="FK_Promotion_Table_Rest_id" Association="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id">
             <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
@@ -317,6 +338,8 @@
           <Property Name="Package_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Package_coin_amount" Type="Int64" />
           <Property Name="Myanpay_button_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_Package_id" FromRole="Package_Table" ToRole="Transaction_Table" />
+          <Property Name="Coin_img" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Promotion_Table">
           <Key>
@@ -347,7 +370,6 @@
           <Property Name="Rest_special_coin" Type="Int64" />
           <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Rest_myanpay_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -378,7 +400,9 @@
           <Property Name="Tran_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Pending" Type="Boolean" />
           <Property Name="Tran_date" Type="DateTime" Precision="0" />
+          <Property Name="Package_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Transaction_Table" ToRole="Notification_Table" />
+          <NavigationProperty Name="Package_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_Package_id" FromRole="Transaction_Table" ToRole="Package_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
         </EntityType>
         <EntityType Name="User_Table">
@@ -444,6 +468,18 @@
             </Principal>
             <Dependent Role="Notification_Table">
               <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_Package_id">
+          <End Type="Gone_Sin_MalModel.Package_Table" Role="Package_Table" Multiplicity="1" />
+          <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package_Table">
+              <PropertyRef Name="Package_id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="Package_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -525,6 +561,7 @@
           <EntitySetMapping Name="Package_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Package_Table">
               <MappingFragment StoreEntitySet="Package_Table">
+                <ScalarProperty Name="Coin_img" ColumnName="Coin_img" />
                 <ScalarProperty Name="Myanpay_button_link" ColumnName="Myanpay_button_link" />
                 <ScalarProperty Name="Package_coin_amount" ColumnName="Package_coin_amount" />
                 <ScalarProperty Name="Package_type" ColumnName="Package_type" />
@@ -550,7 +587,6 @@
                 <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
                 <ScalarProperty Name="Rest_location" ColumnName="Rest_location" />
                 <ScalarProperty Name="Rest_township" ColumnName="Rest_township" />
-                <ScalarProperty Name="Rest_myanpay_name" ColumnName="Rest_myanpay_name" />
                 <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
                 <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
                 <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
@@ -582,6 +618,7 @@
           <EntitySetMapping Name="Transaction_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Transaction_Table">
               <MappingFragment StoreEntitySet="Transaction_Table">
+                <ScalarProperty Name="Package_id" ColumnName="Package_id" />
                 <ScalarProperty Name="Tran_date" ColumnName="Tran_date" />
                 <ScalarProperty Name="Pending" ColumnName="Pending" />
                 <ScalarProperty Name="Tran_type" ColumnName="Tran_type" />

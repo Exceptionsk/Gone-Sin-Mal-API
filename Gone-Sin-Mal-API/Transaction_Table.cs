@@ -26,9 +26,11 @@ namespace Gone_Sin_Mal_API
         public string Tran_type { get; set; }
         public Nullable<bool> Pending { get; set; }
         public Nullable<System.DateTime> Tran_date { get; set; }
+        public long Package_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification_Table> Notification_Table { get; set; }
+        public virtual Package_Table Package_Table { get; set; }
         public virtual User_Table User_Table { get; set; }
     }
 }

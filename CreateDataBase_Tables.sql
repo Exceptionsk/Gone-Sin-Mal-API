@@ -82,6 +82,7 @@ Package_id  bigint  IDENTITY(1,1) not null,
 Package_type varchar(255) ,
 Package_coin_amount bigint ,
 Myanpay_button_link varchar(255) ,
+Coin_img varbinary(MAX) ,
 
 CONSTRAINT PK_Package_Table
 PRIMARY KEY (Package_id)
@@ -108,7 +109,7 @@ CONSTRAINT PK_Promotion_Table_ComposivePK
 PRIMARY KEY (User_id,Rest_id)
 )
 
-
+select* from Promotion_Table
 --Transaction Table--
 CREATE TABLE Transaction_Table(
 ID bigint IDENTITY(1,1) not null,
@@ -117,10 +118,15 @@ Tran_id bigint,
 Tran_type varchar(255),
 Pending bit,
 Tran_date date,
+Package_id  bigint not null,
 
 CONSTRAINT FK_Transaction_Table_User_id
 FOREIGN KEY(User_id)
 REFERENCES User_Table(User_id),
+
+CONSTRAINT FK_Transaction_Table_Package_id
+FOREIGN KEY(Package_id)
+REFERENCES Package_Table(Package_id),
 
 CONSTRAINT PK_Transaction_Table
 PRIMARY KEY (ID)
@@ -156,6 +162,15 @@ PRIMARY KEY (Noti_id)
 
 select* from User_Table
 
+UPDATE User_Table
+SET User_township='mingalardon'
+WHERE User_id='1106122069563593';
+
+UPDATE Restaurant_Table
+SET Rest_township='mingalardon'
+WHERE User_id='1106122069563593';
+
+
 delete from User_Table
 
 select* from Restaurant_Table
@@ -180,28 +195,42 @@ delete from Notification_Table
 select* from Notification_Table
 
 select* from Package_Table
+delete from Package_Table
 
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('normal','1000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('normal','2000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('normal','3000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('normal','4000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('normal','5000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'normal' as Package_type,'1000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\silver.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'normal' as Package_type,'2000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\silver.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'normal' as Package_type,'3000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\silver.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'normal' as Package_type,'4000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\silver.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'normal' as Package_type,'5000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\silver.png', Single_Blob) as Coin_img
 
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('special','10000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('special','20000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('special','30000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('special','40000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
-INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link)
-VALUES('special','50000','https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30')
+
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'special' as Package_type,'10000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\gold.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'special' as Package_type,'20000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\gold.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'special' as Package_type,'30000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\gold.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'special' as Package_type,'40000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\gold.png', Single_Blob) as Coin_img
+INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
+SELECT 'special' as Package_type,'50000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
+FROM Openrowset( Bulk N'D:\UOG\gold.png', Single_Blob) as Coin_img
+
+
 
 select * from System_Table
 

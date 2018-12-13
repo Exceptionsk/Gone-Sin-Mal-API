@@ -14,9 +14,19 @@ namespace Gone_Sin_Mal_API
     
     public partial class Package_Table
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Package_Table()
+        {
+            this.Transaction_Table = new HashSet<Transaction_Table>();
+        }
+    
         public long Package_id { get; set; }
         public string Package_type { get; set; }
         public Nullable<long> Package_coin_amount { get; set; }
         public string Myanpay_button_link { get; set; }
+        public byte[] Coin_img { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction_Table> Transaction_Table { get; set; }
     }
 }

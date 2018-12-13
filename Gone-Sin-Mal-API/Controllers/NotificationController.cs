@@ -25,6 +25,24 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/notification/{id}")]
         public IHttpActionResult Noti(long id, string type="customer", long transactionID=0)
         {
+            if (type == "restaurant")
+            {
+                return Ok((from n in db.Notification_Table
+                           join t in db.Transaction_Table
+                           on n.ID equals t.ID
+                           join p in db.Package_Table
+                           on t.Package_id equals p.Package_id
+                           select new
+                           {
+                               n.ID,
+                               n.Noti_id,
+                               n.Noti_type,
+                               n.Noti_status,
+                               n.Notification,
+                               p.Package_coin_amount,
+                               t.Tran_type
+                           }).OrderByDescending(s => s.Noti_id));
+            }
             if (transactionID==0)
             {
                 return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
@@ -32,7 +50,8 @@ namespace Gone_Sin_Mal_API.Controllers
             }
             else
             {
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID==transactionID).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
+               
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
             }
                       
         }
