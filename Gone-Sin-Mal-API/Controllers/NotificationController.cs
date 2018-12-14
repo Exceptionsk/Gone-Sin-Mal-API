@@ -32,6 +32,7 @@ namespace Gone_Sin_Mal_API.Controllers
                            on n.ID equals t.ID
                            join p in db.Package_Table
                            on t.Package_id equals p.Package_id
+                           where n.User_id==id
                            select new
                            {
                                n.ID,

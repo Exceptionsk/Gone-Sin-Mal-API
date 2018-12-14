@@ -175,7 +175,7 @@ namespace Gone_Sin_Mal_API.Controllers
                     rest.Rest_coin = rest.Rest_coin - transaction.Amount;
                     user.User_available_coin = user.User_available_coin + transaction.Amount;
                     noti.Notification = "You have gained" + transaction.Amount + "from" + rest.Rest_name + ". Please keep that in mind that these points are only valid before the expire date.";
-                    noti.Noti_type = "cointran";
+                    noti.Noti_type = "customer";
                     pushnoti.pushNoti(user.User_noti_token, "Coin Gained", noti.Notification);
                 }
             }

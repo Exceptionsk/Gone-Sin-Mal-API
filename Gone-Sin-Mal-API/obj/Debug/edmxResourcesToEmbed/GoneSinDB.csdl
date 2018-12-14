@@ -77,8 +77,8 @@
     <Property Name="Package_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Package_coin_amount" Type="Int64" />
     <Property Name="Myanpay_button_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_Package_id" FromRole="Package_Table" ToRole="Transaction_Table" />
     <Property Name="Coin_img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_Package_id" FromRole="Package_Table" ToRole="Transaction_Table" />
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
