@@ -39,6 +39,7 @@
           <ScalarProperty Name="User_promotion_amount" ColumnName="User_promotion_amount" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

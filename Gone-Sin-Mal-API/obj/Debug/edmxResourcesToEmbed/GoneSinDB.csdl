@@ -82,9 +82,9 @@
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
-      <PropertyRef Name="Rest_id" />
-      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Rest_id" Type="Int64" Nullable="false" />
     <Property Name="User_id" Type="Int64" Nullable="false" />
     <Property Name="User_promotion_amount" Type="Int32" />

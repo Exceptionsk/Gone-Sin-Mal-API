@@ -31,9 +31,9 @@
   </EntityType>
   <EntityType Name="Promotion_Table">
     <Key>
-      <PropertyRef Name="Rest_id" />
-      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Rest_id" Type="bigint" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
     <Property Name="User_promotion_amount" Type="int" />

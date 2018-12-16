@@ -36,9 +36,9 @@
         </EntityType>
         <EntityType Name="Promotion_Table">
           <Key>
-            <PropertyRef Name="Rest_id" />
-            <PropertyRef Name="User_id" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rest_id" Type="bigint" Nullable="false" />
           <Property Name="User_id" Type="bigint" Nullable="false" />
           <Property Name="User_promotion_amount" Type="int" />
@@ -343,9 +343,9 @@
         </EntityType>
         <EntityType Name="Promotion_Table">
           <Key>
-            <PropertyRef Name="Rest_id" />
-            <PropertyRef Name="User_id" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rest_id" Type="Int64" Nullable="false" />
           <Property Name="User_id" Type="Int64" Nullable="false" />
           <Property Name="User_promotion_amount" Type="Int32" />
@@ -575,6 +575,7 @@
                 <ScalarProperty Name="User_promotion_amount" ColumnName="User_promotion_amount" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

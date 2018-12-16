@@ -34,23 +34,52 @@ namespace Gone_Sin_Mal_API.Controllers
         [ResponseType(typeof(Restaurant_Table))]
         public IHttpActionResult GetRestaurantByUserID(string id, bool profile)
         {
-            Restaurant_Table restaurant_Table;
-
             if (profile)
             {
-                restaurant_Table  = db.Restaurant_Table.Where(r => r.User_id.ToString().Equals(id)).FirstOrDefault();
+               var restaurant_Table = (from r in db.Restaurant_Table
+                                   where r.User_id.ToString().Equals(id)
+                                   select new {
+                                       r.Rest_id,
+                                       r.Rest_name,
+                                       r.Rest_category,
+                                       r.Rest_coin,
+                                       r.Rest_email,
+                                       r.Rest_location,
+                                       r.Rest_phno,
+                                       r.Rest_township,                                  
+                                   }).FirstOrDefault();
+
+                if (restaurant_Table == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(restaurant_Table);
             }
             else
             {
-                restaurant_Table = db.Restaurant_Table.Where(r => r.Rest_id.ToString().Equals(id)).FirstOrDefault();
+                var restaurant_Table = (from r in db.Restaurant_Table
+                                        where r.Rest_id.ToString().Equals(id)
+                                        select new
+                                        {
+                                            r.Rest_id,
+                                            r.Rest_name,
+                                            r.Rest_category,
+                                            r.Rest_coin,
+                                            r.Rest_email,
+                                            r.Rest_location,
+                                            r.Rest_phno,
+                                            r.Rest_township,                                         
+                                        }).FirstOrDefault();
+                if (restaurant_Table == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(restaurant_Table);
             }
 
-            if (restaurant_Table == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(restaurant_Table);
+           
         }
         [Route("api/restaurant/search")]
         public IHttpActionResult GetUserByName(string name)

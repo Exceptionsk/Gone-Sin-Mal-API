@@ -188,9 +188,11 @@ namespace Gone_Sin_Mal_API.Controllers
                                 db.Entry(tran_record).State = EntityState.Modified;
                                 db.Entry(restaurant).State = EntityState.Modified;
                                 db.Notification_Table.Add(noti);
+                                Notification_Table del_noti = db.Notification_Table.Where(n => n.ID == comfirm.ID).FirstOrDefault();
+                                db.Notification_Table.Remove(del_noti);
                                 db.SaveChanges();
                                 User_Table user = db.User_Table.Find(comfirm.Rest_id);
-                                pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);
+                                pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);                            
                                 return Ok("Success");
                             }
                             else

@@ -93,6 +93,7 @@ PRIMARY KEY (Package_id)
 
 --Promotion Table--
 CREATE TABLE Promotion_Table(
+Id bigint IDENTITY(1,1) not null,
 Rest_id bigint not null,
 User_id bigint not null,
 User_promotion_amount int default 0,
@@ -105,8 +106,8 @@ CONSTRAINT FK_Promotion_Table_Rest_id
 FOREIGN KEY(Rest_id)
 REFERENCES Restaurant_Table(Rest_id),
 
-CONSTRAINT PK_Promotion_Table_ComposivePK
-PRIMARY KEY (User_id,Rest_id)
+CONSTRAINT PK_Promotion_Table_PK
+PRIMARY KEY (Id)
 )
 
 select* from Promotion_Table
@@ -206,36 +207,36 @@ delete from Package_Table
 
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'1000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\NormalCoin300.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\NormalCoin300.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'2000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\NormalCoin500.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\NormalCoin500.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'3000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\NormalCoin1000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\NormalCoin1000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'4000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\NormalCoin5000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\NormalCoin5000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'5000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\NormalCoin10000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\NormalCoin10000.png', Single_Blob) as Coin_img
 
 
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'special' as Package_type,'10000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\SpecialCoin10000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin10000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'special' as Package_type,'20000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\SpecialCoin20000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin20000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'special' as Package_type,'30000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\SpecialCoin30000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin30000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'special' as Package_type,'40000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\SpecialCoin40000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin40000.png', Single_Blob) as Coin_img
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'special' as Package_type,'50000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
-FROM Openrowset( Bulk N'E:\UOG\GroupProject\Other\Vue_Native\Gone-Sin-Mal-API\coins\SpecialCoin50000.png', Single_Blob) as Coin_img
+FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin50000.png', Single_Blob) as Coin_img
 
 
 

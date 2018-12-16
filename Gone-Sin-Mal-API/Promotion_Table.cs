@@ -14,6 +14,7 @@ namespace Gone_Sin_Mal_API
     
     public partial class Promotion_Table
     {
+        public long Id { get; set; }
         public long Rest_id { get; set; }
         public long User_id { get; set; }
         public Nullable<int> User_promotion_amount { get; set; }
