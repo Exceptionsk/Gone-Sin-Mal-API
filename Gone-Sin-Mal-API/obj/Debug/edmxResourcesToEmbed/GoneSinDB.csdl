@@ -68,6 +68,7 @@
     <Property Name="ID" Type="Int64" />
     <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
+    <Property Name="Noti_text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Package_Table">
     <Key>

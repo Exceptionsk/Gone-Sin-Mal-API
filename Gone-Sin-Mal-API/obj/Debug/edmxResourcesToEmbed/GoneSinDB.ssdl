@@ -15,6 +15,7 @@
     <Property Name="Noti_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
     <Property Name="Noti_type" Type="varchar" MaxLength="255" />
+    <Property Name="Noti_text" Type="varchar" MaxLength="255" />
     <Property Name="Notification" Type="varchar" MaxLength="255" />
     <Property Name="Noti_status" Type="bit" />
     <Property Name="ID" Type="bigint" />

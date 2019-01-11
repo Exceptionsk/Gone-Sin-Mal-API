@@ -37,6 +37,7 @@ namespace Gone_Sin_Mal_API.Controllers
                            {
                                n.ID,
                                n.Noti_id,
+                               n.Noti_text,
                                n.Noti_type,
                                n.Noti_status,
                                n.Notification,
@@ -46,13 +47,13 @@ namespace Gone_Sin_Mal_API.Controllers
             }
             if (transactionID==0)
             {
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_text, s.Noti_status, s.Notification }));
 
             }
             else
             {
                
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_id, s.Noti_status, s.Notification }));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_text, s.Noti_id, s.Noti_status, s.Notification }));
             }
                       
         }

@@ -36,7 +36,15 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/Favorite/all")]
         public IHttpActionResult GetFavoriteByUser(long User_id)
         {
-            var favorite_Table = db.Favorite_Table.Where(f => f.User_id == User_id );
+            var favorite_Table = (from f in db.Favorite_Table
+                                  join r in db.Restaurant_Table
+                                  on f.Rest_id equals r.Rest_id
+                                  where f.User_id == User_id
+                                  select new {
+                                      f.Rest_id,
+                                      r.Rest_name,
+                                      r.Rest_category
+                                  });
             if (favorite_Table == null)
             {
                 return Ok("null");

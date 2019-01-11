@@ -139,6 +139,7 @@ CREATE TABLE Notification_Table(
 Noti_id bigint  IDENTITY(1,1) not null,
 User_id bigint not null,
 Noti_type varchar (255) ,
+Noti_text varchar (255),
 Notification varchar (255) ,
 Noti_status bit ,
 ID bigint,
@@ -183,7 +184,7 @@ select* from Restaurant_Table where Rest_name = 'Dguii'
 delete from Promotion_Table
 
 select * from Promotion_Table
-
+delete from Favorite_Table
 delete from Restaurant_Table
 
 INSERT INTO Notification_Table(User_id, Notification)
@@ -244,3 +245,8 @@ select * from System_Table
 
 insert into System_Table(Masterkey,Expired_coins,Sold_coins,Sold_special_coins)
 values('12345',10,40,50)
+
+
+select* from Restaurant_Table left join Favorite_Table on Restaurant_Table.Rest_id=Favorite_Table.Rest_id
+
+select* from Favorite_Table

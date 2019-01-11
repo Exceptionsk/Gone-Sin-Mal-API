@@ -20,6 +20,7 @@ namespace Gone_Sin_Mal_API
         public string Notification { get; set; }
         public Nullable<bool> Noti_status { get; set; }
         public Nullable<long> ID { get; set; }
+        public string Noti_text { get; set; }
     
         public virtual Transaction_Table Transaction_Table { get; set; }
         public virtual User_Table User_Table { get; set; }

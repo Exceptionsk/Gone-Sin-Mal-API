@@ -46,6 +46,7 @@ namespace Gone_Sin_Mal_API.Controllers
             PushNotification pushnoti = new PushNotification();
             User_Table user = new User_Table();
             user = db.User_Table.Find(transaction.User_id);
+            noti.Noti_text = "Comfirmation Required!";
             noti.Notification = "Please send the transaction ID from Myan Pay email to receive Coin bought.";
             noti.Noti_type = "restaurant";
             noti.Noti_status = false;
@@ -145,8 +146,9 @@ namespace Gone_Sin_Mal_API.Controllers
                                
                                 if (tran_record.Tran_type == "normal")
                                 {
-                                    restaurant.Rest_coin = restaurant.Rest_coin + coin;                                   
-                                    noti.Notification = "Comfirmation completed! " + coin + " coins have been delivered to you.";
+                                    restaurant.Rest_coin = restaurant.Rest_coin + coin;
+                                    noti.Noti_text = "Comfirmation completed!";
+                                    noti.Notification = coin + " coins have been delivered to your balance.";
                                 }
                                 else if (tran_record.Tran_type == "special")
                                 {
@@ -172,24 +174,27 @@ namespace Gone_Sin_Mal_API.Controllers
                                         custNoti.Noti_status = false;
                                         custNoti.User_id = var.User_id;
                                         custNoti.Noti_type = "customer";
-                                        custNoti.Notification = "Congratulation! You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                        custNoti.Noti_text = "Congratulation!";
+                                        custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
                                         pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
                                         db.Notification_Table.Add(custNoti);
                                         db.Promotion_Table.Add(promo);
                                     }
-                                    noti.Notification = "Comfirmation completed! Special coins have been delivered to nearby customers.";
+                                    noti.Noti_text = "Comfirmation completed!";
+                                    noti.Notification = "Special coins have been delivered to nearby customers.";
                                     
                                 }
                                 restaurant.Rest_coin_purchased += coin;
                                 tran_record.Pending = true;
                                 noti.Noti_status = false;
                                 noti.User_id = comfirm.Rest_id;
+                                noti.ID = comfirm.ID;
                                 noti.Noti_type = "restaurant";
                                 db.Entry(tran_record).State = EntityState.Modified;
-                                db.Entry(restaurant).State = EntityState.Modified;
-                                db.Notification_Table.Add(noti);
+                                db.Entry(restaurant).State = EntityState.Modified;                              
                                 Notification_Table del_noti = db.Notification_Table.Where(n => n.ID == comfirm.ID).FirstOrDefault();
                                 db.Notification_Table.Remove(del_noti);
+                                db.Notification_Table.Add(noti);
                                 db.SaveChanges();
                                 User_Table user = db.User_Table.Find(comfirm.Rest_id);
                                 pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);                            

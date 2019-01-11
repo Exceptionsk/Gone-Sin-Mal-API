@@ -84,7 +84,14 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/restaurant/search")]
         public IHttpActionResult GetUserByName(string name)
         {
-            var restaurant = db.Restaurant_Table.Where(r => r.Rest_name.ToLower().Contains(name.ToLower()));
+            var restaurant = (from r in db.Restaurant_Table
+                              where r.Rest_name.ToLower().Contains(name.ToLower())
+                              select new
+                              {
+                                  r.Rest_id,
+                                  r.Rest_category,
+                                  r.Rest_name
+                              });
             if (restaurant == null)
             {
                 return NotFound();
@@ -217,17 +224,37 @@ namespace Gone_Sin_Mal_API.Controllers
         }
 
 
-        [Route("api/resturant/profile_pic/{id:long}")]
-        public HttpResponseMessage GetImage(long id)
+        [Route("api/resturant/pic")]
+        public HttpResponseMessage GetImage(long id, long gallery=0)
         {
             try
             {
                 Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
                 var data = from i in db.Restaurant_Table
                            where i.Rest_id == id
-                           select i;
+                           select i;                           
                 Restaurant_Table team = (Restaurant_Table)data.SingleOrDefault();
-                byte[] imgData = team.Rest_profile_picture;
+                byte[] imgData = null;
+                if (gallery == 0)
+                {
+                    imgData = team.Rest_profile_picture;
+                }
+                else if (gallery == 1)
+                {
+                    imgData = team.Rest_gallery_1;
+                }
+                else if (gallery == 2)
+                {
+                    imgData = team.Rest_gallery_2;
+                }
+                else if (gallery == 3)
+                {
+                    imgData = team.Rest_gallery_3;
+                }
+                else
+                {
+                    imgData = team.Rest_gallery_4;
+                }
                 MemoryStream ms = new MemoryStream(imgData);
                 HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StreamContent(ms);
@@ -240,8 +267,8 @@ namespace Gone_Sin_Mal_API.Controllers
             }
 
         }
-        [Route("api/resturant/profile_pic/{id:long}")]
-        public Task<IEnumerable<string>> Img(long id)
+        [Route("api/resturant/pic")]
+        public Task<IEnumerable<string>> Img(long id, long gallery=0)
         {
             if (Request.Content.IsMimeMultipartContent())
             {
@@ -257,7 +284,24 @@ namespace Gone_Sin_Mal_API.Controllers
                         Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
                         byte[] img = File.ReadAllBytes(info.FullName);
                         var team = db.Restaurant_Table.FirstOrDefault(e => e.Rest_id == id);
-                        team.Rest_profile_picture = img;
+                        if (gallery == 0)
+                        {
+                            team.Rest_profile_picture = img;
+                        }else if (gallery == 1)
+                        {
+                            team.Rest_gallery_1 = img;
+                        }else if (gallery == 2)
+                        {
+                            team.Rest_gallery_2 = img;
+                        }else if (gallery ==3)
+                        {
+                            team.Rest_gallery_3 = img;
+                        }
+                        else
+                        {
+                            team.Rest_gallery_4 = img;
+                        }
+                        db.Entry(team).State = EntityState.Modified;
                         db.SaveChanges();
                         return "File uploaded successfully!";
                     });

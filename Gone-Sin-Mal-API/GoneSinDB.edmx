@@ -20,6 +20,7 @@
           <Property Name="Noti_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_id" Type="bigint" Nullable="false" />
           <Property Name="Noti_type" Type="varchar" MaxLength="255" />
+          <Property Name="Noti_text" Type="varchar" MaxLength="255" />
           <Property Name="Notification" Type="varchar" MaxLength="255" />
           <Property Name="Noti_status" Type="bit" />
           <Property Name="ID" Type="bigint" />
@@ -329,6 +330,7 @@
           <Property Name="ID" Type="Int64" />
           <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
+          <Property Name="Noti_text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Package_Table">
           <Key>
@@ -549,6 +551,7 @@
           <EntitySetMapping Name="Notification_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
               <MappingFragment StoreEntitySet="Notification_Table">
+                <ScalarProperty Name="Noti_text" ColumnName="Noti_text" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
                 <ScalarProperty Name="Notification" ColumnName="Notification" />
