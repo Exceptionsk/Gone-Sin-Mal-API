@@ -39,6 +39,14 @@
     <Property Name="User_id" Type="bigint" Nullable="false" />
     <Property Name="User_promotion_amount" Type="int" />
   </EntityType>
+  <EntityType Name="Refund_Table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Amount" Type="varchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="Restaurant_Table">
     <Key>
       <PropertyRef Name="Rest_id" />
@@ -183,6 +191,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Refund_Table_User_id">
+    <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+    <End Role="Refund_Table" Type="Self.Refund_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Refund_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Transaction_Table_Package_id">
     <End Role="Package_Table" Type="Self.Package_Table" Multiplicity="1" />
     <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
@@ -212,6 +232,7 @@
     <EntitySet Name="Notification_Table" EntityType="Self.Notification_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Package_Table" EntityType="Self.Package_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Promotion_Table" EntityType="Self.Promotion_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Refund_Table" EntityType="Self.Refund_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
@@ -243,6 +264,10 @@
     <AssociationSet Name="FK_Promotion_Table_User_id" Association="Self.FK_Promotion_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Refund_Table_User_id" Association="Self.FK_Refund_Table_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Refund_Table" EntitySet="Refund_Table" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Table_Package_id" Association="Self.FK_Transaction_Table_Package_id">
       <End Role="Package_Table" EntitySet="Package_Table" />

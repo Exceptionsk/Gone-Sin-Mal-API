@@ -44,6 +44,14 @@
           <Property Name="User_id" Type="bigint" Nullable="false" />
           <Property Name="User_promotion_amount" Type="int" />
         </EntityType>
+        <EntityType Name="Refund_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="bigint" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Restaurant_Table">
           <Key>
             <PropertyRef Name="Rest_id" />
@@ -188,6 +196,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Refund_Table_User_id">
+          <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+          <End Role="Refund_Table" Type="Self.Refund_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Refund_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Table_Package_id">
           <End Role="Package_Table" Type="Self.Package_Table" Multiplicity="1" />
           <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
@@ -217,6 +237,7 @@
           <EntitySet Name="Notification_Table" EntityType="Self.Notification_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Package_Table" EntityType="Self.Package_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion_Table" EntityType="Self.Promotion_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Refund_Table" EntityType="Self.Refund_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
@@ -248,6 +269,10 @@
           <AssociationSet Name="FK_Promotion_Table_User_id" Association="Self.FK_Promotion_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Promotion_Table" EntitySet="Promotion_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Refund_Table_User_id" Association="Self.FK_Refund_Table_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Refund_Table" EntitySet="Refund_Table" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Table_Package_id" Association="Self.FK_Transaction_Table_Package_id">
             <End Role="Package_Table" EntitySet="Package_Table" />
@@ -306,6 +331,11 @@
           <AssociationSet Name="FK_Transaction_Table_User_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id">
             <End Role="User_Table" EntitySet="User_Table" />
             <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <EntitySet Name="Refund_Table" EntityType="Gone_Sin_MalModel.Refund_Table" />
+          <AssociationSet Name="FK_Refund_Table_User_id" Association="Gone_Sin_MalModel.FK_Refund_Table_User_id">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Refund_Table" EntitySet="Refund_Table" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Favorite_Table">
@@ -424,6 +454,7 @@
           <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="User_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
           <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="User_Table" ToRole="Transaction_Table" />
+          <NavigationProperty Name="Refund_Table" Relationship="Gone_Sin_MalModel.FK_Refund_Table_User_id" FromRole="User_Table" ToRole="Refund_Table" />
         </EntityType>
         <Association Name="FK__Fav_Table_User_id">
           <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
@@ -529,6 +560,27 @@
               <PropertyRef Name="User_id" />
             </Principal>
             <Dependent Role="Transaction_Table">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Refund_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Refund_Table_User_id" FromRole="Refund_Table" ToRole="User_Table" />
+        </EntityType>
+        <Association Name="FK_Refund_Table_User_id">
+          <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
+          <End Type="Gone_Sin_MalModel.Refund_Table" Role="Refund_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Refund_Table">
               <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -643,6 +695,15 @@
                 <ScalarProperty Name="User_noti_token" ColumnName="User_noti_token" />
                 <ScalarProperty Name="User_name" ColumnName="User_name" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Refund_Table">
+            <EntityTypeMapping TypeName="Gone_Sin_MalModel.Refund_Table">
+              <MappingFragment StoreEntitySet="Refund_Table">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

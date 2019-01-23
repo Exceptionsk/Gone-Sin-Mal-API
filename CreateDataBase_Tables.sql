@@ -158,6 +158,19 @@ PRIMARY KEY (Noti_id)
 )
 
 
+--Refund Table--
+CREATE TABLE Refund_Table(
+ID bigint  IDENTITY(1,1) not null,
+User_id bigint not null,
+Amount varchar (255) ,
+
+CONSTRAINT FK_Refund_Table_User_id
+FOREIGN KEY(User_id)
+REFERENCES User_Table(User_id),
+
+CONSTRAINT PK_Refund_Table
+PRIMARY KEY (ID)
+)
 
 
 
@@ -242,9 +255,10 @@ FROM Openrowset( Bulk N'D:\UOG\Group Project\Gone-Sin-Mal-API\coins\SpecialCoin5
 
 
 select * from System_Table
+delete from System_Table
 
 insert into System_Table(Masterkey,Expired_coins,Sold_coins,Sold_special_coins)
-values('12345',10,40,50)
+values('12345',0,0,0)
 
 
 select* from Restaurant_Table left join Favorite_Table on Restaurant_Table.Rest_id=Favorite_Table.Rest_id

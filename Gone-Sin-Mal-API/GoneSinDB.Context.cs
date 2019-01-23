@@ -33,5 +33,6 @@ namespace Gone_Sin_Mal_API
         public virtual DbSet<System_Table> System_Table { get; set; }
         public virtual DbSet<Transaction_Table> Transaction_Table { get; set; }
         public virtual DbSet<User_Table> User_Table { get; set; }
+        public virtual DbSet<Refund_Table> Refund_Table { get; set; }
     }
 }

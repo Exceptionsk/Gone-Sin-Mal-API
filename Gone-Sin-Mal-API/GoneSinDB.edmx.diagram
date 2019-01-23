@@ -22,6 +22,8 @@
         <AssociationConnector Association="Gone_Sin_MalModel.FK_Promotion_Table_User_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK__Restaurant_User_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Refund_Table" Width="1.5" PointX="3" PointY="13" />
+        <AssociationConnector Association="Gone_Sin_MalModel.FK_Refund_Table_User_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

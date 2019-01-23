@@ -22,6 +22,7 @@ namespace Gone_Sin_Mal_API
             this.Promotion_Table = new HashSet<Promotion_Table>();
             this.Restaurant_Table = new HashSet<Restaurant_Table>();
             this.Transaction_Table = new HashSet<Transaction_Table>();
+            this.Refund_Table = new HashSet<Refund_Table>();
         }
     
         public long User_id { get; set; }
@@ -43,5 +44,7 @@ namespace Gone_Sin_Mal_API
         public virtual ICollection<Restaurant_Table> Restaurant_Table { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction_Table> Transaction_Table { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Refund_Table> Refund_Table { get; set; }
     }
 }
