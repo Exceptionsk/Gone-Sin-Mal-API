@@ -45,7 +45,8 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="User_id" Type="bigint" Nullable="false" />
-    <Property Name="Amount" Type="varchar" MaxLength="255" />
+    <Property Name="Amount" Type="bigint" />
+    <Property Name="Myan_pay" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Restaurant_Table">
     <Key>

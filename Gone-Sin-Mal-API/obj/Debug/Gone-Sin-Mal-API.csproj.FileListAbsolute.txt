@@ -167,6 +167,6 @@ D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.Dependen
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.WindowsServer.xml
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\bin\Microsoft.AI.Web.xml
-D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.csprojResolveAssemblyReference.cache
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.dll
 D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.pdb
+D:\UOG\Group Project\Gone-Sin-Mal-API\Gone-Sin-Mal-API\obj\Debug\Gone-Sin-Mal-API.csprojResolveAssemblyReference.cache

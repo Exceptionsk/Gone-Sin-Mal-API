@@ -143,15 +143,17 @@ namespace Gone_Sin_Mal_API.Controllers
                                 var coin =email.Amount / 100;
                                 var noti = new Notification_Table();
                                 PushNotification pushnoti = new PushNotification();
-                               
+                                System_Table system = db.System_Table.FirstOrDefault();
                                 if (tran_record.Tran_type == "normal")
                                 {
                                     restaurant.Rest_coin = restaurant.Rest_coin + coin;
                                     noti.Noti_text = "Comfirmation completed!";
                                     noti.Notification = coin + " coins have been delivered to your balance.";
+                                    system.Sold_coins += coin;
                                 }
                                 else if (tran_record.Tran_type == "special")
                                 {
+                                    system.Sold_special_coins += coin;
                                     restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
                                     var nearbyuser = db.User_Table.Where(u => u.User_township.Equals(restaurant.Rest_township)).OrderBy(o=> Guid.NewGuid()).Take(comfirm.Count);
                                     //if (nearbyuser.Count() <= 0)
@@ -191,7 +193,8 @@ namespace Gone_Sin_Mal_API.Controllers
                                 noti.ID = comfirm.ID;
                                 noti.Noti_type = "restaurant";
                                 db.Entry(tran_record).State = EntityState.Modified;
-                                db.Entry(restaurant).State = EntityState.Modified;                              
+                                db.Entry(restaurant).State = EntityState.Modified;
+                                db.Entry(system).State = EntityState.Modified;
                                 Notification_Table del_noti = db.Notification_Table.Where(n => n.ID == comfirm.ID).FirstOrDefault();
                                 db.Notification_Table.Remove(del_noti);
                                 db.Notification_Table.Add(noti);

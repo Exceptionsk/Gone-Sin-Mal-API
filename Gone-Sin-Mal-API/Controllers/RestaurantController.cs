@@ -124,41 +124,75 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(restaurants);
         }
-
-        // PUT: api/Restaurant/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutRestaurant_Table(long id, Restaurant_Table restaurant_Table)
+        [HttpPut]
+        [Route("api/updatephone")]
+        public IHttpActionResult putPhone(long id, String phone)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != restaurant_Table.Rest_id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(restaurant_Table).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Restaurant_TableExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            Restaurant_Table r = new Restaurant_Table();
+            r = db.Restaurant_Table.Find(id);
+            r.Rest_phno = phone;
+            db.Entry(r).State = EntityState.Modified;
+            db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        [HttpPut]
+        [Route("api/updateemail")]
+        public IHttpActionResult putEmail(long id, String email)
+        {
+            Restaurant_Table r = new Restaurant_Table();
+            r = db.Restaurant_Table.Find(id);
+            r.Rest_email = email;
+            db.Entry(r).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        //// PUT: api/Restaurant/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutRestaurant_Table(long id, Restaurant_Table restaurant_Table)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (id != restaurant_Table.Rest_id)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    Restaurant_Table r = new Restaurant_Table();
+        //    r = db.Restaurant_Table.Find(id);
+        //    if (restaurant_Table.Rest_phno == "")
+        //    {          
+        //        r.Rest_email = restaurant_Table.Rest_email;
+        //    }else if (restaurant_Table.Rest_email == "")
+        //    {
+        //        r.Rest_phno = restaurant_Table.Rest_phno;
+        //    }
+
+        //    db.Entry(r).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!Restaurant_TableExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Restaurant
         [ResponseType(typeof(Restaurant_Table))]
@@ -174,7 +208,7 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(restaurant_Table);
         }
-        [Route("api/resturant/qr")]
+        [Route("api/restaurant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
             Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.Rest_id).FirstOrDefault();
@@ -223,8 +257,8 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok("OK");
         }
 
-
-        [Route("api/resturant/pic")]
+        [HttpGet]
+        [Route("api/restaurant/pic")]
         public HttpResponseMessage GetImage(long id, long gallery=0)
         {
             try
@@ -235,6 +269,7 @@ namespace Gone_Sin_Mal_API.Controllers
                            select i;                           
                 Restaurant_Table team = (Restaurant_Table)data.SingleOrDefault();
                 byte[] imgData = null;
+
                 if (gallery == 0)
                 {
                     imgData = team.Rest_profile_picture;
@@ -267,7 +302,8 @@ namespace Gone_Sin_Mal_API.Controllers
             }
 
         }
-        [Route("api/resturant/pic")]
+        [HttpPost]
+        [Route("api/restaurant/pic")]
         public Task<IEnumerable<string>> Img(long id, long gallery=0)
         {
             if (Request.Content.IsMimeMultipartContent())

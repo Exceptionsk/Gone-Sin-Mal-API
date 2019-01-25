@@ -16,7 +16,8 @@ namespace Gone_Sin_Mal_API
     {
         public long ID { get; set; }
         public long User_id { get; set; }
-        public string Amount { get; set; }
+        public Nullable<long> Amount { get; set; }
+        public string Myan_pay { get; set; }
     
         public virtual User_Table User_Table { get; set; }
     }

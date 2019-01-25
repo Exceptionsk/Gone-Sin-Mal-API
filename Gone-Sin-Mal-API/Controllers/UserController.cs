@@ -149,18 +149,21 @@ namespace Gone_Sin_Mal_API.Controllers
             User_Table user = db.User_Table.Find(user_Table.User_id);
             if (User_TableExists(user_Table.User_id)==false)
             {
-                user_Table.User_type = "customer";
+                user_Table.User_type = "new";
                 db.User_Table.Add(user_Table);
             }
             else
             {
+                if (user.User_type == "new")
+                {
+                    user.User_type = user_Table.User_type;
+                }               
                 user_Table = user;
                 db.Entry(user_Table).State = EntityState.Modified;
             }                    
 
             try
             {
-                
                 db.SaveChanges();
             }
             catch (DbUpdateException)

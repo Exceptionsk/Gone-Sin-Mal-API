@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
+using Gone_Sin_Mal_API.Class;
 
 namespace Gone_Sin_Mal_API.Controllers
 {
@@ -17,9 +18,18 @@ namespace Gone_Sin_Mal_API.Controllers
         private Gone_Sin_MalEntities db = new Gone_Sin_MalEntities();
 
         // GET: api/Refund
-        public IQueryable<Refund_Table> GetRefund_Table()
+        public IHttpActionResult GetRefund_Table()
         {
-            return db.Refund_Table;
+            return Ok((from n in db.Refund_Table
+                       join r in db.Restaurant_Table
+                       on n.User_id equals r.User_id
+                       select new
+                       {
+                           n.Amount,
+                           n.ID,
+                           r.Rest_name,
+                           n.Myan_pay
+                       }));
         }
 
         // GET: api/Refund/5
@@ -78,11 +88,32 @@ namespace Gone_Sin_Mal_API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            Restaurant_Table rest = db.Restaurant_Table.Where(r=> r.User_id==refund_Table.User_id).FirstOrDefault();
+            if (rest.Rest_coin >= refund_Table.Amount)
+            {
+ 
+                PushNotification pushnoti = new PushNotification();
+                var adminlist = db.User_Table.Where(u => u.User_type == "admin");
+                System_Table system = db.System_Table.FirstOrDefault();
+                foreach (User_Table user in adminlist)
+                {
+                    pushnoti.pushNoti(user.User_noti_token, "New Refund Request", rest.Rest_name + " requested a refund");
+                }     
+                db.Refund_Table.Add(refund_Table);
+                rest.Rest_coin -= refund_Table.Amount;
+                system.Sold_coins += refund_Table.Amount;
+                db.Entry(rest).State = EntityState.Modified;
+                db.Entry(system).State = EntityState.Modified;
+                db.SaveChanges();
+                return Ok("OK");
+            }
+            else
+            {
+                return Ok("Not Enough");
+            }
+            
 
-            db.Refund_Table.Add(refund_Table);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = refund_Table.ID }, refund_Table);
+          
         }
 
         // DELETE: api/Refund/5

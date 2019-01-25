@@ -13,10 +13,10 @@
     <EntitySetMapping Name="Notification_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
         <MappingFragment StoreEntitySet="Notification_Table">
-          <ScalarProperty Name="Noti_text" ColumnName="Noti_text" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
           <ScalarProperty Name="Notification" ColumnName="Notification" />
+          <ScalarProperty Name="Noti_text" ColumnName="Noti_text" />
           <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Noti_id" ColumnName="Noti_id" />
@@ -41,6 +41,16 @@
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Refund_Table">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Refund_Table">
+        <MappingFragment StoreEntitySet="Refund_Table">
+          <ScalarProperty Name="Myan_pay" ColumnName="Myan_pay" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -105,15 +115,6 @@
           <ScalarProperty Name="User_noti_token" ColumnName="User_noti_token" />
           <ScalarProperty Name="User_name" ColumnName="User_name" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Refund_Table">
-      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Refund_Table">
-        <MappingFragment StoreEntitySet="Refund_Table">
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

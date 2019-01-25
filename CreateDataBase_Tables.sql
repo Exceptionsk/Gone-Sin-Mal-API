@@ -162,7 +162,8 @@ PRIMARY KEY (Noti_id)
 CREATE TABLE Refund_Table(
 ID bigint  IDENTITY(1,1) not null,
 User_id bigint not null,
-Amount varchar (255) ,
+Amount bigint ,
+Myan_pay varchar(255),
 
 CONSTRAINT FK_Refund_Table_User_id
 FOREIGN KEY(User_id)
@@ -173,6 +174,8 @@ PRIMARY KEY (ID)
 )
 
 
+ select* from Refund_Table
+ delete from Refund_Table
 
 
 select* from User_Table
@@ -218,6 +221,7 @@ select * from System_Table
 
 select* from Package_Table
 delete from Package_Table
+delete from Refund_Table
 
 INSERT INTO Package_Table(Package_type,Package_coin_amount,Myanpay_button_link,Coin_img)
 SELECT 'normal' as Package_type,'1000' as Package_coin_amount, 'https://www.myanpay.com.mm/Personal/ButtonDonationLogIn.aspx?sid=18ad6219-7b30-49a2-99d9-8d95c2d0cf30' as Myanpay_button_link,*
@@ -258,7 +262,7 @@ select * from System_Table
 delete from System_Table
 
 insert into System_Table(Masterkey,Expired_coins,Sold_coins,Sold_special_coins)
-values('12345',0,0,0)
+values('12345',1,1,1)
 
 
 select* from Restaurant_Table left join Favorite_Table on Restaurant_Table.Rest_id=Favorite_Table.Rest_id
