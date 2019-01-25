@@ -46,7 +46,8 @@ namespace Gone_Sin_Mal_API.Controllers
                                        r.Rest_email,
                                        r.Rest_location,
                                        r.Rest_phno,
-                                       r.Rest_township,                                  
+                                       r.Rest_township,     
+                                       r.Rest_special_coin,
                                    }).FirstOrDefault();
 
                 if (restaurant_Table == null)
