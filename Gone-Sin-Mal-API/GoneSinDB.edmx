@@ -71,6 +71,7 @@
           <Property Name="Rest_special_coin" Type="bigint" />
           <Property Name="Rest_email" Type="varchar" MaxLength="255" />
           <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
+          <Property Name="Rest_state" Type="varchar" MaxLength="255" />
           <Property Name="Rest_township" Type="varchar" MaxLength="255" />
           <Property Name="Rest_location" Type="varchar" MaxLength="255" />
           <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
@@ -422,6 +423,7 @@
           <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
           <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
+          <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="System_Table">
           <Key>
@@ -649,6 +651,7 @@
           <EntitySetMapping Name="Restaurant_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Restaurant_Table">
               <MappingFragment StoreEntitySet="Restaurant_Table">
+                <ScalarProperty Name="Rest_state" ColumnName="Rest_state" />
                 <ScalarProperty Name="Rest_coin_purchased" ColumnName="Rest_coin_purchased" />
                 <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
                 <ScalarProperty Name="Rest_long" ColumnName="Rest_long" />

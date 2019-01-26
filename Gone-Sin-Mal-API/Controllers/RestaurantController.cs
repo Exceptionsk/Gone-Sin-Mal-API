@@ -151,6 +151,19 @@ namespace Gone_Sin_Mal_API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [HttpPut]
+        [Route("api/updatecategory")]
+        public IHttpActionResult putCategory(long id, String category)
+        {
+            Restaurant_Table r = new Restaurant_Table();
+            r = db.Restaurant_Table.Find(id);
+            r.Rest_category = category;
+            db.Entry(r).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         //// PUT: api/Restaurant/5
         //[ResponseType(typeof(void))]
         //public IHttpActionResult PutRestaurant_Table(long id, Restaurant_Table restaurant_Table)

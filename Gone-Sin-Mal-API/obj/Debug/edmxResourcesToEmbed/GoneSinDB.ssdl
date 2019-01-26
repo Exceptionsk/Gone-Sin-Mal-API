@@ -66,6 +66,7 @@
     <Property Name="Rest_special_coin" Type="bigint" />
     <Property Name="Rest_email" Type="varchar" MaxLength="255" />
     <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_state" Type="varchar" MaxLength="255" />
     <Property Name="Rest_township" Type="varchar" MaxLength="255" />
     <Property Name="Rest_location" Type="varchar" MaxLength="255" />
     <Property Name="Rest_lat" Type="varchar" MaxLength="255" />

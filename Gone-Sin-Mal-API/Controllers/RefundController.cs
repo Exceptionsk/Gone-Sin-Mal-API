@@ -105,7 +105,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 db.Entry(rest).State = EntityState.Modified;
                 db.Entry(system).State = EntityState.Modified;
                 db.SaveChanges();
-                return Ok("OK");
+                return Ok(rest);
             }
             else
             {
