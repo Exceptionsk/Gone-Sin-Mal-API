@@ -118,5 +118,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Visited_Restaurants">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Visited_Restaurants">
+        <MappingFragment StoreEntitySet="Visited_Restaurants">
+          <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

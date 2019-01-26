@@ -108,6 +108,14 @@
     <Property Name="User_visited_restaurant" Type="bigint" />
     <Property Name="User_exceeded_date" Type="date" />
   </EntityType>
+  <EntityType Name="Visited_Restaurants">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Rest_id" Type="bigint" Nullable="false" />
+  </EntityType>
   <Association Name="FK__Fav_Table_User_id">
     <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
     <End Role="Favorite_Table" Type="Self.Favorite_Table" Multiplicity="*" />
@@ -128,6 +136,30 @@
         <PropertyRef Name="User_id" />
       </Principal>
       <Dependent Role="Restaurant_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__visited_Record_id">
+    <End Role="Restaurant_Table" Type="Self.Restaurant_Table" Multiplicity="1" />
+    <End Role="Visited_Restaurants" Type="Self.Visited_Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Visited_Restaurants">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__visited_User_id">
+    <End Role="User_Table" Type="Self.User_Table" Multiplicity="1" />
+    <End Role="Visited_Restaurants" Type="Self.Visited_Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Visited_Restaurants">
         <PropertyRef Name="User_id" />
       </Dependent>
     </ReferentialConstraint>
@@ -238,6 +270,7 @@
     <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Visited_Restaurants" EntityType="Self.Visited_Restaurants" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Favorite_Table" EntitySet="Favorite_Table" />
@@ -245,6 +278,14 @@
     <AssociationSet Name="FK__Restaurant_User_id" Association="Self.FK__Restaurant_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__visited_Record_id" Association="Self.FK__visited_Record_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Visited_Restaurants" EntitySet="Visited_Restaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__visited_User_id" Association="Self.FK__visited_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Visited_Restaurants" EntitySet="Visited_Restaurants" />
     </AssociationSet>
     <AssociationSet Name="FK_Fav_Table_Rest_id" Association="Self.FK_Fav_Table_Rest_id">
       <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />

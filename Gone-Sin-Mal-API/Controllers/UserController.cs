@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Gone_Sin_Mal_API;
+using Gone_Sin_Mal_API.Class;
 
 namespace Gone_Sin_Mal_API.Controllers
 {
@@ -26,13 +27,39 @@ namespace Gone_Sin_Mal_API.Controllers
         [ResponseType(typeof(User_Table))]
         public IHttpActionResult GetUser_Table(long id)
         {
-            User_Table user_Table = db.User_Table.Find(id);
-            if (user_Table == null)
+            User_Table user_Table = db.User_Table.Where(u => u.User_id == id).FirstOrDefault();
+            
+            UserInfo user = new UserInfo();
+            user.State = user_Table.User_state;
+            user.Capacity = 500 + (long.Parse(user_Table.User_visited_restaurant.ToString())*10);
+            user.Coin = long.Parse(user_Table.User_available_coin.ToString());
+            user.Visited = long.Parse(user_Table.User_visited_restaurant.ToString());
+            if (user_Table.User_exceeded_date > DateTime.Now)
             {
-                return NotFound();
+                if (user_Table.User_available_coin > user.Capacity)
+                {
+                    user_Table.User_available_coin = user.Capacity - user_Table.User_available_coin;
+                    user.Coin = long.Parse(user_Table.User_available_coin.ToString());
+                    db.Entry(user_Table).State = EntityState.Modified;
+                    System_Table system = db.System_Table.FirstOrDefault();
+                    system.Expired_coins = user.Coin - user.Capacity;
+                    db.Entry(system).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
-
-            return Ok(user_Table);
+            if (user_Table.User_available_coin > user.Capacity)
+            {
+                user.Exceed = user.Coin - user.Capacity;
+                System.TimeSpan diff = DateTime.Now.Subtract(Convert.ToDateTime(user_Table.User_exceeded_date));
+                user.ExpireIn = diff.TotalDays;
+            }
+            else
+            {
+                user.Exceed = 0;
+                user.ExpireIn = 0;
+            }
+           
+            return Ok(user);
         }
 
         [Route("api/user/search")]

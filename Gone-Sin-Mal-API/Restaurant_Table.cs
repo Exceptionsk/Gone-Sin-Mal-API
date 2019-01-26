@@ -19,6 +19,7 @@ namespace Gone_Sin_Mal_API
         {
             this.Favorite_Table = new HashSet<Favorite_Table>();
             this.Promotion_Table = new HashSet<Promotion_Table>();
+            this.Visited_Restaurants = new HashSet<Visited_Restaurants>();
         }
     
         public long Rest_id { get; set; }
@@ -47,5 +48,7 @@ namespace Gone_Sin_Mal_API
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion_Table> Promotion_Table { get; set; }
         public virtual User_Table User_Table { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Visited_Restaurants> Visited_Restaurants { get; set; }
     }
 }

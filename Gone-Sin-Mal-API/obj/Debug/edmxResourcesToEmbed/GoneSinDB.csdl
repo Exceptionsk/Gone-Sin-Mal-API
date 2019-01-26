@@ -10,6 +10,7 @@
     <EntitySet Name="System_Table" EntityType="Gone_Sin_MalModel.System_Table" />
     <EntitySet Name="Transaction_Table" EntityType="Gone_Sin_MalModel.Transaction_Table" />
     <EntitySet Name="User_Table" EntityType="Gone_Sin_MalModel.User_Table" />
+    <EntitySet Name="Visited_Restaurants" EntityType="Gone_Sin_MalModel.Visited_Restaurants" />
     <AssociationSet Name="FK__Fav_Table_User_id" Association="Gone_Sin_MalModel.FK__Fav_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Favorite_Table" EntitySet="Favorite_Table" />
@@ -46,9 +47,17 @@
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
     </AssociationSet>
+    <AssociationSet Name="FK__visited_Record_id" Association="Gone_Sin_MalModel.FK__visited_Record_id">
+      <End Role="Restaurant_Table" EntitySet="Restaurant_Table" />
+      <End Role="Visited_Restaurants" EntitySet="Visited_Restaurants" />
+    </AssociationSet>
     <AssociationSet Name="FK_Transaction_Table_User_id" Association="Gone_Sin_MalModel.FK_Transaction_Table_User_id">
       <End Role="User_Table" EntitySet="User_Table" />
       <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__visited_User_id" Association="Gone_Sin_MalModel.FK__visited_User_id">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Visited_Restaurants" EntitySet="Visited_Restaurants" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Favorite_Table">
@@ -134,6 +143,7 @@
     <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
     <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
+    <NavigationProperty Name="Visited_Restaurants" Relationship="Gone_Sin_MalModel.FK__visited_Record_id" FromRole="Restaurant_Table" ToRole="Visited_Restaurants" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>
@@ -178,6 +188,17 @@
     <NavigationProperty Name="Refund_Table" Relationship="Gone_Sin_MalModel.FK_Refund_Table_User_id" FromRole="User_Table" ToRole="Refund_Table" />
     <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="User_Table" ToRole="Restaurant_Table" />
     <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="User_Table" ToRole="Transaction_Table" />
+    <NavigationProperty Name="Visited_Restaurants" Relationship="Gone_Sin_MalModel.FK__visited_User_id" FromRole="User_Table" ToRole="Visited_Restaurants" />
+  </EntityType>
+  <EntityType Name="Visited_Restaurants">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_id" Type="Int64" Nullable="false" />
+    <Property Name="Rest_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK__visited_Record_id" FromRole="Visited_Restaurants" ToRole="Restaurant_Table" />
+    <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__visited_User_id" FromRole="Visited_Restaurants" ToRole="User_Table" />
   </EntityType>
   <Association Name="FK__Fav_Table_User_id">
     <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
@@ -287,6 +308,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__visited_Record_id">
+    <End Type="Gone_Sin_MalModel.Restaurant_Table" Role="Restaurant_Table" Multiplicity="1" />
+    <End Type="Gone_Sin_MalModel.Visited_Restaurants" Role="Visited_Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant_Table">
+        <PropertyRef Name="Rest_id" />
+      </Principal>
+      <Dependent Role="Visited_Restaurants">
+        <PropertyRef Name="Rest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Transaction_Table_User_id">
     <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
     <End Type="Gone_Sin_MalModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
@@ -295,6 +328,18 @@
         <PropertyRef Name="User_id" />
       </Principal>
       <Dependent Role="Transaction_Table">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__visited_User_id">
+    <End Type="Gone_Sin_MalModel.User_Table" Role="User_Table" Multiplicity="1" />
+    <End Type="Gone_Sin_MalModel.Visited_Restaurants" Role="Visited_Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Visited_Restaurants">
         <PropertyRef Name="User_id" />
       </Dependent>
     </ReferentialConstraint>

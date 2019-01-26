@@ -222,6 +222,23 @@ namespace Gone_Sin_Mal_API.Controllers
 
             return Ok(restaurant_Table);
         }
+
+        private void checkVisited(long user_id, long rest_id)
+        {
+            Visited_Restaurants visited = db.Visited_Restaurants.Where(v => v.User_id == user_id && v.Rest_id == rest_id).FirstOrDefault();
+            User_Table user = db.User_Table.Where(u => u.User_id == user_id).FirstOrDefault();
+            Visited_Restaurants vis = new Visited_Restaurants();
+            if (visited == null)
+            {
+                vis.Rest_id = rest_id;
+                vis.User_id = user_id;
+                user.User_visited_restaurant += 1;
+                user.User_exceeded_date = DateTime.Now;
+                db.Entry(user).State = EntityState.Modified;
+                db.Visited_Restaurants.Add(vis);
+                db.SaveChanges();
+            }
+        }
         [Route("api/restaurant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
@@ -267,7 +284,7 @@ namespace Gone_Sin_Mal_API.Controllers
             db.Entry(rest).State = EntityState.Modified;
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
-
+            checkVisited(transaction.User_id, rest.Rest_id);
             return Ok("OK");
         }
 

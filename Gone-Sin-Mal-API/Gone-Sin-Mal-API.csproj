@@ -207,6 +207,7 @@
     <Compile Include="Class\POPEmail.cs" />
     <Compile Include="Class\PushNotification.cs" />
     <Compile Include="Class\StringMethods.cs" />
+    <Compile Include="Class\UserInfo.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,6 +263,9 @@
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Table.cs">
+      <DependentUpon>GoneSinDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Visited_Restaurants.cs">
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
