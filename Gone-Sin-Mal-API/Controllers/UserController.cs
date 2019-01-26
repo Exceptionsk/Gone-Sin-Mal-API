@@ -157,6 +157,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 if (user.User_type == "new")
                 {
                     user.User_type = user_Table.User_type;
+                    user.User_state = user_Table.User_state;
                 }               
                 user_Table = user;
                 db.Entry(user_Table).State = EntityState.Modified;

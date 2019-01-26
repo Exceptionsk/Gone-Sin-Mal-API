@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bb542d1ef5cc4099857e8a760e281a91" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.25" PointY="18.875" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="1.5" PointX="5.25" PointY="9.75" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="0.75" PointY="7.25" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="5.25" PointY="15.875" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Refund_Table" Width="1.5" PointX="3" PointY="12" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="3" PointY="23.875" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Favorite_Table" Width="1.5" PointX="5.25" PointY="16.125" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Notification_Table" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Package_Table" Width="1.5" PointX="3.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Promotion_Table" Width="1.5" PointX="5.25" PointY="19" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Refund_Table" Width="1.5" PointX="3" PointY="27.375" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Restaurant_Table" Width="1.5" PointX="3" PointY="18.25" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.System_Table" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Gone_Sin_MalModel.Transaction_Table" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="Gone_Sin_MalModel.Transaction_Table" Width="1.5" PointX="6" PointY="10.875" />
         <EntityTypeShape EntityType="Gone_Sin_MalModel.User_Table" Width="1.5" PointX="0.75" PointY="10.5" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK__Fav_Table_User_id" />
         <AssociationConnector Association="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" />

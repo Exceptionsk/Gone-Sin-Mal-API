@@ -67,7 +67,6 @@
     <Property Name="Rest_email" Type="varchar" MaxLength="255" />
     <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
     <Property Name="Rest_state" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_township" Type="varchar" MaxLength="255" />
     <Property Name="Rest_location" Type="varchar" MaxLength="255" />
     <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
     <Property Name="Rest_long" Type="varchar" MaxLength="255" />
@@ -104,7 +103,7 @@
     <Property Name="User_name" Type="varchar" MaxLength="255" />
     <Property Name="User_noti_token" Type="varchar" MaxLength="255" />
     <Property Name="User_type" Type="varchar" MaxLength="255" />
-    <Property Name="User_township" Type="varchar" MaxLength="255" />
+    <Property Name="User_state" Type="varchar" MaxLength="255" />
     <Property Name="User_available_coin" Type="bigint" />
     <Property Name="User_visited_restaurant" Type="bigint" />
     <Property Name="User_exceeded_date" Type="date" />

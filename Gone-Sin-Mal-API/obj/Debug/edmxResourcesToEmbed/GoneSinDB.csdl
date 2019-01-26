@@ -125,7 +125,7 @@
     <Property Name="Rest_special_coin" Type="Int64" />
     <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Rest_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -134,7 +134,6 @@
     <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
     <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
-    <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="System_Table">
     <Key>
@@ -169,7 +168,7 @@
     <Property Name="User_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_noti_token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="User_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="User_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="User_available_coin" Type="Int64" />
     <Property Name="User_visited_restaurant" Type="Int64" />
     <Property Name="User_exceeded_date" Type="DateTime" Precision="0" />

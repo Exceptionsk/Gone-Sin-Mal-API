@@ -72,7 +72,6 @@
           <Property Name="Rest_email" Type="varchar" MaxLength="255" />
           <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
           <Property Name="Rest_state" Type="varchar" MaxLength="255" />
-          <Property Name="Rest_township" Type="varchar" MaxLength="255" />
           <Property Name="Rest_location" Type="varchar" MaxLength="255" />
           <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
           <Property Name="Rest_long" Type="varchar" MaxLength="255" />
@@ -109,7 +108,7 @@
           <Property Name="User_name" Type="varchar" MaxLength="255" />
           <Property Name="User_noti_token" Type="varchar" MaxLength="255" />
           <Property Name="User_type" Type="varchar" MaxLength="255" />
-          <Property Name="User_township" Type="varchar" MaxLength="255" />
+          <Property Name="User_state" Type="varchar" MaxLength="255" />
           <Property Name="User_available_coin" Type="bigint" />
           <Property Name="User_visited_restaurant" Type="bigint" />
           <Property Name="User_exceeded_date" Type="date" />
@@ -414,7 +413,7 @@
           <Property Name="Rest_special_coin" Type="Int64" />
           <Property Name="Rest_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Rest_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -423,7 +422,6 @@
           <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
           <NavigationProperty Name="Promotion_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Promotion_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK__Restaurant_User_id" FromRole="Restaurant_Table" ToRole="User_Table" />
-          <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="System_Table">
           <Key>
@@ -458,7 +456,7 @@
           <Property Name="User_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="User_noti_token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="User_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="User_township" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="User_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="User_available_coin" Type="Int64" />
           <Property Name="User_visited_restaurant" Type="Int64" />
           <Property Name="User_exceeded_date" Type="DateTime" Precision="0" />
@@ -651,13 +649,12 @@
           <EntitySetMapping Name="Restaurant_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Restaurant_Table">
               <MappingFragment StoreEntitySet="Restaurant_Table">
-                <ScalarProperty Name="Rest_state" ColumnName="Rest_state" />
                 <ScalarProperty Name="Rest_coin_purchased" ColumnName="Rest_coin_purchased" />
                 <ScalarProperty Name="Rest_created_date" ColumnName="Rest_created_date" />
                 <ScalarProperty Name="Rest_long" ColumnName="Rest_long" />
                 <ScalarProperty Name="Rest_lat" ColumnName="Rest_lat" />
                 <ScalarProperty Name="Rest_location" ColumnName="Rest_location" />
-                <ScalarProperty Name="Rest_township" ColumnName="Rest_township" />
+                <ScalarProperty Name="Rest_state" ColumnName="Rest_state" />
                 <ScalarProperty Name="Rest_phno" ColumnName="Rest_phno" />
                 <ScalarProperty Name="Rest_email" ColumnName="Rest_email" />
                 <ScalarProperty Name="Rest_special_coin" ColumnName="Rest_special_coin" />
@@ -705,7 +702,7 @@
                 <ScalarProperty Name="User_exceeded_date" ColumnName="User_exceeded_date" />
                 <ScalarProperty Name="User_visited_restaurant" ColumnName="User_visited_restaurant" />
                 <ScalarProperty Name="User_available_coin" ColumnName="User_available_coin" />
-                <ScalarProperty Name="User_township" ColumnName="User_township" />
+                <ScalarProperty Name="User_state" ColumnName="User_state" />
                 <ScalarProperty Name="User_type" ColumnName="User_type" />
                 <ScalarProperty Name="User_noti_token" ColumnName="User_noti_token" />
                 <ScalarProperty Name="User_name" ColumnName="User_name" />

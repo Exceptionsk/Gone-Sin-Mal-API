@@ -155,7 +155,7 @@ namespace Gone_Sin_Mal_API.Controllers
                                 {
                                     system.Sold_special_coins += coin;
                                     restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
-                                    var nearbyuser = db.User_Table.Where(u => u.User_township.Equals(restaurant.Rest_township)).OrderBy(o=> Guid.NewGuid()).Take(comfirm.Count);
+                                    var nearbyuser = db.User_Table.Where(u => u.User_state.Equals(restaurant.Rest_state)).OrderBy(o=> Guid.NewGuid()).Take(comfirm.Count);
                                     //if (nearbyuser.Count() <= 0)
                                     //{
                                     //    nearbyuser = db.User_Table;

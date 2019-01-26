@@ -35,13 +35,12 @@ namespace Gone_Sin_Mal_API
         public Nullable<long> Rest_special_coin { get; set; }
         public string Rest_email { get; set; }
         public string Rest_phno { get; set; }
-        public string Rest_township { get; set; }
+        public string Rest_state { get; set; }
         public string Rest_location { get; set; }
         public string Rest_lat { get; set; }
         public string Rest_long { get; set; }
         public Nullable<System.DateTime> Rest_created_date { get; set; }
         public Nullable<long> Rest_coin_purchased { get; set; }
-        public string Rest_state { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favorite_Table> Favorite_Table { get; set; }
