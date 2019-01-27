@@ -39,6 +39,22 @@ namespace Gone_Sin_Mal_API.Class
             set { take = value; }
         }
 
+        private bool special;
+
+        public bool Special
+        {
+            get { return special; }
+            set { special = value; }
+        }
+
+        private long promoid;
+
+        public long PromoId
+        {
+            get { return promoid; }
+            set { promoid = value; }
+        }
+
 
     }
 }

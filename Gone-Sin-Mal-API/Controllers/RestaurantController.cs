@@ -48,6 +48,8 @@ namespace Gone_Sin_Mal_API.Controllers
                                        r.Rest_phno,
                                        r.Rest_state,     
                                        r.Rest_special_coin,
+                                       r.Rest_lat,
+                                            r.Rest_long,
                                    }).FirstOrDefault();
 
                 if (restaurant_Table == null)
@@ -70,7 +72,9 @@ namespace Gone_Sin_Mal_API.Controllers
                                             r.Rest_email,
                                             r.Rest_location,
                                             r.Rest_phno,
-                                            r.Rest_state,                                         
+                                            r.Rest_state,     
+                                            r.Rest_lat,
+                                            r.Rest_long,
                                         }).FirstOrDefault();
                 if (restaurant_Table == null)
                 {
@@ -239,6 +243,34 @@ namespace Gone_Sin_Mal_API.Controllers
                 db.SaveChanges();
             }
         }
+
+        [HttpPost]
+        [Route("api/restaurant/state")]
+        public IHttpActionResult Update_Location(long user_id, string state, string location, decimal lat, decimal lon)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            Restaurant_Table rest = db.Restaurant_Table.Find(user_id);
+            rest.Rest_state = state;
+            rest.Rest_location = location;
+            rest.Rest_lat = lat;
+            rest.Rest_long = lon;
+            db.Entry(rest).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok();
+        }
+
         [Route("api/restaurant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
@@ -246,24 +278,37 @@ namespace Gone_Sin_Mal_API.Controllers
             User_Table user = db.User_Table.Where(u => u.User_id == transaction.User_id).FirstOrDefault();
             Notification_Table noti = new Notification_Table();
             PushNotification pushnoti = new PushNotification();
-
+            Promotion_Table promo = new Promotion_Table();
             noti.User_id = transaction.User_id;
             noti.Noti_status = false;
 
             if (transaction.Take)
             {
-                if (user.User_available_coin < transaction.Amount)
+                if (transaction.Special)
                 {
-                    return Ok("not enough");
+                    rest.Rest_special_coin = rest.Rest_special_coin - transaction.Amount;
+                    noti.Notification = "You have used Special " + transaction.Amount + "Coins for " + rest.Rest_name;
+                    noti.Noti_type = "customer";
+                    pushnoti.pushNoti(user.User_noti_token, "Special Coin Spent", noti.Notification);
+                    promo = db.Promotion_Table.Where(p => p.Id == transaction.PromoId).FirstOrDefault();
+                    db.Promotion_Table.Remove(promo);
                 }
                 else
                 {
-                    rest.Rest_coin = rest.Rest_coin + transaction.Amount;
-                    user.User_available_coin = user.User_available_coin - transaction.Amount;
-                    noti.Notification = "You have used" + transaction.Amount + "for" + rest.Rest_name;
-                    noti.Noti_type = "customer";
-                    pushnoti.pushNoti(user.User_noti_token, "Coin Spend", noti.Notification);
-                } 
+                    if (user.User_available_coin < transaction.Amount)
+                    {
+                        return Ok("not enough");
+                    }
+                    else
+                    {
+                        rest.Rest_coin = rest.Rest_coin + transaction.Amount;
+                        user.User_available_coin = user.User_available_coin - transaction.Amount;
+                        noti.Notification = "You have used " + transaction.Amount + "Coins for " + rest.Rest_name;
+                        noti.Noti_type = "customer";
+                        pushnoti.pushNoti(user.User_noti_token, "Coin Spent", noti.Notification);
+                    }
+                }
+                
             }
             else
             {

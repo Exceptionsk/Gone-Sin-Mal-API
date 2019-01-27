@@ -33,8 +33,8 @@ Rest_email varchar(255) ,
 Rest_phno varchar(255) , 
 Rest_state varchar(255),
 Rest_location varchar(255) ,
-Rest_lat varchar(255) ,
-Rest_long varchar(255),
+Rest_lat  DECIMAL(10, 8),
+Rest_long  DECIMAL(11, 8),
 Rest_created_date date,
 Rest_coin_purchased bigint default 0,
 
@@ -45,6 +45,25 @@ CONSTRAINT FK__Restaurant_User_id
 FOREIGN KEY(User_id)
 REFERENCES User_Table(User_id),
 )
+
+--Visited Restaurants Table--
+CREATE TABLE Visited_Restaurants(
+ID bigint IDENTITY(1,1) not null,
+User_id bigint not null,
+Rest_id bigint not null,
+
+CONSTRAINT FK__visited_User_id
+FOREIGN KEY(User_id)
+REFERENCES User_Table(User_id),
+
+CONSTRAINT FK__visited_Record_id
+FOREIGN KEY(Rest_id)
+REFERENCES Restaurant_Table(Rest_id),
+
+CONSTRAINT PK_visited_record_Table
+PRIMARY KEY (ID),
+)
+
 
 --System Table--
 CREATE TABLE System_Table(
@@ -72,7 +91,7 @@ CONSTRAINT FK_Fav_Table_Rest_id
 FOREIGN KEY(Rest_id)
 REFERENCES Restaurant_Table(Rest_id),
 
-CONSTRAINT PK_Fav_Table_ComposivePK
+CONSTRAINT PK_Fav_Table_PK
 PRIMARY KEY (Fav_id)
 )
 
@@ -199,6 +218,7 @@ select* from Restaurant_Table where Rest_name = 'Dguii'
 
 delete from Promotion_Table
 
+select* from Visited_Restaurants
 select * from Promotion_Table
 delete from Favorite_Table
 delete from Restaurant_Table

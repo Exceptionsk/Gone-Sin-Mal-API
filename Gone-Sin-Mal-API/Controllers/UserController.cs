@@ -202,6 +202,30 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok(user_Table);
         }
 
+        [HttpPost]
+        [Route("api/user/state")]
+        public IHttpActionResult Update_state(long user_id, string state)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            User_Table user = db.User_Table.Find(user_id);
+            user.User_state = state;
+            db.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return Ok();
+        }
+
         // DELETE: api/User/5
         [ResponseType(typeof(User_Table))]
         public IHttpActionResult DeleteUser_Table(long id)

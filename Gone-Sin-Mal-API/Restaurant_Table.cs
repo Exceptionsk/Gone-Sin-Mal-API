@@ -38,8 +38,8 @@ namespace Gone_Sin_Mal_API
         public string Rest_phno { get; set; }
         public string Rest_state { get; set; }
         public string Rest_location { get; set; }
-        public string Rest_lat { get; set; }
-        public string Rest_long { get; set; }
+        public Nullable<decimal> Rest_lat { get; set; }
+        public Nullable<decimal> Rest_long { get; set; }
         public Nullable<System.DateTime> Rest_created_date { get; set; }
         public Nullable<long> Rest_coin_purchased { get; set; }
     

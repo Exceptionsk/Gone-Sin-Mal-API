@@ -68,8 +68,8 @@
     <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
     <Property Name="Rest_state" Type="varchar" MaxLength="255" />
     <Property Name="Rest_location" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
-    <Property Name="Rest_long" Type="varchar" MaxLength="255" />
+    <Property Name="Rest_lat" Type="decimal" Precision="10" Scale="8" />
+    <Property Name="Rest_long" Type="decimal" Precision="11" Scale="8" />
     <Property Name="Rest_created_date" Type="date" />
     <Property Name="Rest_coin_purchased" Type="bigint" />
   </EntityType>

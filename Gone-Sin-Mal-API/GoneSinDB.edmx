@@ -73,8 +73,8 @@
           <Property Name="Rest_phno" Type="varchar" MaxLength="255" />
           <Property Name="Rest_state" Type="varchar" MaxLength="255" />
           <Property Name="Rest_location" Type="varchar" MaxLength="255" />
-          <Property Name="Rest_lat" Type="varchar" MaxLength="255" />
-          <Property Name="Rest_long" Type="varchar" MaxLength="255" />
+          <Property Name="Rest_lat" Type="decimal" Precision="10" Scale="8" />
+          <Property Name="Rest_long" Type="decimal" Precision="11" Scale="8" />
           <Property Name="Rest_created_date" Type="date" />
           <Property Name="Rest_coin_purchased" Type="bigint" />
         </EntityType>
@@ -465,8 +465,8 @@
           <Property Name="Rest_phno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Rest_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Rest_lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Rest_long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Rest_lat" Type="Decimal" Precision="10" Scale="8" />
+          <Property Name="Rest_long" Type="Decimal" Precision="11" Scale="8" />
           <Property Name="Rest_created_date" Type="DateTime" Precision="0" />
           <Property Name="Rest_coin_purchased" Type="Int64" />
           <NavigationProperty Name="Favorite_Table" Relationship="Gone_Sin_MalModel.FK_Fav_Table_Rest_id" FromRole="Restaurant_Table" ToRole="Favorite_Table" />
