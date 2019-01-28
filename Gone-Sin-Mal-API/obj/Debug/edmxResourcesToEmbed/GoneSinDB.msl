@@ -37,6 +37,7 @@
     <EntitySetMapping Name="Promotion_Table">
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Promotion_Table">
         <MappingFragment StoreEntitySet="Promotion_Table">
+          <ScalarProperty Name="ExpireIn" ColumnName="ExpireIn" />
           <ScalarProperty Name="User_promotion_amount" ColumnName="User_promotion_amount" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />

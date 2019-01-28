@@ -43,6 +43,7 @@
           <Property Name="Rest_id" Type="bigint" Nullable="false" />
           <Property Name="User_id" Type="bigint" Nullable="false" />
           <Property Name="User_promotion_amount" Type="int" />
+          <Property Name="ExpireIn" Type="date" />
         </EntityType>
         <EntityType Name="Refund_Table">
           <Key>
@@ -434,6 +435,7 @@
           <Property Name="User_promotion_amount" Type="Int32" />
           <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="Promotion_Table" ToRole="User_Table" />
+          <Property Name="ExpireIn" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Refund_Table">
           <Key>
@@ -715,6 +717,7 @@
           <EntitySetMapping Name="Promotion_Table">
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Promotion_Table">
               <MappingFragment StoreEntitySet="Promotion_Table">
+                <ScalarProperty Name="ExpireIn" ColumnName="ExpireIn" />
                 <ScalarProperty Name="User_promotion_amount" ColumnName="User_promotion_amount" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Rest_id" ColumnName="Rest_id" />

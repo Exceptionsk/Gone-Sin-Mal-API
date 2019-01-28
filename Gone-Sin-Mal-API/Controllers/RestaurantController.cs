@@ -282,18 +282,18 @@ namespace Gone_Sin_Mal_API.Controllers
             noti.User_id = transaction.User_id;
             noti.Noti_status = false;
 
-            if (transaction.Take)
+            if (transaction.Special)
             {
-                if (transaction.Special)
-                {
-                    rest.Rest_special_coin = rest.Rest_special_coin - transaction.Amount;
-                    noti.Notification = "You have used Special " + transaction.Amount + "Coins for " + rest.Rest_name;
-                    noti.Noti_type = "customer";
-                    pushnoti.pushNoti(user.User_noti_token, "Special Coin Spent", noti.Notification);
-                    promo = db.Promotion_Table.Where(p => p.Id == transaction.PromoId).FirstOrDefault();
-                    db.Promotion_Table.Remove(promo);
-                }
-                else
+                rest.Rest_special_coin = rest.Rest_special_coin - transaction.Amount;
+                noti.Notification = "You have used Special " + transaction.Amount + "Coins for " + rest.Rest_name;
+                noti.Noti_type = "customer";
+                pushnoti.pushNoti(user.User_noti_token, "Special Coin Spent", noti.Notification);
+                promo = db.Promotion_Table.Where(p => p.Id == transaction.PromoId).FirstOrDefault();
+                db.Promotion_Table.Remove(promo);
+            }
+            else
+            {
+                if (transaction.Take)
                 {
                     if (user.User_available_coin < transaction.Amount)
                     {
@@ -308,29 +308,30 @@ namespace Gone_Sin_Mal_API.Controllers
                         pushnoti.pushNoti(user.User_noti_token, "Coin Spent", noti.Notification);
                     }
                 }
-                
-            }
-            else
-            {
-                if(rest.Rest_coin< transaction.Amount)
-                {
-                    return Ok("not enough");
-                }
                 else
                 {
-                    rest.Rest_coin = rest.Rest_coin - transaction.Amount;
-                    user.User_available_coin = user.User_available_coin + transaction.Amount;
-                    noti.Notification = "You have gained" + transaction.Amount + "from" + rest.Rest_name + ". Please keep that in mind that these points are only valid before the expire date.";
-                    noti.Noti_type = "customer";
-                    pushnoti.pushNoti(user.User_noti_token, "Coin Gained", noti.Notification);
-                }
+                    if (rest.Rest_coin < transaction.Amount)
+                    {
+                        return Ok("not enough");
+                    }
+                    else
+                    {
+                        rest.Rest_coin = rest.Rest_coin - transaction.Amount;
+                        user.User_available_coin = user.User_available_coin + transaction.Amount;
+                        noti.Notification = "You have gained " + transaction.Amount + " from " + rest.Rest_name + ". Please keep that in mind that these points are only valid before the expire date.";
+                        noti.Noti_type = "customer";
+                        pushnoti.pushNoti(user.User_noti_token, "Coin Gained", noti.Notification);
+                    }
+                }              
             }
+
+            
             db.Notification_Table.Add(noti);
             db.Entry(rest).State = EntityState.Modified;
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
             checkVisited(transaction.User_id, rest.Rest_id);
-            return Ok("OK");
+            return Ok("success");
         }
 
         [HttpGet]

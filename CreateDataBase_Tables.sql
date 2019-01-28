@@ -116,6 +116,7 @@ Id bigint IDENTITY(1,1) not null,
 Rest_id bigint not null,
 User_id bigint not null,
 User_promotion_amount int default 0,
+ExpireIn date not null,
 
 CONSTRAINT FK_Promotion_Table_User_id
 FOREIGN KEY(User_id)

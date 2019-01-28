@@ -35,6 +35,8 @@ namespace Gone_Sin_Mal_API.Controllers
                          p.User_promotion_amount,
                          r.Rest_id,
                          r.Rest_name,
+                         r.Rest_category,
+                         p.ExpireIn,
                      });
             if (promotion_Table == null)
             {

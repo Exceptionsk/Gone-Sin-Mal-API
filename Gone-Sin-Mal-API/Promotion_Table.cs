@@ -18,6 +18,7 @@ namespace Gone_Sin_Mal_API
         public long Rest_id { get; set; }
         public long User_id { get; set; }
         public Nullable<int> User_promotion_amount { get; set; }
+        public Nullable<System.DateTime> ExpireIn { get; set; }
     
         public virtual Restaurant_Table Restaurant_Table { get; set; }
         public virtual User_Table User_Table { get; set; }
