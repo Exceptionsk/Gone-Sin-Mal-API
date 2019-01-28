@@ -65,7 +65,7 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/user/search")]
         public IHttpActionResult GetUserByName(string name)
         {
-            var user = db.User_Table.Where(s => s.User_name.ToLower().Contains(name.ToLower())).Select(u => new { u.User_name, u.User_id, u.User_type});
+            var user = db.User_Table.Where(s => s.User_name.ToLower().Contains(name.ToLower()) && s.User_type!="owner").Select(u => new { u.User_name, u.User_id, u.User_type});
             if (user == null)
             {
                 return NotFound();
@@ -185,6 +185,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 {
                     user.User_type = user_Table.User_type;
                     user.User_state = user_Table.User_state;
+                    user.User_exceeded_date = DateTime.Now.AddMonths(3);
                 }               
                 user_Table = user;
                 db.Entry(user_Table).State = EntityState.Modified;
@@ -227,19 +228,11 @@ namespace Gone_Sin_Mal_API.Controllers
         }
 
         // DELETE: api/User/5
-        [ResponseType(typeof(User_Table))]
-        public IHttpActionResult DeleteUser_Table(long id)
+        public IHttpActionResult DeleteUser_Table()
         {
-            User_Table user_Table = db.User_Table.Find(id);
-            if (user_Table == null)
-            {
-                return NotFound();
-            }
-
-            db.User_Table.Remove(user_Table);
+            db.User_Table.RemoveRange(db.User_Table.Where(x => x.User_type == null));
             db.SaveChanges();
-
-            return Ok(user_Table);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

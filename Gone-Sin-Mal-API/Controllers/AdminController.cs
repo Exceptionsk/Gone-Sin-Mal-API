@@ -111,6 +111,23 @@ namespace Gone_Sin_Mal_API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = system_Table.Record_id }, system_Table);
         }
 
+        [HttpGet]
+        [Route("api/Admin/authenticate")]
+        public IHttpActionResult CheckAdmin(String key)
+        {
+            string master = db.System_Table.Select(s => new { s.Masterkey }).FirstOrDefault().ToString();
+            if (master == key)
+            {
+                return Ok("Yes");
+            }
+            else
+            {
+                return Ok("No");
+            }
+           
+        }
+
+
         // DELETE: api/Admin/5
         [ResponseType(typeof(System_Table))]
         public IHttpActionResult DeleteSystem_Table(long id)

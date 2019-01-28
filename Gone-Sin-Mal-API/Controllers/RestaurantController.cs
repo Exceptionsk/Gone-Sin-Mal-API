@@ -274,7 +274,7 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/restaurant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
-            Restaurant_Table rest = db.Restaurant_Table.Where(r => r.User_id==transaction.Rest_id).FirstOrDefault();
+            Restaurant_Table rest = db.Restaurant_Table.Where(r => r.Rest_id==transaction.Rest_id).FirstOrDefault();
             User_Table user = db.User_Table.Where(u => u.User_id == transaction.User_id).FirstOrDefault();
             Notification_Table noti = new Notification_Table();
             PushNotification pushnoti = new PushNotification();
@@ -285,7 +285,7 @@ namespace Gone_Sin_Mal_API.Controllers
             if (transaction.Special)
             {
                 rest.Rest_special_coin = rest.Rest_special_coin - transaction.Amount;
-                noti.Notification = "You have used Special " + transaction.Amount + "Coins for " + rest.Rest_name;
+                noti.Notification = "You have used Special " + transaction.Amount + " Coins for " + rest.Rest_name;
                 noti.Noti_type = "customer";
                 pushnoti.pushNoti(user.User_noti_token, "Special Coin Spent", noti.Notification);
                 promo = db.Promotion_Table.Where(p => p.Id == transaction.PromoId).FirstOrDefault();
@@ -303,7 +303,7 @@ namespace Gone_Sin_Mal_API.Controllers
                     {
                         rest.Rest_coin = rest.Rest_coin + transaction.Amount;
                         user.User_available_coin = user.User_available_coin - transaction.Amount;
-                        noti.Notification = "You have used " + transaction.Amount + "Coins for " + rest.Rest_name;
+                        noti.Notification = "You have used " + transaction.Amount + " Coins for " + rest.Rest_name;
                         noti.Noti_type = "customer";
                         pushnoti.pushNoti(user.User_noti_token, "Coin Spent", noti.Notification);
                     }

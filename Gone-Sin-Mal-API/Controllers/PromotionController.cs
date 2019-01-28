@@ -115,16 +115,18 @@ namespace Gone_Sin_Mal_API.Controllers
         [ResponseType(typeof(Promotion_Table))]
         public IHttpActionResult DeletePromotion_Table(long id)
         {
-            Promotion_Table promotion_Table = db.Promotion_Table.Find(id);
-            if (promotion_Table == null)
+            db.Promotion_Table.RemoveRange(db.Promotion_Table.Where(p => p.Rest_id == id && (DateTime.Now > p.ExpireIn)));
+            var exceed = db.Promotion_Table.Where(p => p.Rest_id == id && (DateTime.Now > p.ExpireIn));
+            System_Table system = db.System_Table.FirstOrDefault();
+            foreach (Promotion_Table item in exceed)
             {
-                return NotFound();
+                system.Expired_coins += item.User_promotion_amount;
+                db.Promotion_Table.Remove(item);
             }
 
-            db.Promotion_Table.Remove(promotion_Table);
+            db.Entry(system).State = EntityState.Modified;
             db.SaveChanges();
-
-            return Ok(promotion_Table);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
