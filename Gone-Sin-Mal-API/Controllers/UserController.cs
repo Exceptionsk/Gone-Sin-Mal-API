@@ -173,6 +173,7 @@ namespace Gone_Sin_Mal_API.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
+            DeleteUser_Table();
             User_Table user = db.User_Table.Find(user_Table.User_id);
             if (User_TableExists(user_Table.User_id)==false)
             {
@@ -197,7 +198,7 @@ namespace Gone_Sin_Mal_API.Controllers
             }
             catch (DbUpdateException)
             {
-                throw;
+                //throw;
             }
             
             return Ok(user_Table);
@@ -221,7 +222,7 @@ namespace Gone_Sin_Mal_API.Controllers
             }
             catch (DbUpdateException)
             {
-                throw;
+                //throw;
             }
 
             return Ok();
@@ -231,8 +232,16 @@ namespace Gone_Sin_Mal_API.Controllers
         public IHttpActionResult DeleteUser_Table()
         {
             db.User_Table.RemoveRange(db.User_Table.Where(x => x.User_type == null));
-            db.SaveChanges();
-            return Ok();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                
+            }
+           
+            return Ok("done");
         }
 
         protected override void Dispose(bool disposing)
