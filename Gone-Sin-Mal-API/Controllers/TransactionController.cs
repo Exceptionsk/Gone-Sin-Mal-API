@@ -265,7 +265,7 @@ namespace Gone_Sin_Mal_API.Controllers
                                 db.SaveChanges();
                                 User_Table user = db.User_Table.Find(comfirm.Rest_id);
                                 pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);                            
-                                return Ok("Success");
+                                return Ok("Yes");
                             }
                             else
                             {
@@ -279,7 +279,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 }
 
             }
-            return Ok("failed");
+            return Ok("Failed");
         }
 
         // PUT: api/Transaction/5

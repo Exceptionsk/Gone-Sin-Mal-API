@@ -115,8 +115,8 @@ namespace Gone_Sin_Mal_API.Controllers
         [Route("api/Admin/authenticate")]
         public IHttpActionResult CheckAdmin(String key)
         {
-            string master = db.System_Table.Select(s => new { s.Masterkey }).FirstOrDefault().ToString();
-            if (master == key)
+            System_Table master = db.System_Table.FirstOrDefault();
+            if (master.Masterkey == key)
             {
                 return Ok("Yes");
             }

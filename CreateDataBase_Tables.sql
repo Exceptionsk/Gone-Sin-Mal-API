@@ -212,7 +212,7 @@ SET Rest_township='Gusto'
 select * from User_Table
 
 delete from User_Table
-
+delete from Refund_Table
 select* from Restaurant_Table
 
 select* from Restaurant_Table where Rest_name = 'Dguii'
@@ -223,6 +223,7 @@ select* from Visited_Restaurants
 select * from Promotion_Table
 delete from Favorite_Table
 delete from Restaurant_Table
+delete from Visited_Restaurants
 
 INSERT INTO Notification_Table(User_id, Notification)
 VALUES ('1106122069563593', 'rip gg wp');

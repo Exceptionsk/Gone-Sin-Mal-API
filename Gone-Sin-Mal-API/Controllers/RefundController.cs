@@ -89,6 +89,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 return BadRequest(ModelState);
             }
             Restaurant_Table rest = db.Restaurant_Table.Where(r=> r.User_id==refund_Table.User_id).FirstOrDefault();
+            
             if (rest.Rest_coin >= refund_Table.Amount)
             {
  
@@ -105,7 +106,20 @@ namespace Gone_Sin_Mal_API.Controllers
                 db.Entry(rest).State = EntityState.Modified;
                 db.Entry(system).State = EntityState.Modified;
                 db.SaveChanges();
-                return Ok(rest);
+                var return_rest = db.Restaurant_Table.Where(r => r.User_id == refund_Table.User_id).Select(r => new {
+                    r.Rest_id,
+                    r.Rest_name,
+                    r.Rest_category,
+                    r.Rest_coin,
+                    r.Rest_email,
+                    r.Rest_location,
+                    r.Rest_phno,
+                    r.Rest_state,
+                    r.Rest_special_coin,
+                    r.Rest_lat,
+                    r.Rest_long,
+                }).FirstOrDefault();
+                return Ok(return_rest);
             }
             else
             {

@@ -297,7 +297,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 {
                     if (user.User_available_coin < transaction.Amount)
                     {
-                        return Ok("not enough");
+                        return Ok("Not Enough");
                     }
                     else
                     {
@@ -312,7 +312,7 @@ namespace Gone_Sin_Mal_API.Controllers
                 {
                     if (rest.Rest_coin < transaction.Amount)
                     {
-                        return Ok("not enough");
+                        return Ok("Not Enough");
                     }
                     else
                     {
@@ -331,7 +331,7 @@ namespace Gone_Sin_Mal_API.Controllers
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
             checkVisited(transaction.User_id, rest.Rest_id);
-            return Ok("success");
+            return Ok("OK");
         }
 
         [HttpGet]
