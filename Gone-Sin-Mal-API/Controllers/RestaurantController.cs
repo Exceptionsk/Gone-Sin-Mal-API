@@ -271,6 +271,22 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("api/Restaurant/authenticate")]
+        public IHttpActionResult CheckPassword(String key, long id)
+        {
+            Restaurant_Table rest = db.Restaurant_Table.Where(r=> r.Rest_id==id).FirstOrDefault();
+            if (rest.Rest_password == key)
+            {
+                return Ok("Yes");
+            }
+            else
+            {
+                return Ok("No");
+            }
+
+        }
+
         [Route("api/restaurant/qr")]
         public IHttpActionResult QRScan(CoinTransaction transaction)
         {
@@ -289,7 +305,15 @@ namespace Gone_Sin_Mal_API.Controllers
                 noti.Noti_type = "customer";
                 pushnoti.pushNoti(user.User_noti_token, "Special Coin Spent", noti.Notification);
                 promo = db.Promotion_Table.Where(p => p.Id == transaction.PromoId).FirstOrDefault();
-                db.Promotion_Table.Remove(promo);
+                try
+                {
+                    db.Promotion_Table.Remove(promo);
+                }
+                catch (Exception)
+                {
+                    
+                }
+                
             }
             else
             {

@@ -67,7 +67,6 @@ namespace Gone_Sin_Mal_API.Controllers
             pop3Client.Authenticate("gonesinmal@gmail.com", "gonesinmal123!@#");
             int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
             //var Emails = new List<POPEmail>();
-            count = count;
            
             for (int i = count; i >= 1; i--)
             {

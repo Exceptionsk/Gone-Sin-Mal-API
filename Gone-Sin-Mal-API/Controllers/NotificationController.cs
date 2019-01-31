@@ -47,17 +47,17 @@ namespace Gone_Sin_Mal_API.Controllers
             }
             if (type=="admin")
             {
-                return Ok(db.Notification_Table.Where(n=> n.Noti_type==type).Select(s=> new { s.Noti_text, s.Noti_status, s.Notification }));
+                return Ok(db.Notification_Table.Where(n=> n.Noti_type==type).Select(s=> new { s.Noti_text, s.Noti_status, s.Notification, s.Noti_id }).OrderByDescending(s => s.Noti_id));
             }
             if (transactionID==0)
             {
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_text, s.Noti_status, s.Notification }));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_text, s.Noti_status, s.Notification }).OrderByDescending(s => s.Noti_id));
 
             }
             else
             {
                
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_text, s.Noti_id, s.Noti_status, s.Notification }));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_text, s.Noti_id, s.Noti_status, s.Notification }).OrderByDescending(s => s.Noti_id));
             }
                       
         }

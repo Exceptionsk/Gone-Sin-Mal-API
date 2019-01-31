@@ -19,7 +19,7 @@ namespace Gone_Sin_Mal_API.Controllers
         //GET: api/Admin
         public IHttpActionResult GetSystem_Table()
         {
-            return Ok(db.System_Table.FirstOrDefault());
+            return Ok(db.System_Table.Select(s=>new { s.Expired_coins, s.Sold_coins, s.Sold_special_coins }).FirstOrDefault());
         }
 
         //// GET: api/Admin/5

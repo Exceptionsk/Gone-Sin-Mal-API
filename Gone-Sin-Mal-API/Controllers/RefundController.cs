@@ -29,7 +29,7 @@ namespace Gone_Sin_Mal_API.Controllers
                            n.ID,
                            r.Rest_name,
                            n.Myan_pay
-                       }));
+                       }).OrderByDescending(s => s.ID));
         }
 
         // GET: api/Refund/5
@@ -143,7 +143,7 @@ namespace Gone_Sin_Mal_API.Controllers
             db.Refund_Table.Remove(refund_Table);
             db.SaveChanges();
 
-            return Ok(refund_Table);
+            return GetRefund_Table();
         }
 
         protected override void Dispose(bool disposing)
