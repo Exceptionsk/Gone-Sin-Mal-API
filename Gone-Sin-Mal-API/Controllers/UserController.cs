@@ -38,8 +38,10 @@ namespace Gone_Sin_Mal_API.Controllers
             {
                 if (user_Table.User_available_coin > user.Capacity)
                 {
-                    user_Table.User_available_coin = user.Capacity - user_Table.User_available_coin;
+                    //user_Table.User_available_coin = user.Capacity - user_Table.User_available_coin;
+                    //long
                     user.Coin = long.Parse(user_Table.User_available_coin.ToString());
+                    user.Exceed = long.Parse(user_Table.User_available_coin.ToString()) - long.Parse(user.Capacity.ToString());
                     db.Entry(user_Table).State = EntityState.Modified;
                     System_Table system = db.System_Table.FirstOrDefault();
                     system.Expired_coins = user.Coin - user.Capacity;

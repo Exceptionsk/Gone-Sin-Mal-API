@@ -105,7 +105,7 @@
     <Property Name="User_promotion_amount" Type="Int32" />
     <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
     <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="Promotion_Table" ToRole="User_Table" />
-    <Property Name="ExpireIn" Type="DateTime" Precision="0" />
+    <Property Name="ExpireIn" Type="DateTime" Precision="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Refund_Table">
     <Key>
