@@ -22,7 +22,6 @@
           <Property Name="Noti_type" Type="varchar" MaxLength="255" />
           <Property Name="Noti_text" Type="varchar" MaxLength="255" />
           <Property Name="Notification" Type="varchar" MaxLength="255" />
-          <Property Name="Noti_status" Type="bit" />
           <Property Name="ID" Type="bigint" />
         </EntityType>
         <EntityType Name="Package_Table">
@@ -100,6 +99,13 @@
           <Property Name="Pending" Type="bit" />
           <Property Name="Tran_date" Type="date" />
           <Property Name="Package_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Used_Transaction_ID">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tran_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Table">
           <Key>
@@ -275,6 +281,7 @@
           <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Used_Transaction_ID" EntityType="Self.Used_Transaction_ID" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visited_Restaurants" EntityType="Self.Visited_Restaurants" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">
@@ -339,6 +346,7 @@
           <EntitySet Name="Restaurant_Table" EntityType="Gone_Sin_MalModel.Restaurant_Table" />
           <EntitySet Name="System_Table" EntityType="Gone_Sin_MalModel.System_Table" />
           <EntitySet Name="Transaction_Table" EntityType="Gone_Sin_MalModel.Transaction_Table" />
+          <EntitySet Name="Used_Transaction_ID" EntityType="Gone_Sin_MalModel.Used_Transaction_ID" />
           <EntitySet Name="User_Table" EntityType="Gone_Sin_MalModel.User_Table" />
           <EntitySet Name="Visited_Restaurants" EntityType="Gone_Sin_MalModel.Visited_Restaurants" />
           <AssociationSet Name="FK__Fav_Table_User_id" Association="Gone_Sin_MalModel.FK__Fav_Table_User_id">
@@ -409,7 +417,6 @@
           <Property Name="Noti_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Noti_text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Notification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Noti_status" Type="Boolean" />
           <Property Name="ID" Type="Int64" />
           <NavigationProperty Name="Transaction_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Notification_Table" ToRole="Transaction_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_User_id" FromRole="Notification_Table" ToRole="User_Table" />
@@ -433,9 +440,9 @@
           <Property Name="Rest_id" Type="Int64" Nullable="false" />
           <Property Name="User_id" Type="Int64" Nullable="false" />
           <Property Name="User_promotion_amount" Type="Int32" />
+          <Property Name="ExpireIn" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Restaurant_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_Rest_id" FromRole="Promotion_Table" ToRole="Restaurant_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Promotion_Table_User_id" FromRole="Promotion_Table" ToRole="User_Table" />
-          <Property Name="ExpireIn" Type="DateTime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Refund_Table">
           <Key>
@@ -500,6 +507,13 @@
           <NavigationProperty Name="Notification_Table" Relationship="Gone_Sin_MalModel.FK_Notification_Table_ID" FromRole="Transaction_Table" ToRole="Notification_Table" />
           <NavigationProperty Name="Package_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_Package_id" FromRole="Transaction_Table" ToRole="Package_Table" />
           <NavigationProperty Name="User_Table" Relationship="Gone_Sin_MalModel.FK_Transaction_Table_User_id" FromRole="Transaction_Table" ToRole="User_Table" />
+        </EntityType>
+        <EntityType Name="Used_Transaction_ID">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tran_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Table">
           <Key>
@@ -694,7 +708,6 @@
             <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
               <MappingFragment StoreEntitySet="Notification_Table">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
                 <ScalarProperty Name="Notification" ColumnName="Notification" />
                 <ScalarProperty Name="Noti_text" ColumnName="Noti_text" />
                 <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />
@@ -781,6 +794,14 @@
                 <ScalarProperty Name="Tran_type" ColumnName="Tran_type" />
                 <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Used_Transaction_ID">
+            <EntityTypeMapping TypeName="Gone_Sin_MalModel.Used_Transaction_ID">
+              <MappingFragment StoreEntitySet="Used_Transaction_ID">
+                <ScalarProperty Name="Tran_ID" ColumnName="Tran_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

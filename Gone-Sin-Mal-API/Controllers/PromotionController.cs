@@ -27,9 +27,9 @@ namespace Gone_Sin_Mal_API.Controllers
         public IHttpActionResult GetPromotion_Table(long id)
         {
             var promotion_Table = (from r in db.Restaurant_Table
-                     join p in db.Promotion_Table
-                     on r.Rest_id equals p.Rest_id
-                     where p.User_id==id
+                                   join p in db.Promotion_Table
+                                   on r.Rest_id equals p.Rest_id
+                                   where p.User_id == id && p.ExpireIn > DateTime.Now
                      select new {
                          p.Id,
                          p.User_promotion_amount,

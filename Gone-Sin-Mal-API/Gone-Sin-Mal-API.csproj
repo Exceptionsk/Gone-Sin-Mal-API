@@ -262,6 +262,9 @@
     <Compile Include="Transaction_Table.cs">
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Used_Transaction_ID.cs">
+      <DependentUpon>GoneSinDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="User_Table.cs">
       <DependentUpon>GoneSinDB.tt</DependentUpon>
     </Compile>

@@ -20,7 +20,7 @@ namespace Gone_Sin_Mal_API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            EnableCorsAttribute cors = new EnableCorsAttribute("com.bitgeeks.gonesinmal", "*", "*");
             config.EnableCors(cors);
 
             var json = config.Formatters.JsonFormatter;

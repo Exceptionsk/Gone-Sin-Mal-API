@@ -14,7 +14,6 @@
       <EntityTypeMapping TypeName="Gone_Sin_MalModel.Notification_Table">
         <MappingFragment StoreEntitySet="Notification_Table">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Noti_status" ColumnName="Noti_status" />
           <ScalarProperty Name="Notification" ColumnName="Notification" />
           <ScalarProperty Name="Noti_text" ColumnName="Noti_text" />
           <ScalarProperty Name="Noti_type" ColumnName="Noti_type" />
@@ -101,6 +100,14 @@
           <ScalarProperty Name="Tran_type" ColumnName="Tran_type" />
           <ScalarProperty Name="Tran_id" ColumnName="Tran_id" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Used_Transaction_ID">
+      <EntityTypeMapping TypeName="Gone_Sin_MalModel.Used_Transaction_ID">
+        <MappingFragment StoreEntitySet="Used_Transaction_ID">
+          <ScalarProperty Name="Tran_ID" ColumnName="Tran_ID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

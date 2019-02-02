@@ -39,25 +39,24 @@ namespace Gone_Sin_Mal_API.Controllers
                                n.Noti_id,
                                n.Noti_text,
                                n.Noti_type,
-                               n.Noti_status,
                                n.Notification,
                                p.Package_coin_amount,
                                t.Tran_type
-                           }).OrderByDescending(s => s.Noti_id));
+                           }).OrderByDescending(s => s.Noti_id).Take(20));
             }
             if (type=="admin")
             {
-                return Ok(db.Notification_Table.Where(n=> n.Noti_type==type).Select(s=> new { s.Noti_text, s.Noti_status, s.Notification, s.Noti_id }).OrderByDescending(s => s.Noti_id));
+                return Ok(db.Notification_Table.Where(n=> n.Noti_type==type).Select(s=> new { s.Noti_text, s.Notification, s.Noti_id }).OrderByDescending(s => s.Noti_id).Take(20));
             }
             if (transactionID==0)
             {
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_text, s.Noti_status, s.Notification }).OrderByDescending(s => s.Noti_id));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type).Select(s => new { s.ID, s.Noti_id, s.Noti_text, s.Notification }).OrderByDescending(s => s.Noti_id).Take(20));
 
             }
             else
             {
                
-                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_text, s.Noti_id, s.Noti_status, s.Notification }).OrderByDescending(s => s.Noti_id));
+                return Ok(db.Notification_Table.Where(n => n.User_id == id && n.Noti_type == type && n.ID == transactionID).Select(s => new { s.ID, s.Noti_text, s.Noti_id, s.Notification }).OrderByDescending(s => s.Noti_id).Take(20));
             }
                       
         }

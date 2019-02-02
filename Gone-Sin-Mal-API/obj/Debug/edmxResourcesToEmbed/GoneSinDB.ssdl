@@ -17,7 +17,6 @@
     <Property Name="Noti_type" Type="varchar" MaxLength="255" />
     <Property Name="Noti_text" Type="varchar" MaxLength="255" />
     <Property Name="Notification" Type="varchar" MaxLength="255" />
-    <Property Name="Noti_status" Type="bit" />
     <Property Name="ID" Type="bigint" />
   </EntityType>
   <EntityType Name="Package_Table">
@@ -95,6 +94,13 @@
     <Property Name="Pending" Type="bit" />
     <Property Name="Tran_date" Type="date" />
     <Property Name="Package_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Used_Transaction_ID">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tran_ID" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="User_Table">
     <Key>
@@ -270,6 +276,7 @@
     <EntitySet Name="Restaurant_Table" EntityType="Self.Restaurant_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="System_Table" EntityType="Self.System_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Used_Transaction_ID" EntityType="Self.Used_Transaction_ID" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Visited_Restaurants" EntityType="Self.Visited_Restaurants" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Fav_Table_User_id" Association="Self.FK__Fav_Table_User_id">

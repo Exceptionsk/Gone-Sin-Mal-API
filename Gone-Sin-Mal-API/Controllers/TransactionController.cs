@@ -49,7 +49,6 @@ namespace Gone_Sin_Mal_API.Controllers
             noti.Noti_text = "Comfirmation Required!";
             noti.Notification = "Please send the transaction ID from Myan Pay email to receive Coin bought.";
             noti.Noti_type = "restaurant";
-            noti.Noti_status = false;
             noti.User_id = transaction.User_id;
             noti.ID = transaction.ID;
             db.Notification_Table.Add(noti);
@@ -58,13 +57,35 @@ namespace Gone_Sin_Mal_API.Controllers
             return Ok("success");
         }
 
+        private bool checkTranID(long id)
+        {
+            bool used = false;
+            var list = db.Used_Transaction_ID;
+            foreach (var item in list)
+             {
+                if (id == item.Tran_ID)
+                {
+                   used = true;
+                }
+             }
+            
+            if (used == false)
+            {
+                Used_Transaction_ID tran_used = new Used_Transaction_ID();
+                tran_used.Tran_ID = id;
+                db.Used_Transaction_ID.Add(tran_used);
+                db.SaveChanges();
+            }
+            return used;
+        }
+
         [Route("api/transaction/comfirm")]
         public IHttpActionResult CheckMail_GiveCoin(Comfirmation comfirm)
         {
             string amount, tran_id;
             Pop3Client pop3Client = new Pop3Client();
             pop3Client.Connect("pop.gmail.com", 995, true);
-            pop3Client.Authenticate("gonesinmal@gmail.com", "gonesinmal123!@#");
+            pop3Client.Authenticate("minthukhant.mtk03@gmail.com", "minthuitkhant");
             int count = pop3Client.GetMessageCount(); //total count of email in MessageBox  
             //var Emails = new List<POPEmail>();
            
@@ -81,18 +102,18 @@ namespace Gone_Sin_Mal_API.Controllers
                 };
                 if (email.DateSent < DateTime.Now.AddDays(-7))
                 {
-                    break;
+                    //break;
                 }
-                if (message.Headers.From.Address == "minthukhant.mtk03@gmail.com" && email.Subject== "MyanPay Notification [ Receive money for donation transaction is completed.]")
+                if (message.Headers.From.Address == "service@myanpay.com.mm" && email.Subject== "MyanPay Notification [ Receive money for donation transaction is completed.]")
                 {
-                    MessagePart body = message.FindFirstPlainTextVersion();
+                    MessagePart body = message.FindFirstHtmlVersion();
                     if (body != null)
                     {
                         try
                         {
                            amount = str_method.GetBetween(body.GetBodyAsText(), "sent", "kyats");
                            amount = str_method.GetBetween(amount, "<b>", ".00</b>");
-                           tran_id = str_method.GetBetween(body.GetBodyAsText(), "TransactionID\r\n-", "is");
+                           tran_id = str_method.GetBetween(body.GetBodyAsText(), "Transaction ID - \r\n", "is");
                            tran_id = str_method.GetBetween(tran_id, "<b>", "</b>");
                             email.Body = "Email Read " + i;
                             try
@@ -128,148 +149,146 @@ namespace Gone_Sin_Mal_API.Controllers
                     //        email.Body = body.GetBodyAsText();
                     //    }
                     //}
-                    //Emails.Add(email);
+                    //Emails.Add(email);               
 
                     if (email.Amount != 0 && email.Tran_id != 0)
                     {
                         if (email.Tran_id == comfirm.Tran_id)
                         {
-                            var tran_record = db.Transaction_Table.Where(t => t.ID == comfirm.ID).FirstOrDefault();
-                            var restaurant = db.Restaurant_Table.Where(r => r.User_id == comfirm.Rest_id).FirstOrDefault();
-                        
-                            if (tran_record != null)
+                            if (checkTranID(email.Tran_id)==false)
                             {
-                                var coin =email.Amount / 100;
-                                var noti = new Notification_Table();
-                                var adminnoti = new Notification_Table();
-                                PushNotification pushnoti = new PushNotification();
-                                System_Table system = db.System_Table.FirstOrDefault();
-                                if (tran_record.Tran_type == "normal")
+                                var tran_record = db.Transaction_Table.Where(t => t.ID == comfirm.ID).FirstOrDefault();
+                                var restaurant = db.Restaurant_Table.Where(r => r.User_id == comfirm.Rest_id).FirstOrDefault();
+
+                                if (tran_record != null)
                                 {
-                                    restaurant.Rest_coin = restaurant.Rest_coin + coin;
-                                    noti.Noti_text = "Comfirmation completed!";
-                                    noti.Notification = coin + " coins have been delivered to your balance.";
-                                    adminnoti.User_id = long.Parse(restaurant.User_id.ToString());
-                                    adminnoti.Noti_type = "admin";
-                                    adminnoti.Noti_text = "Normal Coin Sold!";                           
-                                    adminnoti.Notification = restaurant.Rest_name + " just bought " + coin + " special coins.";
-                                    system.Sold_coins += coin;
+                                    var coin = email.Amount / 100;
+                                    var noti = new Notification_Table();
+                                    var adminnoti = new Notification_Table();
+                                    PushNotification pushnoti = new PushNotification();
+                                    System_Table system = db.System_Table.FirstOrDefault();
+                                    if (tran_record.Tran_type == "normal")
+                                    {
+                                        restaurant.Rest_coin = restaurant.Rest_coin + coin;
+                                        noti.Noti_text = "Comfirmation completed!";
+                                        noti.Notification = coin + " coins have been delivered to your balance.";
+                                        adminnoti.User_id = long.Parse(restaurant.User_id.ToString());
+                                        adminnoti.Noti_type = "admin";
+                                        adminnoti.Noti_text = "Normal Coin Sold!";
+                                        adminnoti.Notification = restaurant.Rest_name + " just bought " + coin + " special coins.";
+                                        system.Sold_coins += coin;
+                                    }
+                                    else if (tran_record.Tran_type == "special")
+                                    {
+                                        system.Sold_special_coins += coin;
+                                        restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
+                                        var nearbyuser = db.User_Table.Where(u => u.User_state.Equals(restaurant.Rest_state) && u.User_type == "customer").OrderBy(o => Guid.NewGuid()).Take(comfirm.Count);
+                                        if (nearbyuser.Count() <= 0)
+                                        {
+                                            nearbyuser = db.User_Table.Where(u => u.User_type == "customer");
+                                            foreach (User_Table var in nearbyuser)
+                                            {
+                                                Notification_Table custNoti = new Notification_Table();
+                                                Promotion_Table promo = new Promotion_Table();
+                                                promo.Rest_id = restaurant.Rest_id;
+                                                promo.User_id = var.User_id;
+                                                promo.User_promotion_amount = coin / comfirm.Count;
+                                                promo.ExpireIn = DateTime.Now.AddMonths(3);
+                                                custNoti.User_id = var.User_id;
+                                                custNoti.Noti_type = "customer";
+                                                custNoti.Noti_text = "Congratulation!";
+                                                custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                                pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
+                                                db.Notification_Table.Add(custNoti);
+                                                db.Promotion_Table.Add(promo);
+                                            }
+                                        }
+                                        else if (nearbyuser.Count() < comfirm.Count)
+                                        {
+                                            foreach (User_Table var in nearbyuser)
+                                            {
+                                                Notification_Table custNoti = new Notification_Table();
+                                                Promotion_Table promo = new Promotion_Table();
+                                                promo.Rest_id = restaurant.Rest_id;
+                                                promo.User_id = var.User_id;
+                                                promo.User_promotion_amount = coin / comfirm.Count;
+                                                promo.ExpireIn = DateTime.Now.AddMonths(3);
+                                                custNoti.User_id = var.User_id;
+                                                custNoti.Noti_type = "customer";
+                                                custNoti.Noti_text = "Congratulation!";
+                                                custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                                pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
+                                                db.Notification_Table.Add(custNoti);
+                                                db.Promotion_Table.Add(promo);
+                                            }
+                                            nearbyuser = db.User_Table.Where(u => u.User_type == "customer").OrderBy(o => Guid.NewGuid()).Take(comfirm.Count - nearbyuser.Count());
+                                            foreach (User_Table var in nearbyuser)
+                                            {
+                                                Notification_Table custNoti = new Notification_Table();
+                                                Promotion_Table promo = new Promotion_Table();
+                                                promo.Rest_id = restaurant.Rest_id;
+                                                promo.User_id = var.User_id;
+                                                promo.User_promotion_amount = coin / comfirm.Count;
+                                                promo.ExpireIn = DateTime.Now.AddMonths(3);
+                                                custNoti.User_id = var.User_id;
+                                                custNoti.Noti_type = "customer";
+                                                custNoti.Noti_text = "Congratulation!";
+                                                custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                                pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
+                                                db.Notification_Table.Add(custNoti);
+                                                db.Promotion_Table.Add(promo);
+                                            }
+                                        }
+                                        else if (nearbyuser.Count() >= comfirm.Count)
+                                        {
+                                            foreach (User_Table var in nearbyuser)
+                                            {
+                                                Notification_Table custNoti = new Notification_Table();
+                                                Promotion_Table promo = new Promotion_Table();
+                                                promo.Rest_id = restaurant.Rest_id;
+                                                promo.User_id = var.User_id;
+                                                promo.User_promotion_amount = coin / comfirm.Count;
+                                                promo.ExpireIn = DateTime.Now.AddMonths(3);
+                                                custNoti.User_id = var.User_id;
+                                                custNoti.Noti_type = "customer";
+                                                custNoti.Noti_text = "Congratulation!";
+                                                custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
+                                                pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
+                                                db.Notification_Table.Add(custNoti);
+                                                db.Promotion_Table.Add(promo);
+                                            }
+                                        }
+
+                                        adminnoti.Noti_type = "admin";
+                                        adminnoti.User_id = long.Parse(restaurant.User_id.ToString());
+                                        adminnoti.Noti_text = "Special Coin Sold!";
+                                        adminnoti.Notification = restaurant.Rest_name + " just bought " + coin + " special coins.";
+                                        noti.Noti_text = "Comfirmation completed!";
+                                        noti.Notification = "Special coins have been delivered to nearby customers.";
+
+                                    }
+                                    restaurant.Rest_coin_purchased += coin;
+                                    tran_record.Pending = true;
+                                    noti.User_id = comfirm.Rest_id;
+                                    noti.ID = comfirm.ID;
+                                    noti.Noti_type = "restaurant";
+                                    db.Entry(tran_record).State = EntityState.Modified;
+                                    db.Entry(restaurant).State = EntityState.Modified;
+                                    db.Entry(system).State = EntityState.Modified;
+                                    Notification_Table del_noti = db.Notification_Table.Where(n => n.ID == comfirm.ID).FirstOrDefault();
+                                    db.Notification_Table.Remove(del_noti);
+                                    db.Notification_Table.Add(noti);
+                                    db.Notification_Table.Add(adminnoti);
+                                    db.SaveChanges();
+                                    User_Table user = db.User_Table.Find(comfirm.Rest_id);
+                                    pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);
+                                    return Ok("Yes");
                                 }
-                                else if (tran_record.Tran_type == "special")
+                                else
                                 {
-                                    system.Sold_special_coins += coin;
-                                    restaurant.Rest_special_coin = restaurant.Rest_special_coin + coin;
-                                    var nearbyuser = db.User_Table.Where(u => u.User_state.Equals(restaurant.Rest_state) && u.User_type=="customer").OrderBy(o=> Guid.NewGuid()).Take(comfirm.Count);
-                                    if (nearbyuser.Count() <= 0)
-                                    {
-                                        nearbyuser = db.User_Table.Where(u=>u.User_type=="customer");
-                                        foreach (User_Table var in nearbyuser)
-                                        {
-                                            Notification_Table custNoti = new Notification_Table();
-                                            Promotion_Table promo = new Promotion_Table();
-                                            promo.Rest_id = restaurant.Rest_id;
-                                            promo.User_id = var.User_id;
-                                            promo.User_promotion_amount = coin / comfirm.Count;
-                                            promo.ExpireIn= DateTime.Now.AddMonths(3);
-                                            custNoti.Noti_status = false;
-                                            custNoti.User_id = var.User_id;
-                                            custNoti.Noti_type = "customer";
-                                            custNoti.Noti_text = "Congratulation!";
-                                            custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
-                                            pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
-                                            db.Notification_Table.Add(custNoti);
-                                            db.Promotion_Table.Add(promo);
-                                        }
-                                    }
-                                    else if (nearbyuser.Count() < comfirm.Count)
-                                    {
-                                        foreach (User_Table var in nearbyuser)
-                                        {
-                                            Notification_Table custNoti = new Notification_Table();
-                                            Promotion_Table promo = new Promotion_Table();
-                                            promo.Rest_id = restaurant.Rest_id;
-                                            promo.User_id = var.User_id;
-                                            promo.User_promotion_amount = coin / comfirm.Count;
-                                            promo.ExpireIn = DateTime.Now.AddMonths(3);
-                                            custNoti.Noti_status = false;
-                                            custNoti.User_id = var.User_id;
-                                            custNoti.Noti_type = "customer";
-                                            custNoti.Noti_text = "Congratulation!";
-                                            custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
-                                            pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
-                                            db.Notification_Table.Add(custNoti);
-                                            db.Promotion_Table.Add(promo);
-                                        }
-                                        nearbyuser = db.User_Table.Where(u => u.User_type == "customer").OrderBy(o => Guid.NewGuid()).Take(comfirm.Count- nearbyuser.Count());
-                                        foreach (User_Table var in nearbyuser)
-                                        {
-                                            Notification_Table custNoti = new Notification_Table();
-                                            Promotion_Table promo = new Promotion_Table();
-                                            promo.Rest_id = restaurant.Rest_id;
-                                            promo.User_id = var.User_id;
-                                            promo.User_promotion_amount = coin / comfirm.Count;
-                                            promo.ExpireIn = DateTime.Now.AddMonths(3);
-                                            custNoti.Noti_status = false;
-                                            custNoti.User_id = var.User_id;
-                                            custNoti.Noti_type = "customer";
-                                            custNoti.Noti_text = "Congratulation!";
-                                            custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
-                                            pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
-                                            db.Notification_Table.Add(custNoti);
-                                            db.Promotion_Table.Add(promo);
-                                        }
-                                    }
-                                    else if(nearbyuser.Count()>= comfirm.Count)
-                                    {
-                                        foreach (User_Table var in nearbyuser)
-                                        {
-                                            Notification_Table custNoti = new Notification_Table();
-                                            Promotion_Table promo = new Promotion_Table();
-                                            promo.Rest_id = restaurant.Rest_id;
-                                            promo.User_id = var.User_id;
-                                            promo.User_promotion_amount = coin / comfirm.Count;
-                                            promo.ExpireIn = DateTime.Now.AddMonths(3);
-                                            custNoti.Noti_status = false;
-                                            custNoti.User_id = var.User_id;
-                                            custNoti.Noti_type = "customer";
-                                            custNoti.Noti_text = "Congratulation!";
-                                            custNoti.Notification = "You got " + promo.User_promotion_amount + " FREE coins to  Gone Sin at " + restaurant.Rest_name;
-                                            pushnoti.pushNoti(var.User_noti_token, "Gone Sin Oppotunity!", custNoti.Notification);
-                                            db.Notification_Table.Add(custNoti);
-                                            db.Promotion_Table.Add(promo);
-                                        }
-                                    }
-                                    
-                                    adminnoti.Noti_type = "admin";
-                                    adminnoti.User_id = long.Parse(restaurant.User_id.ToString());
-                                    adminnoti.Noti_text = "Special Coin Sold!";
-                                    adminnoti.Notification = restaurant.Rest_name + " just bought " + coin + " special coins.";
-                                    noti.Noti_text = "Comfirmation completed!";
-                                    noti.Notification = "Special coins have been delivered to nearby customers.";
-                                    
+                                    return Ok("Failed");
                                 }
-                                restaurant.Rest_coin_purchased += coin;
-                                tran_record.Pending = true;
-                                noti.Noti_status = false;
-                                noti.User_id = comfirm.Rest_id;
-                                noti.ID = comfirm.ID;
-                                noti.Noti_type = "restaurant";
-                                db.Entry(tran_record).State = EntityState.Modified;
-                                db.Entry(restaurant).State = EntityState.Modified;
-                                db.Entry(system).State = EntityState.Modified;
-                                Notification_Table del_noti = db.Notification_Table.Where(n => n.ID == comfirm.ID).FirstOrDefault();
-                                db.Notification_Table.Remove(del_noti);
-                                db.Notification_Table.Add(noti);
-                                db.Notification_Table.Add(adminnoti);
-                                db.SaveChanges();
-                                User_Table user = db.User_Table.Find(comfirm.Rest_id);
-                                pushnoti.pushNoti(user.User_noti_token, "Comfirmation Completed", noti.Notification);                            
-                                return Ok("Yes");
-                            }
-                            else
-                            {
-                                return Ok("Failed");
-                            }
+                            }                
                         }
                         //add restaurant coin
                         

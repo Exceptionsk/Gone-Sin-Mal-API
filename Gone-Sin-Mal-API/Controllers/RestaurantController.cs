@@ -237,7 +237,6 @@ namespace Gone_Sin_Mal_API.Controllers
                 vis.Rest_id = rest_id;
                 vis.User_id = user_id;
                 user.User_visited_restaurant += 1;
-                user.User_exceeded_date = DateTime.Now;
                 db.Entry(user).State = EntityState.Modified;
                 db.Visited_Restaurants.Add(vis);
                 db.SaveChanges();
@@ -296,8 +295,7 @@ namespace Gone_Sin_Mal_API.Controllers
             PushNotification pushnoti = new PushNotification();
             Promotion_Table promo = new Promotion_Table();
             noti.User_id = transaction.User_id;
-            noti.Noti_status = false;
-
+            user.User_exceeded_date = DateTime.Now.AddDays(3);
             if (transaction.Special)
             {
                 rest.Rest_special_coin = rest.Rest_special_coin - transaction.Amount;

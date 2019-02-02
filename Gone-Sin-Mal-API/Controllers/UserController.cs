@@ -34,14 +34,14 @@ namespace Gone_Sin_Mal_API.Controllers
             user.Capacity = 500 + (long.Parse(user_Table.User_visited_restaurant.ToString())*10);
             user.Coin = long.Parse(user_Table.User_available_coin.ToString());
             user.Visited = long.Parse(user_Table.User_visited_restaurant.ToString());
-            if (user_Table.User_exceeded_date > DateTime.Now)
+            if (user_Table.User_exceeded_date < DateTime.Now)
             {
                 if (user_Table.User_available_coin > user.Capacity)
                 {
-                    //user_Table.User_available_coin = user.Capacity - user_Table.User_available_coin;
-                    //long
-                    user.Coin = long.Parse(user_Table.User_available_coin.ToString());
-                    user.Exceed = long.Parse(user_Table.User_available_coin.ToString()) - long.Parse(user.Capacity.ToString());
+                    user_Table.User_available_coin = user.Capacity;
+                    user.Coin = user.Capacity;
+                    user.Exceed = 0;
+                    user.ExpireIn = 0;
                     db.Entry(user_Table).State = EntityState.Modified;
                     System_Table system = db.System_Table.FirstOrDefault();
                     system.Expired_coins = user.Coin - user.Capacity;
@@ -49,17 +49,21 @@ namespace Gone_Sin_Mal_API.Controllers
                     db.SaveChanges();
                 }
             }
-            if (user_Table.User_available_coin > user.Capacity)
-            {
-                user.Exceed = user.Coin - user.Capacity;
-                System.TimeSpan diff = DateTime.Now.Subtract(Convert.ToDateTime(user_Table.User_exceeded_date));
-                user.ExpireIn = diff.TotalDays;
-            }
             else
             {
-                user.Exceed = 0;
-                user.ExpireIn = 0;
+                if (user_Table.User_available_coin > user.Capacity)
+                {
+                    user.Exceed = user.Coin - user.Capacity;
+                    System.TimeSpan diff = Convert.ToDateTime(user_Table.User_exceeded_date).Subtract(DateTime.Now);
+                    user.ExpireIn = Math.Round(diff.TotalDays);
+                }
+                else
+                {
+                    user.Exceed = 0;
+                    user.ExpireIn = 0;
+                }
             }
+            
            
             return Ok(user);
         }

@@ -28,7 +28,8 @@ namespace Gone_Sin_Mal_API.Controllers
                            n.Amount,
                            n.ID,
                            r.Rest_name,
-                           n.Myan_pay
+                           n.Myan_pay,
+                           r.Rest_id,
                        }).OrderByDescending(s => s.ID));
         }
 
@@ -132,18 +133,29 @@ namespace Gone_Sin_Mal_API.Controllers
 
         // DELETE: api/Refund/5
         [ResponseType(typeof(Refund_Table))]
-        public IHttpActionResult DeleteRefund_Table(long id)
+        public IHttpActionResult DeleteRefund_Table(long id, long rest_id)
         {
             Refund_Table refund_Table = db.Refund_Table.Find(id);
+            var rest = db.Restaurant_Table.Where(r=>r.Rest_id== rest_id).Select(s=> new { s.Rest_name, s.User_id}).FirstOrDefault();
+            var user = db.User_Table.Where(r => r.User_id == rest.User_id).Select(s => new { s.User_noti_token, s.User_id}).FirstOrDefault();
+            var tran_id = db.Transaction_Table.Where(t => t.User_id == user.User_id).Select(s => new { s.ID }).FirstOrDefault();
+            var noti = new Notification_Table();
+            PushNotification pushnoti = new PushNotification();
             if (refund_Table == null)
             {
                 return NotFound();
             }
-
+           
+            pushnoti.pushNoti(user.User_noti_token, "New Refund Request", rest.Rest_name + " requested a refund");
             db.Refund_Table.Remove(refund_Table);
+            noti.Noti_text = "Comfirmation completed!";
+            noti.Notification = "We have refunded the amount you request to " + refund_Table.Myan_pay ;
+            noti.Noti_type = "restaurant";
+            noti.User_id = user.User_id;
+            noti.ID = tran_id.ID;
+            db.Notification_Table.Add(noti);
             db.SaveChanges();
-
-            return GetRefund_Table();
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
